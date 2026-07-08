@@ -17,7 +17,7 @@ const TYPES = {
 http
   .createServer((req, res) => {
     let rel = decodeURIComponent(req.url.split("?")[0]);
-    if (rel === "/") rel = "/DecarbonHub Unified.dc.html";
+    if (rel === "/") rel = "/index.html";
     const filePath = path.join(ROOT, rel);
     if (!filePath.startsWith(ROOT)) {
       res.writeHead(403);

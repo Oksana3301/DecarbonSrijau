@@ -8,10 +8,10 @@ The **Unified** entry point composes three surfaces behind a floating product sw
 
 | Surface | File | Description |
 |---------|------|-------------|
-| Landing | `DecarbonHub Landing.dc.html` | Marketing page — hero, "untuk siapa", cara kerja, kredibilitas, FAQ |
-| Aplikasi | `DecarbonHub App.dc.html` | Product app — organisation onboarding & carbon calculation flow |
-| Pemerintah & Donor | `DecarbonHub Dashboard Pemerintah.dc.html` | Government/donor aggregate reporting dashboard |
-| **Unified** | `DecarbonHub Unified.dc.html` | Shell that imports the three above + the switcher |
+| Landing | `decarbonhub-landing.dc.html` | Marketing page — hero, "untuk siapa", cara kerja, kredibilitas, FAQ |
+| Aplikasi | `decarbonhub-app.dc.html` | Product app — organisation onboarding & carbon calculation flow |
+| Pemerintah & Donor | `decarbonhub-dashboard-pemerintah.dc.html` | Government/donor aggregate reporting dashboard |
+| **Unified** | `index.html` (root entry) | Shell that imports the three above + the switcher |
 
 `support.js` is the Claude Design runtime (`dc-runtime`) that renders the `.dc.html`
 components. It loads React from a CDN and resolves `<dc-import>` by fetching sibling
