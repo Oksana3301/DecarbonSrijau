@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#F3EFE3;color:#17241A;font-family:'Plus Jakarta Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:#2C86D8;text-decoration:none}a:hover{color:#17241A}
+  .tn{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+</style>
+</helmet>
+
+<!-- TOP BAR -->
+<header style="position:sticky;top:0;z-index:20;background:rgba(243,239,227,.9);backdrop-filter:blur(8px);border-bottom:1.5px solid #e6e0d0">
+  <div style="max-width:1180px;margin:0 auto;padding:14px 32px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;gap:11px">
+      <img src="assets/decarbonhub-mark.png" alt="DecarbonHub" style="height:32px">
+      <div><div style="font-weight:800;font-size:16px;line-height:1.1">DecarbonHub</div><div style="font-size:11px;color:#8a9488;line-height:1.1">{{ tx.subtitle }}</div></div>
+    </div>
+    <div style="display:flex;align-items:center;gap:10px">
+      <div style="display:flex;background:#fff;border:1.5px solid #e6e0d0;border-radius:100px;padding:3px">
+        <button onClick="{{ setGov }}" style="border:none;background:{{ govBg }};color:{{ govFg }};font-weight:700;font-size:13px;border-radius:100px;padding:8px 16px;cursor:pointer">{{ tx.tabGov }}</button>
+        <button onClick="{{ setDonor }}" style="border:none;background:{{ donorBg }};color:{{ donorFg }};font-weight:700;font-size:13px;border-radius:100px;padding:8px 16px;cursor:pointer">{{ tx.tabDonor }}</button>
+      </div>
+      <button onClick="{{ toggleLang }}" style="font-weight:700;font-size:12px;color:#17241A;background:#fff;border:1.5px solid #e6e0d0;border-radius:100px;padding:9px 13px;cursor:pointer">{{ lang }}</button>
+      <button style="font-weight:700;font-size:13px;color:#17241A;background:#F4C518;border:2px solid #17241A;border-radius:100px;padding:8px 16px;cursor:pointer">{{ tx.export }}</button>
+    </div>
+  </div>
+</header>
+
+<div style="max-width:1180px;margin:0 auto;padding:28px 32px 80px">
+
+<!-- ============ PEMERINTAH ============ -->
+<sc-if value="{{ isGov }}" hint-placeholder-val="{{ true }}">
+<div class="fade">
+  <p style="font-size:16px;line-height:1.5;color:#3a463c;margin:0 0 22px;max-width:70ch">{{ govHi }}</p>
+
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px">
+    <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:16px;padding:20px 22px"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:36px;line-height:1">128</div><div style="font-size:12px;color:#8a9488;margin-top:5px">{{ tx.kOrg }}</div></div>
+    <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:16px;padding:20px 22px"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:36px;line-height:1">86</div><div style="font-size:12px;color:#8a9488;margin-top:5px">{{ tx.kSub }}</div></div>
+    <div style="background:#17241A;color:#F3EFE3;border-radius:16px;padding:20px 22px"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:36px;line-height:1;color:#fff">214k</div><div style="font-size:12px;color:#c3ccbd;margin-top:5px">{{ tx.kReported }}</div></div>
+    <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:16px;padding:20px 22px"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:36px;line-height:1">41</div><div style="font-size:12px;color:#8a9488;margin-top:5px">{{ tx.kMonitored }}</div></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:16px;margin-bottom:18px;align-items:start">
+    <!-- sector aggregate -->
+    <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:24px 26px">
+      <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:18px">{{ tx.secTitle }}</div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div><div style="display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:6px"><span>{{ tx.secManuf }}</span><span class="tn">78k tCO₂e</span></div><div style="height:12px;background:#f0ebdd;border-radius:100px;overflow:hidden"><div style="height:100%;width:100%;background:#ED7A2B;border-radius:100px"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:6px"><span>{{ tx.secEnergy }}</span><span class="tn">62k tCO₂e</span></div><div style="height:12px;background:#f0ebdd;border-radius:100px;overflow:hidden"><div style="height:100%;width:79%;background:#F4C518;border-radius:100px"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:6px"><span>{{ tx.secAgri }}</span><span class="tn">41k tCO₂e</span></div><div style="height:12px;background:#f0ebdd;border-radius:100px;overflow:hidden"><div style="height:100%;width:53%;background:#57C64A;border-radius:100px"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:13px;font-weight:600;margin-bottom:6px"><span>{{ tx.secServ }}</span><span class="tn">33k tCO₂e</span></div><div style="height:12px;background:#f0ebdd;border-radius:100px;overflow:hidden"><div style="height:100%;width:42%;background:#2C86D8;border-radius:100px"></div></div></div>
+      </div>
+    </div>
+    <!-- province spread -->
+    <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:24px 26px">
+      <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:18px">{{ tx.provTitle }}</div>
+      <div style="display:flex;flex-direction:column;gap:12px;font-size:13px">
+        <div style="display:flex;align-items:center;gap:10px"><span style="width:10px;height:10px;border-radius:3px;background:#F4C518;flex:none"></span><span style="flex:1;font-weight:600">Jawa Barat</span><span class="tn" style="color:#8a9488">32</span></div>
+        <div style="display:flex;align-items:center;gap:10px"><span style="width:10px;height:10px;border-radius:3px;background:#2C86D8;flex:none"></span><span style="flex:1;font-weight:600">DKI Jakarta</span><span class="tn" style="color:#8a9488">27</span></div>
+        <div style="display:flex;align-items:center;gap:10px"><span style="width:10px;height:10px;border-radius:3px;background:#57C64A;flex:none"></span><span style="flex:1;font-weight:600">Jawa Timur</span><span class="tn" style="color:#8a9488">19</span></div>
+        <div style="display:flex;align-items:center;gap:10px"><span style="width:10px;height:10px;border-radius:3px;background:#ED7A2B;flex:none"></span><span style="flex:1;font-weight:600">Sumatera Utara</span><span class="tn" style="color:#8a9488">14</span></div>
+        <div style="display:flex;align-items:center;gap:10px"><span style="width:10px;height:10px;border-radius:3px;background:#E24FA0;flex:none"></span><span style="flex:1;font-weight:600">Sulawesi Selatan</span><span class="tn" style="color:#8a9488">11</span></div>
+        <div style="display:flex;align-items:center;gap:10px"><span style="width:10px;height:10px;border-radius:3px;background:#b3ac98;flex:none"></span><span style="flex:1;font-weight:600">{{ tx.provOthers }}</span><span class="tn" style="color:#8a9488">25</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- submitted reports -->
+  <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;overflow:hidden">
+    <div style="padding:18px 24px 14px;font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;border-bottom:1.5px solid #eee6d6">{{ tx.repTitle }}</div>
+    <div style="display:flex;font:700 11px/1 'Plus Jakarta Sans';letter-spacing:.06em;text-transform:uppercase;color:#8a9488;padding:12px 24px;border-bottom:1px solid #f0ebdd"><span style="flex:2">{{ tx.thOrg }}</span><span style="flex:1">{{ tx.thSector }}</span><span style="flex:1">{{ tx.thPeriod }}</span><span style="flex:1;text-align:right">{{ tx.thEmis }}</span><span style="flex:1.2;text-align:center">{{ tx.thStatus }}</span><span style="flex:0.8;text-align:right">{{ tx.export }}</span></div>
+    <div style="display:flex;align-items:center;padding:14px 24px;border-bottom:1px solid #f0ebdd;font-size:14px"><span style="flex:2;font-weight:600">PT Nusantara Tekstil</span><span style="flex:1;color:#8a9488">{{ tx.secManuf }}</span><span class="tn" style="flex:1;color:#8a9488">2025</span><span class="tn" style="flex:1;text-align:right;font-weight:700">4.812</span><span style="flex:1.2;text-align:center"><span style="font-size:11px;font-weight:700;color:#1e6b34;background:#dcf3d6;border-radius:100px;padding:3px 10px">{{ tx.stReady }}</span></span><span style="flex:0.8;text-align:right;color:#2C86D8;font-weight:700">CSV</span></div>
+    <div style="display:flex;align-items:center;padding:14px 24px;border-bottom:1px solid #f0ebdd;font-size:14px"><span style="flex:2;font-weight:600">Koperasi Hijau Nusantara</span><span style="flex:1;color:#8a9488">{{ tx.secSme }}</span><span class="tn" style="flex:1;color:#8a9488">2025</span><span class="tn" style="flex:1;text-align:right;font-weight:700">1.284</span><span style="flex:1.2;text-align:center"><span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:#fff;background:#2a9d43;border-radius:100px;padding:3px 10px">{{ tx.stVerified }}</span></span><span style="flex:0.8;text-align:right;color:#2C86D8;font-weight:700">CSV</span></div>
+    <div style="display:flex;align-items:center;padding:14px 24px;font-size:14px"><span style="flex:2;font-weight:600">Yayasan Bahari Lestari</span><span style="flex:1;color:#8a9488">NGO</span><span class="tn" style="flex:1;color:#8a9488">2025</span><span class="tn" style="flex:1;text-align:right;font-weight:700">642</span><span style="flex:1.2;text-align:center"><span style="font-size:11px;font-weight:700;color:#1e6b34;background:#dcf3d6;border-radius:100px;padding:3px 10px">{{ tx.stReady }}</span></span><span style="flex:0.8;text-align:right;color:#2C86D8;font-weight:700">CSV</span></div>
+  </div>
+  <div style="margin-top:14px;font-size:12px;color:#b9a86a;font-style:italic">{{ tx.govFoot }}</div>
+</div>
+</sc-if>
+
+<!-- ============ DONOR ============ -->
+<sc-if value="{{ isDonor }}" hint-placeholder-val="{{ false }}">
+<div class="fade">
+  <p style="font-size:16px;line-height:1.5;color:#3a463c;margin:0 0 22px;max-width:70ch">{{ donorHi }}</p>
+
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px">
+    <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:16px;padding:20px 22px"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:36px;line-height:1">12</div><div style="font-size:12px;color:#8a9488;margin-top:5px">{{ tx.kFunded }}</div></div>
+    <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:16px;padding:20px 22px"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:36px;line-height:1">{{ tx.kDisbVal }}</div><div style="font-size:12px;color:#8a9488;margin-top:5px">{{ tx.kDisb }}</div></div>
+    <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:16px;padding:20px 22px"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:36px;line-height:1">1.240</div><div style="font-size:12px;color:#8a9488;margin-top:5px">{{ tx.kParts }}</div></div>
+    <div style="background:#57C64A;border:2px solid #17241A;border-radius:16px;padding:20px 22px;color:#17241A"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:36px;line-height:1">9.4k</div><div style="font-size:12px;margin-top:5px;font-weight:600">{{ tx.kReduced }}</div></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:16px;align-items:start;margin-bottom:18px">
+    <!-- funded programs -->
+    <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:24px 26px">
+      <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:16px">{{ tx.fundedTitle }}</div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="border:1.5px solid #eee6d6;border-radius:14px;padding:16px 18px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-weight:700;font-size:15px">{{ tx.prog1 }}</span><span style="font-size:12px;font-weight:700;color:#a12772;background:#fbe8f3;border-radius:100px;padding:3px 10px">{{ tx.stActive }}</span></div><div style="font-size:13px;color:#8a9488">{{ tx.prog1Sub }}</div></div>
+        <div style="border:1.5px solid #eee6d6;border-radius:14px;padding:16px 18px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-weight:700;font-size:15px">{{ tx.prog2 }}</span><span style="font-size:12px;font-weight:700;color:#a12772;background:#fbe8f3;border-radius:100px;padding:3px 10px">{{ tx.stActive }}</span></div><div style="font-size:13px;color:#8a9488">{{ tx.prog2Sub }}</div></div>
+        <div style="border:1.5px solid #eee6d6;border-radius:14px;padding:16px 18px"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-weight:700;font-size:15px">{{ tx.prog3 }}</span><span style="font-size:12px;font-weight:700;color:#8a4a12;background:#fdf0e6;border-radius:100px;padding:3px 10px">{{ tx.stPlanning }}</span></div><div style="font-size:13px;color:#8a9488">{{ tx.prog3Sub }}</div></div>
+      </div>
+    </div>
+    <!-- human impact -->
+    <div style="background:#E24FA0;border:2px solid #17241A;border-radius:18px;padding:26px 28px;color:#fff">
+      <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.11em;text-transform:uppercase;color:#ffe0f1;margin-bottom:20px">{{ tx.impactTitle }}</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px 16px">
+        <div><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:38px;line-height:.9">247</div><div style="font-size:12px;color:#ffe0f1;margin-top:4px">{{ tx.impJobs }}</div></div>
+        <div><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:38px;line-height:.9">58%</div><div style="font-size:12px;color:#ffe0f1;margin-top:4px">{{ tx.impWomen }}</div></div>
+        <div><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:38px;line-height:.9">1.9k</div><div style="font-size:12px;color:#ffe0f1;margin-top:4px">{{ tx.impHh }}</div></div>
+        <div><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:38px;line-height:.9">318</div><div style="font-size:12px;color:#ffe0f1;margin-top:4px">{{ tx.impSurvey }}</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- evidence -->
+  <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:24px 26px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488">{{ tx.evTitle }}</div><span style="display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:#fff;background:#2a9d43;border-radius:100px;padding:4px 11px">{{ tx.stVerified }}</span></div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px">
+      <div style="aspect-ratio:4/3;border-radius:12px;background:url('assets/riso-archipelago.png') center/cover;border:1.5px solid #17241A;display:flex;align-items:flex-end;padding:10px"><span style="font:600 9px/1 ui-monospace,Menlo,monospace;color:#fff;background:rgba(23,36,26,.5);padding:3px 7px;border-radius:5px">{{ tx.capPlant }}</span></div>
+      <div style="aspect-ratio:4/3;border-radius:12px;background:url('assets/riso-community.png') center/cover;border:1.5px solid #17241A;display:flex;align-items:flex-end;padding:10px"><span style="font:600 9px/1 ui-monospace,Menlo,monospace;color:#fff;background:rgba(23,36,26,.5);padding:3px 7px;border-radius:5px">{{ tx.capTrain }}</span></div>
+      <div style="aspect-ratio:4/3;border-radius:12px;background:url('assets/riso-archipelago.png') left/cover;border:1.5px solid #17241A;display:flex;align-items:flex-end;padding:10px"><span style="font:600 9px/1 ui-monospace,Menlo,monospace;color:#fff;background:rgba(23,36,26,.5);padding:3px 7px;border-radius:5px">{{ tx.capSolar }}</span></div>
+      <div style="aspect-ratio:4/3;border-radius:12px;background:url('assets/riso-community.png') right/cover;border:1.5px solid #17241A;display:flex;align-items:flex-end;padding:10px"><span style="font:600 9px/1 ui-monospace,Menlo,monospace;color:#fff;background:rgba(23,36,26,.5);padding:3px 7px;border-radius:5px">{{ tx.capSurvey }}</span></div>
+    </div>
+  </div>
+</div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1240,&quot;height&quot;:880}}">
+class Component extends DCLogic {
+  state = { view: 'pemerintah', lang: 'ID' };
+  setView = (v) => this.setState({ view: v });
+  toggleLang = () => this.setState({ lang: this.state.lang === 'ID' ? 'EN' : 'ID' });
+  renderVals() {
+    const st = this.state;
+    const L = (id, en) => (st.lang === 'ID' ? id : en);
+    const gov = st.view === 'pemerintah';
+    return {
+      lang: st.lang, toggleLang: this.toggleLang,
+      isGov: gov, isDonor: st.view === 'donor',
+      setGov: () => this.setView('pemerintah'), setDonor: () => this.setView('donor'),
+      govBg: gov ? '#17241A' : 'transparent', govFg: gov ? '#F3EFE3' : '#3a463c',
+      donorBg: !gov ? '#17241A' : 'transparent', donorFg: !gov ? '#F3EFE3' : '#3a463c',
+      govHi: L('Agregat organisasi & program terdaftar — hanya laporan yang sudah disubmit dan diberi izin.', 'Aggregate of registered organizations & programs — submitted, permitted reports only.'),
+      donorHi: L('Program yang Anda danai, beserta dampaknya yang terverifikasi.', 'The programs you fund, with their verified impact.'),
+      tx: {
+        subtitle: L('Dashboard Pemerintah & Donor', 'Government & Donor dashboard'),
+        tabGov: L('Pemerintah', 'Government'),
+        tabDonor: L('Donor', 'Donor'),
+        export: L('Ekspor', 'Export'),
+        // government KPIs
+        kOrg: L('organisasi terdaftar', 'registered organizations'),
+        kSub: L('laporan disubmit', 'reports submitted'),
+        kReported: L('tCO₂e terlapor', 'tCO₂e reported'),
+        kMonitored: L('program dipantau', 'programs monitored'),
+        // sector
+        secTitle: L('Emisi teragregat per sektor', 'Aggregate emissions by sector'),
+        secManuf: L('Manufaktur', 'Manufacturing'),
+        secEnergy: L('Energi & utilitas', 'Energy & utilities'),
+        secAgri: L('Pertanian', 'Agriculture'),
+        secServ: L('Jasa', 'Services'),
+        secSme: L('UMKM', 'SME'),
+        // province
+        provTitle: L('Sebaran provinsi', 'Province spread'),
+        provOthers: L('Lainnya (18 prov.)', 'Others (18 prov.)'),
+        // table
+        repTitle: L('Laporan tersubmit', 'Submitted reports'),
+        thOrg: L('Organisasi', 'Organization'),
+        thSector: L('Sektor', 'Sector'),
+        thPeriod: L('Periode', 'Period'),
+        thEmis: L('Emisi', 'Emissions'),
+        thStatus: L('Status', 'Status'),
+        stReady: L('Siap-audit', 'Audit-ready'),
+        stVerified: L('✓ Terverifikasi', '✓ Verified'),
+        govFoot: L('Hanya data teragregat & laporan yang disubmit + diberi izin. Data mentah organisasi tidak ditampilkan. DecarbonHub = feeder, bukan registri resmi (SRN-PPI/SRUK).', 'Only aggregate data & submitted, permitted reports. Organizations\u2019 raw data is never shown. DecarbonHub is a feeder, not an official registry (SRN-PPI/SRUK).'),
+        // donor KPIs
+        kFunded: L('program didanai', 'programs funded'),
+        kDisbVal: L('Rp 8,4M', 'Rp 8.4M'),
+        kDisb: L('dana tersalur', 'funds disbursed'),
+        kParts: L('peserta program', 'program participants'),
+        kReduced: L('tCO₂e dikurangi', 'tCO₂e reduced'),
+        // funded programs
+        fundedTitle: L('Program yang Anda danai', 'Programs you fund'),
+        prog1: L('Restorasi mangrove pesisir', 'Coastal mangrove restoration'),
+        prog1Sub: L('Koperasi Hijau Nusantara · Rp 2,1M · 64 peserta', 'Koperasi Hijau Nusantara · Rp 2.1M · 64 participants'),
+        prog2: L('Efisiensi energi UMKM binaan', 'SME energy efficiency'),
+        prog2Sub: L('Yayasan Bahari Lestari · Rp 1,6M · 38 peserta', 'Yayasan Bahari Lestari · Rp 1.6M · 38 participants'),
+        prog3: L('Wirausaha hijau perempuan', 'Women\u2019s green entrepreneurship'),
+        prog3Sub: L('Yayasan Bahari Lestari · Rp 900rb · 52 peserta', 'Yayasan Bahari Lestari · Rp 900k · 52 participants'),
+        stActive: L('Berjalan', 'Active'),
+        stPlanning: L('Perencanaan', 'Planning'),
+        // human impact
+        impactTitle: L('Dampak manusia terverifikasi', 'Verified human impact'),
+        impJobs: L('lapangan kerja', 'jobs created'),
+        impWomen: L('partisipasi perempuan', 'women\u2019s participation'),
+        impHh: L('RT akses energi', 'households w/ energy access'),
+        impSurvey: L('survey terisi', 'surveys completed'),
+        // evidence
+        evTitle: L('Bukti dampak', 'Impact evidence'),
+        capPlant: L('penanaman', 'planting'),
+        capTrain: L('pelatihan', 'training'),
+        capSolar: L('panel surya', 'solar panels'),
+        capSurvey: L('survey', 'survey'),
+      },
+    };
+  }
+}
+</script>
+</body>
+</html>

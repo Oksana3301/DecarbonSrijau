@@ -1,0 +1,1945 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#F3EFE3;color:#17241A;font-family:'Plus Jakarta Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:#2C86D8;text-decoration:none}a:hover{color:#17241A}
+  .tn{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+  input,select,button{font-family:'Plus Jakarta Sans'}
+  input:focus,select:focus{outline:2px solid #2C86D8;outline-offset:1px}
+  ::placeholder{color:#b3bcae}
+  @keyframes ocrpulse{0%,100%{opacity:.35}50%{opacity:1}}
+  @keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+  .fade{animation:fadein .28s ease}
+</style>
+</helmet>
+
+<!-- ================= ONBOARDING (O1) ================= -->
+<sc-if value="{{ isOnb }}" hint-placeholder-val="{{ true }}">
+<div style="min-height:100vh;display:grid;grid-template-columns:0.9fr 1.1fr">
+  <!-- left brand panel -->
+  <div style="background:#17241A;color:#F3EFE3;padding:48px 52px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden">
+    <img src="assets/onboarding-bg.png" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0">
+    <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(23,36,26,.68) 0%,rgba(23,36,26,.5) 42%,rgba(23,36,26,.74) 100%)"></div>
+    <div style="display:flex;align-items:center;gap:11px;position:relative;z-index:2">
+      <img src="assets/decarbonhub-mark.png" alt="DecarbonHub" style="height:40px;filter:brightness(0) invert(1)">
+      <span style="font-weight:800;font-size:20px">DecarbonHub</span>
+    </div>
+    <div style="position:relative;z-index:2">
+      
+      <h1 style="font-family:Fraunces;font-weight:600;font-size:44px;line-height:1.05;letter-spacing:-.02em;margin:18px 0 14px;max-width:14ch">Platform transisi hijau organisasi Anda.</h1>
+      <p style="font-size:16px;line-height:1.55;color:#c3ccbd;max-width:42ch;margin:0">Hitung karbon sesuai GHG Protocol, petakan ke syarat pelaporan Indonesia, siapkan laporan siap-audit — lalu jalanin programnya.</p>
+    </div>
+    <div style="position:relative;z-index:2;font-size:11px;color:rgba(243,239,227,.6);font-style:italic">{{ tx.onbCaption }}</div>
+  </div>
+  <!-- right form -->
+  <div style="background:#F3EFE3;padding:48px 8vw;display:flex;flex-direction:column;justify-content:center">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:26px">
+      <span class="tn" style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#ED7A2B">{{ tx.onbStepWord }} {{ onbStep }} / 2</span>
+      <div style="flex:1;height:5px;background:#e2dcc8;border-radius:100px;overflow:hidden;max-width:180px"><div style="height:100%;background:#57C64A;border-radius:100px;width:{{ onbW }}"></div></div>
+    </div>
+
+    <sc-if value="{{ onbIs1 }}" hint-placeholder-val="{{ true }}">
+    <div class="fade">
+      <h2 style="font-family:Fraunces;font-weight:600;font-size:32px;letter-spacing:-.01em;margin:0 0 6px">{{ tx.onbProfileTitle }}</h2>
+      <p style="font-size:14px;color:#8a9488;margin:0 0 26px">{{ tx.onbProfileSub }}</p>
+      <label style="display:block;font-weight:600;font-size:13px;margin-bottom:7px">{{ tx.onbOrgName }}</label>
+      <input value="{{ org.name }}" onChange="{{ setName }}" placeholder="{{ tx.onbOrgNamePh }}" style="width:100%;border:2px solid #17241A;border-radius:12px;padding:13px 15px;font-size:15px;background:#fff;margin-bottom:20px">
+      <label style="display:block;font-weight:600;font-size:13px;margin-bottom:9px">{{ tx.onbOrgType }}</label>
+      <div style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:20px">
+        <sc-for list="{{ orgTypes }}" as="t" hint-placeholder-count="4">
+          <button onClick="{{ t.pick }}" style="border:2px solid {{ t.bd }};background:{{ t.bg }};color:{{ t.fg }};font-weight:700;font-size:14px;border-radius:100px;padding:10px 18px;cursor:pointer">{{ t.label }}</button>
+        </sc-for>
+      </div>
+      <label style="display:block;font-weight:600;font-size:13px;margin-bottom:7px">{{ tx.onbSector }}</label>
+      <input value="{{ org.sector }}" onChange="{{ setSector }}" placeholder="{{ tx.onbSectorPh }}" style="width:100%;border:2px solid #17241A;border-radius:12px;padding:13px 15px;font-size:15px;background:#fff;margin-bottom:30px">
+      <div style="display:flex;gap:12px;align-items:center">
+        <button onClick="{{ onbNext }}" style="background:#17241A;color:#F3EFE3;font-weight:700;font-size:15px;border:none;border-radius:100px;padding:14px 28px;cursor:pointer">{{ tx.onbNext }}</button>
+        <button onClick="{{ skipOnb }}" style="background:none;border:none;color:#8a9488;font-weight:600;font-size:14px;cursor:pointer">{{ tx.onbSkip }}</button>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ onbIs2 }}" hint-placeholder-val="{{ false }}">
+    <div class="fade">
+      <h2 style="font-family:Fraunces;font-weight:600;font-size:32px;letter-spacing:-.01em;margin:0 0 6px">{{ tx.onbTargetTitle }}</h2>
+      <p style="font-size:14px;color:#8a9488;margin:0 0 26px">{{ tx.onbTargetSub }}</p>
+      <label style="display:block;font-weight:600;font-size:13px;margin-bottom:9px">{{ tx.onbSize }}</label>
+      <div style="display:flex;gap:9px;flex-wrap:wrap;margin-bottom:22px">
+        <sc-for list="{{ orgSizes }}" as="s" hint-placeholder-count="3">
+          <button onClick="{{ s.pick }}" style="border:2px solid {{ s.bd }};background:{{ s.bg }};color:{{ s.fg }};font-weight:700;font-size:14px;border-radius:100px;padding:10px 18px;cursor:pointer">{{ s.label }}</button>
+        </sc-for>
+      </div>
+      <label style="display:block;font-weight:600;font-size:13px;margin-bottom:9px">{{ tx.onbFramework }}</label>
+      <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:30px">
+        <sc-for list="{{ goals }}" as="g" hint-placeholder-count="4">
+          <button onClick="{{ g.toggle }}" style="display:flex;align-items:center;gap:11px;border:2px solid {{ g.bd }};background:{{ g.bg }};border-radius:12px;padding:12px 15px;cursor:pointer;text-align:left">
+            <span style="width:20px;height:20px;border-radius:6px;border:2px solid #17241A;background:{{ g.mark }};flex:none;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:800">{{ g.check }}</span>
+            <span style="font-weight:600;font-size:14px;color:#17241A">{{ g.label }}</span>
+          </button>
+        </sc-for>
+      </div>
+      <div style="display:flex;gap:12px;align-items:center">
+        <button onClick="{{ onbBack }}" style="background:#fff;border:2px solid #17241A;color:#17241A;font-weight:700;font-size:15px;border-radius:100px;padding:12px 24px;cursor:pointer">{{ tx.onbBack }}</button>
+        <button onClick="{{ finishOnb }}" style="background:#57C64A;color:#17241A;font-weight:800;font-size:15px;border:2px solid #17241A;border-radius:100px;padding:12px 28px;cursor:pointer">{{ tx.onbFinish }}</button>
+      </div>
+    </div>
+    </sc-if>
+  </div>
+</div>
+</sc-if>
+
+<!-- ================= APP SHELL ================= -->
+<sc-if value="{{ isApp }}" hint-placeholder-val="{{ false }}">
+<div style="display:flex;min-height:100vh">
+  <!-- SIDEBAR -->
+  <aside style="{{ sideStyle }}">
+    <div style="display:flex;align-items:center;gap:10px;padding:4px 10px 16px">
+      <img src="assets/decarbonhub-mark.png" alt="DecarbonHub" style="height:32px">
+      <span style="font-weight:800;font-size:18px">DecarbonHub</span>
+    </div>
+    <!-- org switcher -->
+    <div style="display:flex;align-items:center;gap:10px;background:{{ sideOrgBg }};border-radius:12px;padding:10px 12px;margin-bottom:14px">
+      <div style="width:32px;height:32px;border-radius:9px;background:#17241A;color:#F4C518;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px">{{ orgInitial }}</div>
+      <div style="min-width:0">
+        <div style="font-weight:700;font-size:13px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ orgName }}</div>
+        <div style="font-size:11px;color:{{ sideMuted }};line-height:1.2">{{ orgTypeLabel }}</div>
+      </div>
+    </div>
+
+    <sc-if value="{{ showHome }}" hint-placeholder-val="{{ true }}">
+    <button onClick="{{ navHome.go }}" style="position:relative;display:flex;align-items:center;gap:11px;width:100%;text-align:left;border:none;background:{{ navHome.bg }};color:inherit;font-weight:{{ navHome.w }};font-size:14px;padding:10px 12px;border-radius:10px;cursor:pointer;margin-bottom:6px">
+      <span style="width:6px;height:6px;border-radius:2px;background:{{ navHome.dot }};flex:none"></span>
+      <span>{{ navHome.label }}</span>
+    </button>
+    </sc-if>
+
+    <sc-if value="{{ showMvp }}" hint-placeholder-val="{{ true }}">
+    <div style="font:700 10px/1 'Plus Jakarta Sans';letter-spacing:.12em;text-transform:uppercase;color:{{ sideMuted }};padding:6px 12px 8px">{{ grpMvp }}</div>
+    <sc-for list="{{ navMvp }}" as="n" hint-placeholder-count="7">
+      <button onClick="{{ n.go }}" style="position:relative;display:flex;align-items:center;gap:11px;width:100%;text-align:left;border:none;background:{{ n.bg }};color:inherit;font-weight:{{ n.w }};font-size:14px;padding:10px 12px;border-radius:10px;cursor:pointer">
+        <span style="width:6px;height:6px;border-radius:2px;background:{{ n.dot }};flex:none"></span>
+        <span>{{ n.label }}</span>
+      </button>
+    </sc-for>
+    </sc-if>
+
+    <sc-if value="{{ showC }}" hint-placeholder-val="{{ false }}">
+    <div style="font:700 10px/1 'Plus Jakarta Sans';letter-spacing:.12em;text-transform:uppercase;color:{{ sideMuted }};padding:16px 12px 8px">{{ grpC }}</div>
+    <sc-for list="{{ navC }}" as="n" hint-placeholder-count="2">
+      <button onClick="{{ n.go }}" style="position:relative;display:flex;align-items:center;gap:11px;width:100%;text-align:left;border:none;background:{{ n.bg }};color:inherit;font-weight:{{ n.w }};font-size:14px;padding:10px 12px;border-radius:10px;cursor:pointer">
+        <span style="width:6px;height:6px;border-radius:2px;background:{{ n.dot }};flex:none"></span>
+        <span>{{ n.label }}</span>
+      </button>
+    </sc-for>
+    </sc-if>
+
+    <sc-if value="{{ showAfter }}" hint-placeholder-val="{{ false }}">
+    <div style="font:700 10px/1 'Plus Jakarta Sans';letter-spacing:.12em;text-transform:uppercase;color:{{ sideMuted }};padding:16px 12px 8px">{{ afterGroupLabel }}</div>
+    <sc-for list="{{ navAfter }}" as="n" hint-placeholder-count="3">
+      <button onClick="{{ n.go }}" style="position:relative;display:flex;align-items:center;gap:11px;width:100%;text-align:left;border:none;background:{{ n.bg }};color:inherit;font-weight:{{ n.w }};font-size:14px;padding:10px 12px;border-radius:10px;cursor:pointer">
+        <span style="width:6px;height:6px;border-radius:2px;background:{{ n.dot }};flex:none"></span>
+        <span>{{ n.label }}</span>
+      </button>
+    </sc-for>
+    </sc-if>
+
+    <sc-if value="{{ showD }}" hint-placeholder-val="{{ false }}">
+    <div style="font:700 10px/1 'Plus Jakarta Sans';letter-spacing:.12em;text-transform:uppercase;color:{{ sideMuted }};padding:16px 12px 8px">{{ grpD }}</div>
+    <sc-for list="{{ navD }}" as="n" hint-placeholder-count="1">
+      <button onClick="{{ n.go }}" style="position:relative;display:flex;align-items:center;gap:11px;width:100%;text-align:left;border:none;background:{{ n.bg }};color:inherit;font-weight:{{ n.w }};font-size:14px;padding:10px 12px;border-radius:10px;cursor:pointer">
+        <span style="width:6px;height:6px;border-radius:2px;background:{{ n.dot }};flex:none"></span>
+        <span>{{ n.label }}</span>
+        <sc-if value="{{ n.soon }}" hint-placeholder-val="{{ false }}"><span style="margin-left:auto;font:700 9px/1 'Plus Jakarta Sans';letter-spacing:.05em;text-transform:uppercase;color:{{ sideMuted }};border:1px solid #e0d9c6;border-radius:100px;padding:3px 6px">Soon</span></sc-if>
+      </button>
+    </sc-for>
+    </sc-if>
+
+    <sc-if value="{{ showOps }}" hint-placeholder-val="{{ false }}">
+    <div style="font:700 10px/1 'Plus Jakarta Sans';letter-spacing:.12em;text-transform:uppercase;color:{{ sideMuted }};padding:6px 12px 8px">{{ grpOps }}</div>
+    <sc-for list="{{ navOps }}" as="n" hint-placeholder-count="4">
+      <button onClick="{{ n.go }}" style="position:relative;display:flex;align-items:center;gap:11px;width:100%;text-align:left;border:none;background:{{ n.bg }};color:inherit;font-weight:{{ n.w }};font-size:14px;padding:10px 12px;border-radius:10px;cursor:pointer">
+        <span style="width:6px;height:6px;border-radius:2px;background:{{ n.dot }};flex:none"></span>
+        <span>{{ n.label }}</span>
+      </button>
+    </sc-for>
+    </sc-if>
+
+    <sc-if value="{{ showAcct }}" hint-placeholder-val="{{ true }}">
+    <div style="font:700 10px/1 'Plus Jakarta Sans';letter-spacing:.12em;text-transform:uppercase;color:{{ sideMuted }};padding:16px 12px 8px">{{ grpAcct }}</div>
+    <sc-for list="{{ navAcct }}" as="n" hint-placeholder-count="3">
+      <button onClick="{{ n.go }}" style="position:relative;display:flex;align-items:center;gap:11px;width:100%;text-align:left;border:none;background:{{ n.bg }};color:inherit;font-weight:{{ n.w }};font-size:14px;padding:10px 12px;border-radius:10px;cursor:pointer">
+        <span style="width:6px;height:6px;border-radius:2px;background:{{ n.dot }};flex:none"></span>
+        <span>{{ n.label }}</span>
+      </button>
+    </sc-for>
+    </sc-if>
+
+    <div style="margin-top:auto;padding:14px 12px 4px;border-top:{{ sideFootBorder }};font-size:11px;color:{{ sideMuted }};line-height:1.5">{{ sideFoot }}</div>
+  </aside>
+
+  <!-- MAIN -->
+  <main style="flex:1;min-width:0;display:flex;flex-direction:column">
+    <!-- topbar -->
+    <header style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 32px;border-bottom:1.5px solid #e6e0d0;background:rgba(243,239,227,.9);position:sticky;top:0;z-index:5;backdrop-filter:blur(6px)">
+      <div>
+        <h1 style="font-family:Fraunces;font-weight:600;font-size:24px;letter-spacing:-.01em;margin:0;line-height:1.1">{{ scrTitle }}</h1>
+        <sc-if value="{{ showEn }}" hint-placeholder-val="{{ true }}"><div style="font-size:12px;color:#8a9488;margin-top:2px">{{ scrTitleEn }}</div></sc-if>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <select value="{{ role }}" onChange="{{ setRoleFromEvent }}" title="Ganti peran" style="font-weight:600;font-size:13px;color:#17241A;background:#fff;border:1.5px solid #e6e0d0;border-radius:100px;padding:8px 14px;cursor:pointer">
+          <sc-for list="{{ roleOptions }}" as="r" hint-placeholder-count="5"><option value="{{ r.id }}">{{ r.label }}</option></sc-for>
+        </select>
+        <button onClick="{{ toggleLang }}" title="Bahasa" style="font-weight:700;font-size:12px;letter-spacing:.04em;color:#17241A;background:#fff;border:1.5px solid #e6e0d0;border-radius:100px;padding:9px 13px;cursor:pointer">{{ lang }}</button>
+        <div style="width:34px;height:34px;border-radius:50%;background:#E24FA0;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:12px">{{ roleInitials }}</div>
+      </div>
+    </header>
+
+    <div style="padding:32px;flex:1">
+
+    <!-- ===== ROLE HOME ===== -->
+    <sc-if value="{{ isHome }}" hint-placeholder-val="{{ false }}">
+
+    <!-- Staf -->
+    <sc-if value="{{ roleStaff }}" hint-placeholder-val="{{ false }}">
+    <div class="fade" style="max-width:820px">
+      <p style="font-size:18px;line-height:1.5;color:#3a463c;margin:0 0 24px">{{ tx.staffHi }}</p>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <button onClick="{{ goEnergi }}" style="display:flex;align-items:center;gap:16px;text-align:left;background:#fff;border:1.5px solid #e6e0d0;border-left:5px solid #F4C518;border-radius:16px;padding:18px 22px;cursor:pointer" style-hover="border-color:#17241A">
+          <span class="tn" style="font-family:Fraunces;font-weight:600;font-size:26px;color:#b3ac98;flex:none">1</span>
+          <div style="flex:1"><div style="font-weight:700;font-size:16px">{{ tx.stStep1 }}</div><div style="font-size:13px;color:#8a9488">{{ tx.stStep1Sub }}</div></div>
+          <span style="color:#8a9488;font-size:18px">→</span>
+        </button>
+        <button onClick="{{ goAktivitas }}" style="display:flex;align-items:center;gap:16px;text-align:left;background:#fff;border:1.5px solid #e6e0d0;border-left:5px solid #ED7A2B;border-radius:16px;padding:18px 22px;cursor:pointer" style-hover="border-color:#17241A">
+          <span class="tn" style="font-family:Fraunces;font-weight:600;font-size:26px;color:#b3ac98;flex:none">2</span>
+          <div style="flex:1"><div style="font-weight:700;font-size:16px">{{ tx.stStep2 }}</div><div style="font-size:13px;color:#8a9488">{{ tx.stStep2Sub }}</div></div>
+          <span style="color:#8a9488;font-size:18px">→</span>
+        </button>
+        <button onClick="{{ goDash }}" style="display:flex;align-items:center;gap:16px;text-align:left;background:#fff;border:1.5px solid #e6e0d0;border-left:5px solid #2C86D8;border-radius:16px;padding:18px 22px;cursor:pointer" style-hover="border-color:#17241A">
+          <span class="tn" style="font-family:Fraunces;font-weight:600;font-size:26px;color:#b3ac98;flex:none">3</span>
+          <div style="flex:1"><div style="font-weight:700;font-size:16px">{{ tx.stStep3 }}</div><div style="font-size:13px;color:#8a9488">{{ tx.stStep3Sub }}</div></div>
+          <span style="color:#8a9488;font-size:18px">→</span>
+        </button>
+      </div>
+      <div style="margin-top:18px;display:flex;align-items:center;gap:10px;background:#e8f1fb;border-radius:12px;padding:14px 16px"><span style="width:8px;height:8px;border-radius:50%;background:#2C86D8;flex:none"></span><span style="font-size:14px;color:#1c5a94">{{ tx.staffSaved }}</span></div>
+    </div>
+    </sc-if>
+
+    <!-- Manajer -->
+    <sc-if value="{{ roleManajer }}" hint-placeholder-val="{{ false }}">
+    <div class="fade" style="max-width:1000px">
+      <p style="font-size:17px;line-height:1.5;color:#3a463c;margin:0 0 22px">{{ tx.mgrHi }}</p>
+      <div style="display:grid;grid-template-columns:1.3fr 1fr;gap:16px;align-items:start;margin-bottom:16px">
+        <div style="background:#17241A;border-radius:18px;padding:24px 28px;color:#F3EFE3">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start"><div style="font:600 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:12px">{{ tx.mgrFootprint }} · {{ period }}</div><span style="font-size:12px;font-weight:700;color:#17241A;background:#dcf3d6;border-radius:100px;padding:5px 12px">{{ tx.mgrDataOrg }}</span></div>
+          <div style="display:flex;align-items:flex-end;gap:10px"><span class="tn" style="font-family:Fraunces;font-weight:600;font-size:52px;line-height:.9;color:#fff">{{ totalF }}</span><span style="font-size:17px;color:#c3ccbd;margin-bottom:6px">tCO₂e</span></div>
+        </div>
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:22px 24px;display:flex;align-items:center;gap:18px">
+          <div style="width:96px;height:96px;border-radius:50%;flex:none;background:{{ gaugeBg }};border:2px solid #17241A;display:flex;align-items:center;justify-content:center"><div style="width:68px;height:68px;border-radius:50%;background:#fff;border:2px solid #17241A;display:flex;flex-direction:column;align-items:center;justify-content:center"><span class="tn" style="font-family:Fraunces;font-weight:600;font-size:24px;line-height:1">{{ score }}%</span><span style="font-size:9px;color:#8a9488;font-weight:600">{{ tx.mgrReadyShort }}</span></div></div>
+          <div style="font-size:13px;line-height:1.5;color:#3a463c">{{ tx.mgrReady }}</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start">
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:22px 24px">
+          <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:14px">{{ tx.mgrReviewStaff }}</div>
+          <div style="display:flex;flex-direction:column;gap:9px">
+            <div style="display:flex;justify-content:space-between;align-items:center;background:#F3EFE3;border-radius:11px;padding:11px 14px"><span style="font-size:14px;font-weight:600">{{ tx.mgrBill }}</span><span style="font-size:12px;font-weight:700;color:#8a4a12;background:#fdf0e6;border-radius:100px;padding:3px 10px">{{ tx.mgrNeedReview }}</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;background:#F3EFE3;border-radius:11px;padding:11px 14px"><span style="font-size:14px;font-weight:600">{{ tx.mgrFleet }}</span><span style="font-size:12px;font-weight:700;color:#1e6b34;background:#dcf3d6;border-radius:100px;padding:3px 10px">{{ tx.mgrApproved }}</span></div>
+          </div>
+          <button onClick="{{ goEnergi }}" style="margin-top:14px;background:none;border:none;color:#2C86D8;font-weight:700;font-size:13px;padding:0;cursor:pointer">{{ tx.mgrOpenStaff }}</button>
+        </div>
+        <div style="background:#57C64A;border:2px solid #17241A;border-radius:18px;padding:22px 24px;color:#17241A">
+          <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px">{{ tx.mgrFinalTitle }}</div>
+          <p style="font-size:14px;line-height:1.5;margin:0 0 16px">{{ tx.mgrFinal }}</p>
+          <button onClick="{{ goLaporan }}" style="background:#17241A;color:#F3EFE3;font-weight:800;font-size:14px;border:none;border-radius:100px;padding:12px 22px;cursor:pointer">{{ tx.mgrFinalBtn }}</button>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- Eksekutif -->
+    <sc-if value="{{ roleEksekutif }}" hint-placeholder-val="{{ false }}">
+    <div class="fade" style="max-width:960px">
+      <p style="font-size:17px;line-height:1.5;color:#3a463c;margin:0 0 6px">{{ tx.exHi }}</p>
+      <p style="font-size:13px;color:#8a9488;margin:0 0 24px">{{ tx.exNote }}</p>
+      <div style="background:#17241A;border-radius:20px;padding:30px 34px;color:#F3EFE3;margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
+        <div>
+          <div style="font:600 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:10px">{{ tx.exStatus }}</div>
+          <div style="font-family:Fraunces;font-weight:600;font-size:44px;line-height:1;color:#57C64A">{{ tx.exOnTrack }}</div>
+        </div>
+        <span style="display:inline-flex;align-items:center;gap:7px;font-size:13px;font-weight:700;color:#17241A;background:#dcf3d6;border-radius:100px;padding:7px 15px">{{ tx.exDeadline }}</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:24px 26px"><div style="font:700 11px/1 'Plus Jakarta Sans';letter-spacing:.09em;text-transform:uppercase;color:#8a9488;margin-bottom:10px">{{ tx.exTrend }}</div><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:38px;line-height:1;color:#2a9d43">↓ 16%</div><div style="font-size:13px;color:#8a9488;margin-top:4px">{{ tx.exVsBaseline }}</div></div>
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:24px 26px"><div style="font:700 11px/1 'Plus Jakarta Sans';letter-spacing:.09em;text-transform:uppercase;color:#8a9488;margin-bottom:10px">{{ tx.fwScoreTitle }}</div><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:38px;line-height:1">{{ score }}%</div><div style="font-size:13px;color:#8a9488;margin-top:4px">{{ tx.fwReady }}</div></div>
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:24px 26px"><div style="font:700 11px/1 'Plus Jakarta Sans';letter-spacing:.09em;text-transform:uppercase;color:#8a9488;margin-bottom:10px">{{ tx.exRisk }}</div><div style="font-family:Fraunces;font-weight:600;font-size:38px;line-height:1;color:#57C64A">{{ tx.exLow }}</div><div style="font-size:13px;color:#8a9488;margin-top:4px">{{ tx.exNoIssue }}</div></div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- Auditor -->
+    <sc-if value="{{ roleAuditor }}" hint-placeholder-val="{{ false }}">
+    <div class="fade" style="max-width:900px">
+      <p style="font-size:17px;line-height:1.5;color:#3a463c;margin:0 0 6px">{{ tx.audHi }}</p>
+      <p style="font-size:13px;color:#8a9488;margin:0 0 22px">{{ tx.audNote }}</p>
+      <div style="background:#fff;border:2px solid #17241A;border-radius:18px;overflow:hidden;margin-bottom:16px">
+        <div style="background:#17241A;color:#F3EFE3;padding:20px 26px;display:flex;justify-content:space-between;align-items:center"><div style="font-family:Fraunces;font-weight:600;font-size:20px">{{ tx.audReportTitle }}</div><span style="font-size:12px;font-weight:700;color:#17241A;background:#dcf3d6;border-radius:100px;padding:5px 12px">{{ tx.repReady }}</span></div>
+        <table style="width:100%;border-collapse:collapse;font-size:14px">
+          <tbody>
+            <tr style="border-bottom:1px solid #eee6d6"><td style="padding:14px 26px;color:#8a9488">{{ tx.repRow1 }}<div style="font-size:11px;color:#b3ac98">{{ tx.audRow1Method }}</div></td><td class="tn" style="text-align:right;padding-right:26px;font-weight:700">{{ s1F }} tCO₂e</td></tr>
+            <tr style="border-bottom:1px solid #eee6d6"><td style="padding:14px 26px;color:#8a9488">{{ tx.repRow2 }}<div style="font-size:11px;color:#b3ac98">{{ tx.audRow2Method }}</div></td><td class="tn" style="text-align:right;padding-right:26px;font-weight:700">{{ s2F }} tCO₂e</td></tr>
+            <tr><td style="padding:14px 26px;color:#8a9488">{{ tx.repRow3 }} <span style="font-size:11px;font-weight:600;color:#8a9488;border:1.5px dashed #b9a86a;border-radius:100px;padding:2px 8px;background:#fbf6e6">{{ tx.actEst }}</span><div style="font-size:11px;color:#b3ac98">{{ tx.audRow3Method }}</div></td><td class="tn" style="text-align:right;padding-right:26px;font-weight:700">{{ s3F }} tCO₂e</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start">
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:16px;padding:20px 22px"><div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:14px">{{ tx.audEvidence }}</div><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px"><div style="aspect-ratio:1;border-radius:9px;background:url('assets/riso-archipelago.png') center/cover;border:1px solid #e6e0d0"></div><div style="aspect-ratio:1;border-radius:9px;background:url('assets/riso-community.png') center/cover;border:1px solid #e6e0d0"></div><div style="aspect-ratio:1;border-radius:9px;background:url('assets/riso-archipelago.png') left/cover;border:1px solid #e6e0d0"></div></div></div>
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:16px;padding:20px 22px"><div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:12px">{{ tx.audNotes }}</div><textarea placeholder="{{ tx.audNotesPh }}" style="width:100%;min-height:88px;border:1.5px solid #e6e0d0;border-radius:11px;padding:11px 13px;font-size:14px;font-family:'Plus Jakarta Sans';resize:vertical"></textarea></div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- Pemerintah / Donor -->
+    <sc-if value="{{ rolePemerintah }}" hint-placeholder-val="{{ false }}">
+    <div class="fade" style="max-width:1000px">
+      <p style="font-size:17px;line-height:1.5;color:#3a463c;margin:0 0 4px">{{ tx.govHi }}</p>
+      <p style="font-size:13px;color:#8a9488;margin:0 0 22px">{{ tx.govDonor }}</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px">
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:16px;padding:20px 22px"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:34px;line-height:1">128</div><div style="font-size:12px;color:#8a9488;margin-top:4px">{{ tx.govOrgReg }}</div></div>
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:16px;padding:20px 22px"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:34px;line-height:1">86</div><div style="font-size:12px;color:#8a9488;margin-top:4px">{{ tx.govRepSub }}</div></div>
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:16px;padding:20px 22px"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:34px;line-height:1">41</div><div style="font-size:12px;color:#8a9488;margin-top:4px">{{ tx.govProgMon }}</div></div>
+        <div style="background:#E24FA0;border:2px solid #17241A;border-radius:16px;padding:20px 22px;color:#fff"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:34px;line-height:1">3.4k</div><div style="font-size:12px;color:#ffe0f1;margin-top:4px">{{ tx.govImpact }}</div></div>
+      </div>
+      <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;overflow:hidden">
+        <div style="display:flex;font:700 11px/1 'Plus Jakarta Sans';letter-spacing:.08em;text-transform:uppercase;color:#8a9488;padding:14px 24px;border-bottom:1.5px solid #eee6d6"><span style="flex:2">{{ tx.govColOrg }}</span><span style="flex:1">{{ tx.govColType }}</span><span style="flex:1">{{ tx.govColStatus }}</span><span style="flex:1;text-align:right">{{ tx.govColReport }}</span></div>
+        <div style="display:flex;align-items:center;padding:14px 24px;border-bottom:1px solid #f0ebdd;font-size:14px"><span style="flex:2;font-weight:600">Koperasi Hijau Nusantara</span><span style="flex:1;color:#8a9488">UMKM</span><span style="flex:1"><span style="font-size:12px;font-weight:700;color:#1e6b34;background:#dcf3d6;border-radius:100px;padding:3px 10px">{{ tx.repReady }}</span></span><span style="flex:1;text-align:right;color:#2C86D8;font-weight:700">{{ tx.govView }}</span></div>
+        <div style="display:flex;align-items:center;padding:14px 24px;border-bottom:1px solid #f0ebdd;font-size:14px"><span style="flex:2;font-weight:600">PT Nusantara Tekstil</span><span style="flex:1;color:#8a9488">Korporat</span><span style="flex:1"><span style="font-size:12px;font-weight:700;color:#8a4a12;background:#fdf0e6;border-radius:100px;padding:3px 10px">{{ tx.govInProcess }}</span></span><span style="flex:1;text-align:right;color:#b3ac98;font-weight:700">—</span></div>
+        <div style="display:flex;align-items:center;padding:14px 24px;font-size:14px"><span style="flex:2;font-weight:600">Yayasan Bahari Lestari</span><span style="flex:1;color:#8a9488">NGO</span><span style="flex:1"><span style="font-size:12px;font-weight:700;color:#1e6b34;background:#dcf3d6;border-radius:100px;padding:3px 10px">{{ tx.repReady }}</span></span><span style="flex:1;text-align:right;color:#2C86D8;font-weight:700">{{ tx.govView }}</span></div>
+      </div>
+    </div>
+    </sc-if>
+
+    </sc-if>
+
+    <!-- ===== OPS: OVERVIEW ===== -->
+    <sc-if value="{{ isOpsHome }}" hint-placeholder-val="{{ false }}">
+    <div class="fade" style="max-width:1000px">
+      <p style="font-size:17px;line-height:1.5;color:#3a463c;margin:0 0 22px">{{ tx.opsIntro }}</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px">
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:16px;padding:20px 22px"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:34px;line-height:1">128</div><div style="font-size:12px;color:#8a9488;margin-top:4px">{{ tx.opsTenantActive }}</div></div>
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-left:5px solid #ED7A2B;border-radius:16px;padding:20px 22px"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:34px;line-height:1">7</div><div style="font-size:12px;color:#8a9488;margin-top:4px">{{ tx.opsQueue }}</div></div>
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:16px;padding:20px 22px"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:34px;line-height:1">v2025</div><div style="font-size:12px;color:#8a9488;margin-top:4px">{{ tx.opsGridFactor }}</div></div>
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:16px;padding:20px 22px"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:34px;line-height:1">4</div><div style="font-size:12px;color:#8a9488;margin-top:4px">{{ tx.opsOpenTickets }}</div></div>
+      </div>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <button onClick="{{ goTenant }}" style="flex:1;min-width:200px;text-align:left;background:#F3EFE3;border:1.5px solid #e6e0d0;border-radius:14px;padding:16px 18px;cursor:pointer" style-hover="border-color:#17241A"><div style="font-weight:700;font-size:15px;margin-bottom:3px">{{ tx.opsManageTenant }}</div><div style="font-size:12px;color:#8a9488">{{ tx.opsManageTenantSub }}</div></button>
+        <button onClick="{{ goVerif }}" style="flex:1;min-width:200px;text-align:left;background:#F3EFE3;border:1.5px solid #e6e0d0;border-radius:14px;padding:16px 18px;cursor:pointer" style-hover="border-color:#17241A"><div style="font-weight:700;font-size:15px;margin-bottom:3px">Antrean verifikasi</div><div style="font-size:12px;color:#8a9488">Tinjau aksi yang ditandai</div></button>
+        <button onClick="{{ goConfig }}" style="flex:1;min-width:200px;text-align:left;background:#F3EFE3;border:1.5px solid #e6e0d0;border-radius:14px;padding:16px 18px;cursor:pointer" style-hover="border-color:#17241A"><div style="font-weight:700;font-size:15px;margin-bottom:3px">Konfigurasi framework</div><div style="font-size:12px;color:#8a9488">Faktor &amp; framework_reqs</div></button>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ===== OPS: TENANT ===== -->
+    <sc-if value="{{ isTenant }}" hint-placeholder-val="{{ false }}">
+    <sc-if value="{{ tenantClosed }}" hint-placeholder-val="{{ true }}">
+    <div class="fade" style="max-width:1000px">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:18px;flex-wrap:wrap">
+        <input placeholder="Cari organisasi…" style="flex:1;min-width:240px;max-width:340px;border:1.5px solid #e6e0d0;border-radius:100px;padding:10px 16px;font-size:14px;background:#fff">
+        <button style="background:#17241A;color:#F3EFE3;font-weight:700;font-size:13px;border:none;border-radius:100px;padding:10px 18px;cursor:pointer">+ Tambah tenant</button>
+      </div>
+      <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;overflow:hidden">
+        <div style="display:flex;font:700 11px/1 'Plus Jakarta Sans';letter-spacing:.08em;text-transform:uppercase;color:#8a9488;padding:14px 24px;border-bottom:1.5px solid #eee6d6"><span style="flex:2">Organisasi</span><span style="flex:1">Jenis</span><span style="flex:1">Paket</span><span style="flex:1">Pengguna</span><span style="flex:1">Status</span><span style="flex:1;text-align:right">Aksi</span></div>
+        <sc-for list="{{ tenantList }}" as="tn" hint-placeholder-count="4">
+          <button onClick="{{ tn.open }}" style="display:flex;align-items:center;width:100%;text-align:left;border:none;background:none;border-bottom:1px solid #f0ebdd;padding:14px 24px;font-size:14px;cursor:pointer" style-hover="background:#faf7ef"><span style="flex:2;font-weight:600">{{ tn.name }}</span><span style="flex:1;color:#8a9488">{{ tn.type }}</span><span style="flex:1;color:#8a9488">{{ tn.plan }}</span><span class="tn" style="flex:1;color:#8a9488">{{ tn.users }}</span><span style="flex:1"><span style="font-size:12px;font-weight:700;color:{{ tn.chipFg }};background:{{ tn.chipBg }};border-radius:100px;padding:3px 10px">{{ tn.status }}</span></span><span style="flex:1;text-align:right;color:#2C86D8;font-weight:700">Kelola →</span></button>
+        </sc-for>
+      </div>
+      <div style="margin-top:14px;font-size:11px;color:#b9a86a;font-style:italic">Isolasi antar-tenant (RLS) — satu organisasi tak pernah melihat data organisasi lain.</div>
+    </div>
+    </sc-if>
+    <sc-if value="{{ tenantOpen }}" hint-placeholder-val="{{ false }}">
+    <div class="fade" style="max-width:900px">
+      <button onClick="{{ closeTenant }}" style="background:none;border:none;color:#8a9488;font-weight:600;font-size:13px;padding:0;margin-bottom:16px;cursor:pointer">← Kembali ke daftar tenant</button>
+      <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:24px 28px;margin-bottom:16px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap">
+        <div>
+          <h3 style="font-family:Fraunces;font-weight:600;font-size:26px;margin:0 0 4px">{{ tenantName }}</h3>
+          <div style="font-size:13px;color:#8a9488">{{ tenantType }} · paket {{ tenantPlan }} · {{ tenantUsers }} pengguna</div>
+        </div>
+        <span style="font-size:12px;font-weight:700;color:#1e6b34;background:#dcf3d6;border-radius:100px;padding:6px 13px">{{ tenantStatus }}</span>
+      </div>
+      <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:16px;align-items:start">
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:16px;padding:22px 24px">
+          <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:14px">Pengguna</div>
+          <div style="display:flex;flex-direction:column;gap:9px;font-size:14px">
+            <div style="display:flex;justify-content:space-between;background:#F3EFE3;border-radius:10px;padding:10px 14px"><span style="font-weight:600">Sari Wulandari</span><span style="color:#8a9488">Manajer keberlanjutan</span></div>
+            <div style="display:flex;justify-content:space-between;background:#F3EFE3;border-radius:10px;padding:10px 14px"><span style="font-weight:600">Budi Prasetyo</span><span style="color:#8a9488">Staf</span></div>
+            <div style="display:flex;justify-content:space-between;background:#F3EFE3;border-radius:10px;padding:10px 14px"><span style="font-weight:600">Auditor eksternal</span><span style="color:#8a9488">Peninjau terbatas</span></div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:16px">
+          <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:16px;padding:22px 24px">
+            <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:14px">Penggunaan</div>
+            <div style="display:flex;flex-direction:column;gap:9px;font-size:13px">
+              <div style="display:flex;justify-content:space-between"><span style="color:#8a9488">Record energi</span><b class="tn">6</b></div>
+              <div style="display:flex;justify-content:space-between"><span style="color:#8a9488">Laporan ter-generate</span><b class="tn">2</b></div>
+              <div style="display:flex;justify-content:space-between"><span style="color:#8a9488">Skor kesiapan</span><b class="tn" style="color:#2a9d43">82%</b></div>
+            </div>
+          </div>
+          <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:16px;padding:22px 24px">
+            <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:14px">Aksi</div>
+            <div style="display:flex;gap:9px;flex-wrap:wrap">
+              <button style="background:#fff;border:1.5px solid #17241A;color:#17241A;font-weight:700;font-size:13px;border-radius:100px;padding:9px 16px;cursor:pointer">Ubah paket</button>
+              <button style="background:#fff;border:1.5px solid #17241A;color:#17241A;font-weight:700;font-size:13px;border-radius:100px;padding:9px 16px;cursor:pointer">Reset akses</button>
+              <button style="background:#fff;border:1.5px solid #c0463f;color:#c0463f;font-weight:700;font-size:13px;border-radius:100px;padding:9px 16px;cursor:pointer">Nonaktifkan</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+    </sc-if>
+
+    <!-- ===== OPS: VERIFICATION QUEUE ===== -->
+    <sc-if value="{{ isVerif }}" hint-placeholder-val="{{ false }}">
+    <div class="fade" style="max-width:880px">
+      <p style="font-size:15px;color:#3a463c;margin:0 0 20px;line-height:1.55">Perhitungan &amp; aksi yang ditandai (tier 5) untuk ditinjau ahli sebelum diteruskan. DecarbonHub menyiapkan — verifikasi resmi tetap oleh lembaga terakreditasi.</p>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-left:5px solid #ED7A2B;border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:16px"><div style="flex:1"><div style="font-weight:700;font-size:15px">Scope 3 estimasi tak lazim · PT Nusantara Tekstil</div><div style="font-size:12px;color:#8a9488">Nilai 3× benchmark sektor — perlu tinjau metode spend-based</div></div><button style="background:#17241A;color:#F3EFE3;font-weight:700;font-size:13px;border:none;border-radius:100px;padding:9px 16px;cursor:pointer">Tinjau</button></div>
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-left:5px solid #ED7A2B;border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:16px"><div style="flex:1"><div style="font-weight:700;font-size:15px">Faktor grid manual · Koperasi Hijau Nusantara</div><div style="font-size:12px;color:#8a9488">Pengguna menimpa faktor default — konfirmasi sumber</div></div><button style="background:#17241A;color:#F3EFE3;font-weight:700;font-size:13px;border:none;border-radius:100px;padding:9px 16px;cursor:pointer">Tinjau</button></div>
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-left:5px solid #57C64A;border-radius:14px;padding:16px 20px;display:flex;align-items:center;gap:16px"><div style="flex:1"><div style="font-weight:700;font-size:15px">Laporan difinalisasi · Yayasan Bahari Lestari</div><div style="font-size:12px;color:#8a9488">Siap diteruskan ke handoff verifier</div></div><span style="font-size:12px;font-weight:700;color:#1e6b34;background:#dcf3d6;border-radius:100px;padding:6px 13px">Lolos</span></div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ===== OPS: CONFIG ===== -->
+    <sc-if value="{{ isConfig }}" hint-placeholder-val="{{ false }}">
+    <div class="fade" style="max-width:1000px;display:grid;grid-template-columns:1.4fr 1fr;gap:18px;align-items:start">
+      <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:24px 26px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px"><div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488">Faktor emisi · versioned</div><span style="font-size:12px;font-weight:700;color:#87700a;background:#fdf9e0;border-radius:100px;padding:4px 11px">v2025</span></div>
+        <div style="display:flex;flex-direction:column;gap:9px;font-size:13px">
+          <div style="display:flex;justify-content:space-between;background:#F3EFE3;border-radius:10px;padding:11px 14px"><span style="font-weight:600">Listrik grid nasional</span><b class="tn">0,87 kg/kWh</b></div>
+          <div style="display:flex;justify-content:space-between;background:#F3EFE3;border-radius:10px;padding:11px 14px"><span style="font-weight:600">Solar (diesel)</span><b class="tn">2,68 kg/liter</b></div>
+          <div style="display:flex;justify-content:space-between;background:#F3EFE3;border-radius:10px;padding:11px 14px"><span style="font-weight:600">Bensin</span><b class="tn">2,31 kg/liter</b></div>
+          <div style="display:flex;justify-content:space-between;background:#F3EFE3;border-radius:10px;padding:11px 14px"><span style="font-weight:600">LPG</span><b class="tn">2,98 kg/kg</b></div>
+        </div>
+        <button style="margin-top:16px;background:#F4C518;color:#17241A;font-weight:800;font-size:13px;border:2px solid #17241A;border-radius:100px;padding:10px 18px;cursor:pointer">Terbitkan versi baru</button>
+        <div style="margin-top:12px;font-size:11px;color:#b9a86a;font-style:italic">Sumber publik KLH/IPCC. Historis tetap konsisten saat versi diperbarui.</div>
+      </div>
+      <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:24px 26px">
+        <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:16px">framework_reqs</div>
+        <div style="display:flex;flex-direction:column;gap:9px;font-size:13px">
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-weight:600">GHG Protocol</span><span style="color:#2C86D8;font-weight:700">Edit</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-weight:600">ISO 14064</span><span style="color:#2C86D8;font-weight:700">Edit</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-weight:600">GRI · TJSL · PROPER</span><span style="color:#2C86D8;font-weight:700">Edit</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-weight:600">TKBI · SRN-PPI</span><span style="color:#2C86D8;font-weight:700">Edit</span></div>
+        </div>
+        <div style="margin-top:14px;font-size:11px;color:#b9a86a;font-style:italic">Aturan = tabel konfigurasi. Saat regulasi berubah, perbarui di sini — bukan tulis ulang kode.</div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ===== OPS: SUPPORT ===== -->
+    <sc-if value="{{ isSupport }}" hint-placeholder-val="{{ false }}">
+    <div class="fade" style="max-width:900px">
+      <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;overflow:hidden">
+        <div style="display:flex;font:700 11px/1 'Plus Jakarta Sans';letter-spacing:.08em;text-transform:uppercase;color:#8a9488;padding:14px 24px;border-bottom:1.5px solid #eee6d6"><span style="flex:2">Subjek</span><span style="flex:1.5">Organisasi</span><span style="flex:1">Prioritas</span><span style="flex:1;text-align:right">Status</span></div>
+        <div style="display:flex;align-items:center;padding:14px 24px;border-bottom:1px solid #f0ebdd;font-size:14px"><span style="flex:2;font-weight:600">OCR tak membaca tagihan lama</span><span style="flex:1.5;color:#8a9488">CV Tani Lestari</span><span style="flex:1"><span style="font-size:12px;font-weight:700;color:#8a4a12;background:#fdf0e6;border-radius:100px;padding:3px 10px">Sedang</span></span><span style="flex:1;text-align:right;color:#8a9488">Terbuka</span></div>
+        <div style="display:flex;align-items:center;padding:14px 24px;border-bottom:1px solid #f0ebdd;font-size:14px"><span style="flex:2;font-weight:600">Tambah pengguna auditor eksternal</span><span style="flex:1.5;color:#8a9488">PT Nusantara Tekstil</span><span style="flex:1"><span style="font-size:12px;font-weight:700;color:#1c5a94;background:#e8f1fb;border-radius:100px;padding:3px 10px">Rendah</span></span><span style="flex:1;text-align:right;color:#8a9488">Terbuka</span></div>
+        <div style="display:flex;align-items:center;padding:14px 24px;font-size:14px"><span style="flex:2;font-weight:600">Pertanyaan format SRN-PPI</span><span style="flex:1.5;color:#8a9488">Yayasan Bahari Lestari</span><span style="flex:1"><span style="font-size:12px;font-weight:700;color:#1e6b34;background:#dcf3d6;border-radius:100px;padding:3px 10px">Selesai</span></span><span style="flex:1;text-align:right;color:#8a9488">Ditutup</span></div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ===== O4 DASHBOARD ===== -->
+    <sc-if value="{{ isDash }}" hint-placeholder-val="{{ true }}">
+    <div class="fade" style="display:grid;grid-template-columns:{{ dashCols }};gap:18px;align-items:start">
+      <!-- total footprint -->
+      <div style="grid-column:1 / -1;background:#17241A;border-radius:20px;padding:28px 30px;color:#F3EFE3;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:20px">
+        <div>
+          <div style="font:600 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:10px">{{ tx.dTotalLabel }} · {{ period }}</div>
+          <div style="display:flex;align-items:flex-end;gap:12px">
+            <span class="tn" style="font-family:Fraunces;font-weight:600;font-size:64px;line-height:.9;letter-spacing:-.02em;color:#fff">{{ totalF }}</span>
+            <span style="font-size:20px;color:#c3ccbd;font-weight:600;margin-bottom:8px">tCO₂e</span>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;align-items:flex-end">
+          <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#17241A;background:#dcf3d6;border-radius:100px;padding:5px 12px">{{ tx.dDataOrg }}</span>
+          <span style="font-size:12px;color:#8a9488">{{ tx.dScope3Partial }} <b style="color:#F4C518;font-weight:700">{{ tx.dEstWord }}</b></span>
+        </div>
+      </div>
+
+      <!-- scope breakdown (Opsi A stacked bar / or donut via tweak) -->
+      <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:24px 26px">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px">
+          <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488">{{ tx.dScopeTitle }}</div>
+          <span style="font-size:11px;color:#b3ac98">GHG Protocol</span>
+        </div>
+        <sc-if value="{{ chartBar }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <div style="display:flex;height:24px;border-radius:100px;overflow:hidden;border:2px solid #17241A;margin-bottom:18px">
+            <div style="width:{{ s1w }};background:#ED7A2B"></div>
+            <div style="width:{{ s2w }};background:#F4C518"></div>
+            <div style="width:{{ s3w }};background:#2C86D8"></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:11px">
+            <div style="display:flex;justify-content:space-between;align-items:center"><span style="display:flex;align-items:center;gap:9px;font-size:14px;font-weight:600"><span style="width:13px;height:13px;border-radius:4px;background:#ED7A2B"></span>{{ tx.dScope1 }}</span><b class="tn" style="font-size:15px">{{ s1F }}</b></div>
+            <div style="display:flex;justify-content:space-between;align-items:center"><span style="display:flex;align-items:center;gap:9px;font-size:14px;font-weight:600"><span style="width:13px;height:13px;border-radius:4px;background:#F4C518"></span>{{ tx.dScope2 }}</span><b class="tn" style="font-size:15px">{{ s2F }}</b></div>
+            <div style="display:flex;justify-content:space-between;align-items:center"><span style="display:flex;align-items:center;gap:9px;font-size:14px;font-weight:600"><span style="width:13px;height:13px;border-radius:4px;background:#2C86D8"></span>{{ tx.dScope3 }} <span style="font-size:11px;font-weight:600;color:#8a9488;border:1.5px dashed #b9a86a;border-radius:100px;padding:2px 8px;background:#fbf6e6">{{ tx.actEst }}</span></span><b class="tn" style="font-size:15px">{{ s3F }}</b></div>
+          </div>
+        </div>
+        </sc-if>
+        <sc-if value="{{ chartDonut }}" hint-placeholder-val="{{ false }}">
+        <div style="display:flex;align-items:center;gap:20px">
+          <div style="width:126px;height:126px;border-radius:50%;flex:none;background:{{ donutBg }};border:2px solid #17241A;display:flex;align-items:center;justify-content:center">
+            <div style="width:72px;height:72px;border-radius:50%;background:#fff;border:2px solid #17241A;display:flex;flex-direction:column;align-items:center;justify-content:center"><span class="tn" style="font-family:Fraunces;font-weight:600;font-size:22px">{{ totalF }}</span><span style="font-size:9px;color:#8a9488;font-weight:600">tCO₂e</span></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;font-size:13px">
+            <span style="display:flex;align-items:center;gap:8px"><span style="width:12px;height:12px;border-radius:3px;background:#ED7A2B"></span>Scope 1 · {{ s1F }}</span>
+            <span style="display:flex;align-items:center;gap:8px"><span style="width:12px;height:12px;border-radius:3px;background:#F4C518"></span>Scope 2 · {{ s2F }}</span>
+            <span style="display:flex;align-items:center;gap:8px"><span style="width:12px;height:12px;border-radius:3px;background:#2C86D8"></span>Scope 3 · {{ s3F }}</span>
+          </div>
+        </div>
+        </sc-if>
+      </div>
+
+      <!-- readiness gauge -->
+      <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:24px 26px">
+        <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:18px">{{ tx.dScore }}</div>
+        <div style="display:flex;align-items:center;gap:20px">
+          <div style="width:120px;height:120px;border-radius:50%;flex:none;background:{{ gaugeBg }};border:2px solid #17241A;display:flex;align-items:center;justify-content:center">
+            <div style="width:86px;height:86px;border-radius:50%;background:#fff;border:2px solid #17241A;display:flex;flex-direction:column;align-items:center;justify-content:center"><span class="tn" style="font-family:Fraunces;font-weight:600;font-size:30px;line-height:1">{{ score }}%</span><span style="font-size:10px;color:#8a9488;font-weight:600">{{ tx.fwReady }}</span></div>
+          </div>
+          <div style="font-size:13px;line-height:1.7;color:#3a463c">
+            <div style="display:flex;align-items:center;gap:8px"><span style="color:#2a9d43">●</span> {{ tx.dChkEnergy }}</div>
+            <div style="display:flex;align-items:center;gap:8px"><span style="color:{{ actDot }}">●</span> {{ tx.dChkAct }}</div>
+            <div style="display:flex;align-items:center;gap:8px"><span style="color:{{ repDot }}">●</span> {{ tx.dChkRep }}</div>
+            <button onClick="{{ goFramework }}" style="margin-top:8px;background:none;border:none;color:#2C86D8;font-weight:700;font-size:13px;padding:0;cursor:pointer">{{ tx.dSeeDetail }}</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- quick actions -->
+      <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:24px 26px;grid-column:1 / -1">
+        <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:16px">{{ tx.dNext }}</div>
+        <div style="display:flex;gap:12px;flex-wrap:wrap">
+          <button onClick="{{ goEnergi }}" style="flex:1;min-width:180px;text-align:left;background:#F3EFE3;border:1.5px solid #e6e0d0;border-radius:14px;padding:16px 18px;cursor:pointer"><div style="font-weight:700;font-size:15px;margin-bottom:3px">{{ tx.dQaEnergy }}</div><div style="font-size:12px;color:#8a9488">{{ tx.dQaEnergySub }}</div></button>
+          <button onClick="{{ goRencana }}" style="flex:1;min-width:180px;text-align:left;background:#F3EFE3;border:1.5px solid #e6e0d0;border-radius:14px;padding:16px 18px;cursor:pointer"><div style="font-weight:700;font-size:15px;margin-bottom:3px">{{ tx.dQaPlan }}</div><div style="font-size:12px;color:#8a9488">{{ tx.dQaPlanSub }}</div></button>
+          <button onClick="{{ goLaporan }}" style="flex:1;min-width:180px;text-align:left;background:#17241A;border:1.5px solid #17241A;border-radius:14px;padding:16px 18px;cursor:pointer;color:#F3EFE3"><div style="font-weight:700;font-size:15px;margin-bottom:3px">{{ tx.dQaReport }}</div><div style="font-size:12px;color:#8a9488">GHG Protocol / ISO 14064</div></button>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ===== O2 INPUT ENERGI (OCR) ===== -->
+    <sc-if value="{{ isEnergi }}" hint-placeholder-val="{{ false }}">
+    <div class="fade" style="display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start">
+      <!-- upload / ocr -->
+      <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:26px 28px">
+        <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:16px">{{ tx.engBill }}</div>
+
+        <sc-if value="{{ engIdle }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <button onClick="{{ startOcr }}" style="width:100%;border:2px dashed #b9a86a;background:#fbf6e6;border-radius:16px;padding:38px 20px;cursor:pointer;text-align:center">
+            <div style="width:48px;height:48px;border-radius:14px;background:#F4C518;border:2px solid #17241A;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:22px">↑</div>
+            <div style="font-weight:700;font-size:16px;margin-bottom:4px">{{ tx.engUpload }}</div>
+            <div style="font-size:13px;color:#8a9488">{{ tx.engUploadSub }}</div>
+          </button>
+          <button onClick="{{ manualEntry }}" style="width:100%;margin-top:12px;background:none;border:none;color:#8a9488;font-weight:600;font-size:13px;cursor:pointer;padding:8px">{{ tx.engManual }}</button>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ engReading }}" hint-placeholder-val="{{ false }}">
+        <div style="text-align:center;padding:32px 12px">
+          <div style="height:150px;border-radius:14px;background:repeating-linear-gradient(0deg,#F3EFE3 0 8px,#eae5d6 8px 16px);border:2px solid #17241A;position:relative;overflow:hidden;margin-bottom:20px">
+            <div style="position:absolute;left:0;right:0;top:0;height:3px;background:#2C86D8;box-shadow:0 0 12px #2C86D8;animation:ocrpulse 1s infinite"></div>
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:600 12px/1 ui-monospace,Menlo,monospace;color:#8a9488">{{ tx.engScanning }}</div>
+          </div>
+          <div style="font-weight:700;font-size:15px;animation:ocrpulse 1.2s infinite">{{ tx.engReadingDoc }}</div>
+        </div>
+        </sc-if>
+
+        <sc-if value="{{ engReview }}" hint-placeholder-val="{{ false }}">
+        <div class="fade">
+          <div style="display:flex;align-items:center;gap:8px;background:#e8f1fb;border-radius:12px;padding:11px 14px;margin-bottom:20px">
+            <span style="width:8px;height:8px;border-radius:50%;background:#2C86D8"></span>
+            <span style="font-size:13px;font-weight:600;color:#1c5a94">{{ tx.engOcrDone }}</span>
+          </div>
+          <label style="display:block;font-weight:600;font-size:13px;margin-bottom:6px">{{ tx.engKwh }}</label>
+          <input value="{{ draft.kwh }}" onChange="{{ setKwh }}" inputmode="numeric" style="width:100%;border:2px solid #17241A;border-radius:12px;padding:12px 14px;font-size:16px;font-weight:700;background:#fff;margin-bottom:16px" class="tn">
+          <label style="display:block;font-weight:600;font-size:13px;margin-bottom:6px">{{ tx.engCost }}</label>
+          <input value="{{ draft.cost }}" onChange="{{ setCost }}" inputmode="numeric" style="width:100%;border:2px solid #17241A;border-radius:12px;padding:12px 14px;font-size:16px;font-weight:700;background:#fff;margin-bottom:16px" class="tn">
+          <label style="display:block;font-weight:600;font-size:13px;margin-bottom:6px">{{ tx.engPeriod }}</label>
+          <input value="{{ draft.period }}" onChange="{{ setPeriod }}" style="width:100%;border:2px solid #17241A;border-radius:12px;padding:12px 14px;font-size:16px;font-weight:700;background:#fff;margin-bottom:22px">
+          <div style="display:flex;gap:10px">
+            <button onClick="{{ saveEnergy }}" style="background:#57C64A;color:#17241A;font-weight:800;font-size:15px;border:2px solid #17241A;border-radius:100px;padding:12px 26px;cursor:pointer">{{ tx.engSaveRec }}</button>
+            <button onClick="{{ cancelOcr }}" style="background:#fff;border:2px solid #17241A;color:#17241A;font-weight:700;font-size:15px;border-radius:100px;padding:12px 22px;cursor:pointer">{{ tx.engCancel }}</button>
+          </div>
+        </div>
+        </sc-if>
+      </div>
+
+      <!-- records + scope2 -->
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <div style="background:#17241A;border-radius:18px;padding:22px 26px;color:#F3EFE3">
+          <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:10px">{{ tx.engScope2 }}</div>
+          <div style="display:flex;align-items:flex-end;gap:10px"><span class="tn" style="font-family:Fraunces;font-weight:600;font-size:44px;line-height:.9;color:#fff">{{ s2F }}</span><span style="font-size:16px;color:#c3ccbd;margin-bottom:5px">tCO₂e</span></div>
+          <div style="font-size:12px;color:#8a9488;margin-top:8px">{{ tx.engGridPre }} <b class="tn" style="color:#F4C518">0,87 kg/kWh</b> · v2025</div>
+        </div>
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:22px 26px">
+          <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:14px">{{ tx.engRecSaved }} · {{ recCount }}</div>
+          <div style="display:flex;flex-direction:column;gap:9px">
+            <sc-for list="{{ energyList }}" as="r" hint-placeholder-count="2">
+              <div style="display:flex;justify-content:space-between;align-items:center;background:#F3EFE3;border-radius:11px;padding:12px 15px">
+                <div><div style="font-weight:700;font-size:14px">{{ r.period }}</div><div class="tn" style="font-size:12px;color:#8a9488">Rp {{ r.costF }}</div></div>
+                <div class="tn" style="font-weight:700;font-size:15px">{{ r.kwhF }} kWh</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ===== O3 INPUT AKTIVITAS ===== -->
+    <sc-if value="{{ isActivity }}" hint-placeholder-val="{{ false }}">
+    <div class="fade" style="max-width:760px">
+      <p style="font-size:15px;color:#3a463c;margin:0 0 20px;line-height:1.55">{{ tx.actIntro }}</p>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-left:5px solid #ED7A2B;border-radius:16px;padding:20px 24px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-weight:800;font-size:16px">{{ tx.actS1Title }}</span><span style="font-size:12px;font-weight:700;color:#8a4a12;background:#fdf0e6;border-radius:100px;padding:4px 11px">{{ tx.actDirect }}</span></div>
+          <p style="font-size:13px;color:#8a9488;margin:0 0 14px">{{ tx.actS1Sub }}</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <input placeholder="{{ tx.actPhFuel }}" style="flex:2;min-width:200px;border:2px solid #e6e0d0;border-radius:11px;padding:11px 14px;font-size:14px">
+            <input placeholder="{{ tx.actPhAmt }}" class="tn" style="flex:1;min-width:90px;border:2px solid #e6e0d0;border-radius:11px;padding:11px 14px;font-size:14px">
+            <button onClick="{{ addActivity }}" style="background:#17241A;color:#F3EFE3;font-weight:700;font-size:14px;border:none;border-radius:11px;padding:11px 20px;cursor:pointer">{{ tx.actAdd }}</button>
+          </div>
+        </div>
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-left:5px solid #2C86D8;border-radius:16px;padding:20px 24px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px"><span style="font-weight:800;font-size:16px">{{ tx.actS3Title }}</span><span style="font-size:12px;font-weight:600;color:#8a9488;border:1.5px dashed #b9a86a;border-radius:100px;padding:3px 11px;background:#fbf6e6">{{ tx.actEst }}</span></div>
+          <p style="font-size:13px;color:#8a9488;margin:0 0 14px">{{ tx.actS3Sub }}</p>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <input placeholder="{{ tx.actPhTravel }}" style="flex:2;min-width:200px;border:2px solid #e6e0d0;border-radius:11px;padding:11px 14px;font-size:14px">
+            <input placeholder="{{ tx.actPhAmt }}" class="tn" style="flex:1;min-width:90px;border:2px solid #e6e0d0;border-radius:11px;padding:11px 14px;font-size:14px">
+            <button onClick="{{ addActivity }}" style="background:#17241A;color:#F3EFE3;font-weight:700;font-size:14px;border:none;border-radius:11px;padding:11px 20px;cursor:pointer">{{ tx.actAdd }}</button>
+          </div>
+        </div>
+      </div>
+      <sc-if value="{{ activityAdded }}" hint-placeholder-val="{{ false }}">
+        <div class="fade" style="margin-top:16px;display:flex;align-items:center;gap:10px;background:#dcf3d6;border-radius:12px;padding:13px 16px"><span style="font-weight:800;color:#1e6b34">✓</span><span style="font-size:14px;font-weight:600;color:#1e6b34">{{ tx.actAdded }}</span></div>
+      </sc-if>
+    </div>
+    </sc-if>
+
+    <!-- ===== O5 RENCANA PENGURANGAN ===== -->
+    <sc-if value="{{ isRencana }}" hint-placeholder-val="{{ false }}">
+    <div class="fade" style="max-width:900px">
+      <p style="font-size:15px;color:#3a463c;margin:0 0 22px;line-height:1.55">{{ tx.rencIntro }}</p>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px">
+        <sc-for list="{{ scenarios }}" as="sc" hint-placeholder-count="3">
+          <button onClick="{{ sc.pick }}" style="text-align:left;background:{{ sc.bg }};border:2px solid {{ sc.bd }};border-radius:18px;padding:22px 24px;cursor:pointer">
+            <div class="tn" style="font-family:Fraunces;font-weight:600;font-size:40px;line-height:1;color:{{ sc.fg }}">−{{ sc.pct }}%</div>
+            <div style="font-size:13px;font-weight:700;color:{{ sc.fg }};margin:8px 0 3px">{{ sc.name }}</div>
+            <div style="font-size:12px;color:{{ sc.sub }}">{{ sc.desc }}</div>
+          </button>
+        </sc-for>
+      </div>
+      <sc-if value="{{ hasTarget }}" hint-placeholder-val="{{ false }}">
+      <div class="fade" style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:26px 28px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px">
+        <div><div style="font:700 11px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:8px">{{ tx.rencTarget }}</div><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:34px;color:#57C64A">{{ projF }}<span style="font-size:14px;color:#8a9488;font-family:'Plus Jakarta Sans'"> tCO₂e</span></div></div>
+        <div><div style="font:700 11px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:8px">{{ tx.rencReduction }}</div><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:34px;color:#ED7A2B">{{ savedF }}<span style="font-size:14px;color:#8a9488;font-family:'Plus Jakarta Sans'"> tCO₂e</span></div></div>
+        <div><div style="font:700 11px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:8px">{{ tx.rencSaving }}</div><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:34px;color:#17241A">Rp {{ savedRpF }}</div></div>
+      </div>
+      </sc-if>
+    </div>
+    </sc-if>
+
+    <!-- ===== O6 PETA FRAMEWORK + SKOR ===== -->
+    <sc-if value="{{ isFramework }}" hint-placeholder-val="{{ false }}">
+    <div class="fade" style="display:grid;grid-template-columns:1.3fr 1fr;gap:18px;align-items:start">
+      <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:26px 28px">
+        <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:18px">{{ tx.fwMapTitle }}</div>
+        <div style="display:flex;flex-direction:column;gap:14px">
+          <sc-for list="{{ maps }}" as="m" hint-placeholder-count="4">
+            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+              <span style="background:#F3EFE3;border-radius:9px;padding:9px 13px;font-weight:600;font-size:13px;min-width:150px">{{ m.activity }}</span>
+              <span style="color:#b3ac98">→</span>
+              <div style="display:flex;gap:7px;flex-wrap:wrap">
+                <sc-for list="{{ m.tags }}" as="tag" hint-placeholder-count="2">
+                  <span style="background:{{ tag.bg }};color:{{ tag.fg }};border-radius:100px;padding:5px 12px;font-weight:700;font-size:12px">{{ tag.name }}</span>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:26px 28px">
+        <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:18px">{{ tx.fwScoreTitle }}</div>
+        <div style="display:flex;justify-content:center;margin-bottom:20px">
+          <div style="width:150px;height:150px;border-radius:50%;background:{{ gaugeBg }};border:2px solid #17241A;display:flex;align-items:center;justify-content:center">
+            <div style="width:108px;height:108px;border-radius:50%;background:#fff;border:2px solid #17241A;display:flex;flex-direction:column;align-items:center;justify-content:center"><span class="tn" style="font-family:Fraunces;font-weight:600;font-size:40px;line-height:1">{{ score }}%</span><span style="font-size:11px;color:#8a9488;font-weight:600">{{ tx.fwReady }}</span></div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:9px;font-size:13px">
+          <div style="display:flex;justify-content:space-between"><span>{{ tx.fwRowEnergy }}</span><span style="color:#2a9d43;font-weight:700">{{ tx.fwComplete }}</span></div>
+          <div style="display:flex;justify-content:space-between"><span>{{ tx.fwRowAct }}</span><span style="color:{{ actWord }};font-weight:700">{{ actState }}</span></div>
+          <div style="display:flex;justify-content:space-between"><span>{{ tx.fwRowEvid }}</span><span style="color:#ED7A2B;font-weight:700">{{ tx.fwPartial }}</span></div>
+          <div style="display:flex;justify-content:space-between"><span>{{ tx.fwRowRep }}</span><span style="color:{{ repWord }};font-weight:700">{{ repState }}</span></div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ===== O7 GENERATE LAPORAN ===== -->
+    <sc-if value="{{ isLaporan }}" hint-placeholder-val="{{ false }}">
+    <div class="fade" style="max-width:720px;margin:0 auto">
+      <sc-if value="{{ repIdle }}" hint-placeholder-val="{{ true }}">
+      <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:20px;padding:40px 44px;text-align:center">
+        <div style="width:64px;height:80px;border-radius:8px;border:2px solid #17241A;background:#F3EFE3;margin:0 auto 22px;position:relative">
+          <div style="position:absolute;left:12px;right:12px;top:16px;height:3px;background:#e6e0d0;border-radius:2px"></div>
+          <div style="position:absolute;left:12px;right:20px;top:26px;height:3px;background:#e6e0d0;border-radius:2px"></div>
+          <div style="position:absolute;left:12px;right:24px;bottom:14px;height:8px;background:#57C64A;border-radius:2px"></div>
+        </div>
+        <h3 style="font-family:Fraunces;font-weight:600;font-size:26px;margin:0 0 8px">{{ tx.repTitle }}</h3>
+        <p style="font-size:14px;color:#8a9488;line-height:1.55;max-width:44ch;margin:0 auto 24px">{{ tx.repDesc }}</p>
+        <button onClick="{{ genReport }}" style="background:#17241A;color:#F3EFE3;font-weight:800;font-size:16px;border:none;border-radius:100px;padding:15px 34px;cursor:pointer">{{ tx.repGenBtn }}</button>
+      </div>
+      </sc-if>
+      <sc-if value="{{ repGen }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:20px;padding:60px 44px;text-align:center">
+        <div style="font-weight:700;font-size:17px;animation:ocrpulse 1.1s infinite">{{ tx.repGenerating }}</div>
+      </div>
+      </sc-if>
+      <sc-if value="{{ repDone }}" hint-placeholder-val="{{ false }}">
+      <div class="fade" style="background:#fff;border:2px solid #17241A;border-radius:20px;overflow:hidden">
+        <div style="height:118px;position:relative"><img src="assets/art-borobudur.png" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center 62%;display:block"></div>
+        <div style="background:#17241A;color:#F3EFE3;padding:24px 30px;display:flex;justify-content:space-between;align-items:flex-start">
+          <div><div style="font-family:Fraunces;font-weight:600;font-size:24px">{{ tx.repDocTitle }} {{ period }}</div><div style="font-size:13px;color:#8a9488;margin-top:3px">{{ orgName }}</div></div>
+          <span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#17241A;background:#dcf3d6;border-radius:100px;padding:6px 13px">{{ tx.repReady }}</span>
+        </div>
+        <div style="padding:26px 30px">
+          <div style="display:flex;gap:16px;margin-bottom:22px">
+            <div style="flex:1;background:#F3EFE3;border-radius:14px;padding:16px 18px"><div style="font-size:11px;color:#8a9488;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">Total</div><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:30px">{{ totalF }}<span style="font-size:13px;color:#8a9488;font-family:'Plus Jakarta Sans'"> tCO₂e</span></div></div>
+            <div style="flex:1;background:#F3EFE3;border-radius:14px;padding:16px 18px"><div style="font-size:11px;color:#8a9488;font-weight:600;text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px">{{ tx.repMethod }}</div><div style="font-weight:700;font-size:18px">Location-based</div></div>
+          </div>
+          <table style="width:100%;border-collapse:collapse;font-size:14px">
+            <tbody>
+              <tr style="border-bottom:1px solid #eee6d6"><td style="padding:11px 0;color:#8a9488">{{ tx.repRow1 }}</td><td class="tn" style="text-align:right;font-weight:700">{{ s1F }} tCO₂e</td></tr>
+              <tr style="border-bottom:1px solid #eee6d6"><td style="padding:11px 0;color:#8a9488">{{ tx.repRow2 }} <span style="font-size:11px;color:#b3ac98">{{ tx.repGridNote }}</span></td><td class="tn" style="text-align:right;font-weight:700">{{ s2F }} tCO₂e</td></tr>
+              <tr style="border-bottom:1px solid #eee6d6"><td style="padding:11px 0;color:#8a9488">{{ tx.repRow3 }} <span style="font-size:11px;font-weight:600;color:#8a9488;border:1.5px dashed #b9a86a;border-radius:100px;padding:2px 8px;background:#fbf6e6">{{ tx.actEst }}</span></td><td class="tn" style="text-align:right;font-weight:700">{{ s3F }} tCO₂e</td></tr>
+            </tbody>
+          </table>
+          <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+            <button style="background:#F4C518;color:#17241A;font-weight:800;font-size:14px;border:2px solid #17241A;border-radius:100px;padding:11px 22px;cursor:pointer">Export PDF</button>
+            <button style="background:#fff;border:2px solid #17241A;color:#17241A;font-weight:700;font-size:14px;border-radius:100px;padding:11px 22px;cursor:pointer">{{ tx.repHandoff }}</button>
+            <span style="font-size:11px;color:#b9a86a;font-style:italic;margin-left:auto">{{ tx.repUnverified }}</span>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+    </div>
+    </sc-if>
+
+    <!-- ===== O8 TRACKING ===== -->
+    <sc-if value="{{ isTracking }}" hint-placeholder-val="{{ false }}">
+    <div class="fade" style="max-width:820px">
+      <p style="font-size:15px;color:#3a463c;margin:0 0 24px;line-height:1.55">{{ tx.trackIntro }}</p>
+      <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:28px 30px">
+        <div style="display:flex;align-items:flex-end;gap:28px;height:220px;padding-bottom:8px">
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;height:100%;justify-content:flex-end">
+            <span class="tn" style="font-family:Fraunces;font-weight:600;font-size:22px">1.520</span>
+            <div style="width:100%;max-width:120px;background:#8a9488;border-radius:10px 10px 0 0;height:100%"></div>
+            <span style="font-size:13px;font-weight:600;color:#8a9488">2024 · baseline</span>
+          </div>
+          <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;height:100%;justify-content:flex-end">
+            <span class="tn" style="font-family:Fraunces;font-weight:600;font-size:22px;color:#2a9d43">{{ totalF }}</span>
+            <div style="width:100%;max-width:120px;background:#57C64A;border:2px solid #17241A;border-radius:10px 10px 0 0;height:{{ trackH }}"></div>
+            <span style="font-size:13px;font-weight:700;color:#17241A">{{ period }} · {{ tx.trkNow }}</span>
+          </div>
+          <div style="flex:1.2;padding-left:20px;border-left:1.5px solid #eee6d6;align-self:center">
+            <div style="font:700 11px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:8px">{{ tx.trkReduction }}</div>
+            <div class="tn" style="font-family:Fraunces;font-weight:600;font-size:38px;color:#2a9d43;line-height:1">−{{ deltaF }}</div>
+            <div style="font-size:13px;color:#8a9488;margin-top:2px">tCO₂e vs baseline</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ===== KOMUNITAS / PARTISIPAN ===== -->
+    <sc-if value="{{ isKomunitas }}" hint-placeholder-val="{{ false }}">
+    <div class="fade" style="max-width:960px">
+      <div style="position:relative;height:154px;border-radius:18px;overflow:hidden;border:1.5px solid #e6e0d0;margin-bottom:22px">
+        <img src="assets/art-nusantara.png" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center 32%;display:block">
+        <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(23,36,26,.74),rgba(23,36,26,.12))"></div>
+        <div style="position:absolute;left:26px;bottom:20px;color:#fff">
+          <div style="font-family:Fraunces;font-weight:600;font-size:23px;line-height:1.1">{{ commBannerTitle }}</div>
+          <div style="font-size:13px;color:rgba(255,255,255,.88);margin-top:4px;max-width:52ch;line-height:1.4">{{ commBannerSub }}</div>
+        </div>
+      </div>
+      <sc-if value="{{ commForm }}" hint-placeholder-val="{{ true }}">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;align-items:start">
+        <div>
+          <p style="font-size:15px;color:#3a463c;line-height:1.6;margin:0 0 20px">Program transisi hijau butuh orang di lapangan. Individu &amp; mitra bisa bergabung — setelah daftar, mereka terhubung ke program CSR organisasi dan alurnya masuk ke sistem (input data → dampak).</p>
+          <div style="display:flex;gap:8px;margin-bottom:22px">
+            <button onClick="{{ roleInd }}" style="flex:1;border:2px solid {{ roleIndBd }};background:{{ roleIndBg }};color:#17241A;font-weight:700;font-size:14px;border-radius:12px;padding:13px;cursor:pointer">Individu</button>
+            <button onClick="{{ roleComp }}" style="flex:1;border:2px solid {{ roleCompBd }};background:{{ roleCompBg }};color:#17241A;font-weight:700;font-size:14px;border-radius:12px;padding:13px;cursor:pointer">Perusahaan / mitra</button>
+          </div>
+          <label style="display:block;font-weight:600;font-size:13px;margin-bottom:6px">{{ commNameLabel }}</label>
+          <input value="{{ comm.name }}" onChange="{{ setCommName }}" placeholder="{{ commNamePh }}" style="width:100%;border:2px solid #17241A;border-radius:12px;padding:12px 15px;font-size:15px;background:#fff;margin-bottom:16px">
+          <label style="display:block;font-weight:600;font-size:13px;margin-bottom:6px">Provinsi</label>
+          <select value="{{ comm.province }}" onChange="{{ setProvince }}" style="width:100%;border:2px solid #17241A;border-radius:12px;padding:12px 15px;font-size:15px;background:#fff;margin-bottom:16px">
+            <option value="">Pilih provinsi…</option>
+            <sc-for list="{{ provinces }}" as="p" hint-placeholder-count="8"><option value="{{ p }}">{{ p }}</option></sc-for>
+          </select>
+          <label style="display:block;font-weight:600;font-size:13px;margin-bottom:6px">Peran yang diminati</label>
+          <input value="{{ comm.interest }}" onChange="{{ setInterest }}" placeholder="mis. Penanaman mangrove, survey dampak" style="width:100%;border:2px solid #17241A;border-radius:12px;padding:12px 15px;font-size:15px;background:#fff;margin-bottom:22px">
+          <button onClick="{{ submitComm }}" style="background:#57C64A;color:#17241A;font-weight:800;font-size:15px;border:2px solid #17241A;border-radius:100px;padding:13px 30px;cursor:pointer">Gabung program</button>
+        </div>
+        <!-- province preview card -->
+        <div style="background:{{ commAccent }};border:2px solid #17241A;border-radius:20px;padding:28px 30px;color:#fff;position:relative;overflow:hidden">
+          <div style="position:absolute;right:-30px;top:-30px;width:110px;height:110px;border-radius:50%;background:rgba(255,255,255,.16)"></div>
+          <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.85);position:relative">Program CSR</div>
+          <h3 style="font-family:Fraunces;font-weight:600;font-size:28px;line-height:1.1;margin:12px 0 14px;position:relative">{{ programName }}</h3>
+          <p style="font-size:14px;line-height:1.55;color:rgba(255,255,255,.92);margin:0 0 20px;position:relative">Dijalankan {{ orgName }}. Nuansa daerah: {{ provinceNuance }}</p>
+          <div style="display:flex;gap:18px;position:relative">
+            <div><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:28px">12</div><div style="font-size:11px;color:rgba(255,255,255,.85)">program aktif</div></div>
+            <div><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:28px">247</div><div style="font-size:11px;color:rgba(255,255,255,.85)">peserta</div></div>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+
+      <sc-if value="{{ commDone }}" hint-placeholder-val="{{ false }}">
+      <div class="fade" style="max-width:640px;margin:0 auto;text-align:center">
+        <div style="width:60px;height:60px;border-radius:50%;background:#57C64A;border:2px solid #17241A;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:800;color:#17241A">✓</div>
+        <h2 style="font-family:Fraunces;font-weight:600;font-size:30px;margin:0 0 8px">Selamat datang, {{ commFirst }}.</h2>
+        <p style="font-size:15px;color:#3a463c;line-height:1.6;margin:0 0 28px">Kamu terhubung ke <b>{{ programName }}</b> — dijalankan {{ orgName }}. Akunmu kini masuk ke sistem: catat data, lihat dampak, ikuti progres program.</p>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px;text-align:left">
+          <button onClick="{{ goEnergi }}" style="background:#fff;border:1.5px solid #e6e0d0;border-radius:14px;padding:16px 18px;cursor:pointer"><div style="width:26px;height:26px;border-radius:8px;background:#F4C518;border:2px solid #17241A;margin-bottom:10px"></div><div style="font-weight:700;font-size:14px;margin-bottom:2px">Input data</div><div style="font-size:12px;color:#8a9488">Energi &amp; aktivitas</div></button>
+          <button onClick="{{ goDampak }}" style="background:#fff;border:1.5px solid #e6e0d0;border-radius:14px;padding:16px 18px;cursor:pointer"><div style="width:26px;height:26px;border-radius:8px;background:#E24FA0;border:2px solid #17241A;margin-bottom:10px"></div><div style="font-weight:700;font-size:14px;margin-bottom:2px">Dampak manusia</div><div style="font-size:12px;color:#8a9488">Kerja · perempuan · energi</div></button>
+          <button onClick="{{ goTracking }}" style="background:#fff;border:1.5px solid #e6e0d0;border-radius:14px;padding:16px 18px;cursor:pointer"><div style="width:26px;height:26px;border-radius:8px;background:#57C64A;border:2px solid #17241A;margin-bottom:10px"></div><div style="font-weight:700;font-size:14px;margin-bottom:2px">Progres program</div><div style="font-size:12px;color:#8a9488">Sebelum–sesudah</div></button>
+        </div>
+        <button onClick="{{ resetComm }}" style="background:none;border:none;color:#8a9488;font-weight:600;font-size:13px;cursor:pointer">← Daftarkan orang lain</button>
+      </div>
+      </sc-if>
+    </div>
+    </sc-if>
+
+    <!-- ===== DAMPAK MANUSIA ===== -->
+    <sc-if value="{{ isDampak }}" hint-placeholder-val="{{ false }}">
+    <div class="fade" style="display:grid;grid-template-columns:1.2fr 1fr;gap:18px;align-items:start">
+      <div style="background:#E24FA0;border:2px solid #17241A;border-radius:20px;padding:30px 34px;color:#fff">
+        <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.12em;text-transform:uppercase;color:#ffe0f1;margin-bottom:22px">Dampak manusia · bukan cuma ton CO₂</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:26px 20px">
+          <div><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:48px;line-height:.9">247</div><div style="font-size:13px;color:#ffe0f1;margin-top:4px">lapangan kerja tercipta</div></div>
+          <div><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:48px;line-height:.9">58%</div><div style="font-size:13px;color:#ffe0f1;margin-top:4px">partisipasi perempuan</div></div>
+          <div><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:48px;line-height:.9">1.9k</div><div style="font-size:13px;color:#ffe0f1;margin-top:4px">rumah tangga akses energi</div></div>
+          <div><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:48px;line-height:.9">12</div><div style="font-size:13px;color:#ffe0f1;margin-top:4px">program after-care aktif</div></div>
+        </div>
+      </div>
+      <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:26px 28px">
+        <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:16px">Survey partisipan · sumber</div>
+        <p style="font-size:13px;color:#8a9488;line-height:1.6;margin:0 0 16px">Data dikumpulkan orang di lapangan lewat survey. DecarbonHub mengoordinasi &amp; mengukur — eksekusi fisik oleh tim &amp; komunitas.</p>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;justify-content:space-between;background:#F3EFE3;border-radius:11px;padding:12px 15px;font-size:13px"><span style="font-weight:600">Survey terisi</span><b class="tn">318 / 402</b></div>
+          <div style="display:flex;justify-content:space-between;background:#F3EFE3;border-radius:11px;padding:12px 15px;font-size:13px"><span style="font-weight:600">Program terpetakan</span><b>GRI · TJSL · PROPER</b></div>
+        </div>
+        <div style="margin-top:16px;font-size:11px;color:#b9a86a;font-style:italic">Aksen Bougainvil · humanisasi dampak</div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ===== NOTIFIKASI ===== -->
+    <sc-if value="{{ isNotif }}" hint-placeholder-val="{{ false }}">
+    <div class="fade" style="max-width:760px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:18px"><span style="font-size:14px;color:#8a9488">3 belum dibaca</span><button style="background:none;border:none;color:#2C86D8;font-weight:700;font-size:13px;cursor:pointer">Tandai semua dibaca</button></div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="display:flex;gap:14px;align-items:flex-start;background:#fff;border:1.5px solid #e6e0d0;border-radius:14px;padding:16px 18px"><span style="width:9px;height:9px;border-radius:50%;background:#57C64A;flex:none;margin-top:5px"></span><div style="flex:1"><div style="font-weight:700;font-size:14px">Laporan karbon 2025 Q2 difinalisasi</div><div style="font-size:13px;color:#8a9488">Siap dibawa ke verifikator terakreditasi.</div></div><span style="font-size:12px;color:#b3ac98;flex:none">2 jam lalu</span></div>
+        <div style="display:flex;gap:14px;align-items:flex-start;background:#fff;border:1.5px solid #e6e0d0;border-radius:14px;padding:16px 18px"><span style="width:9px;height:9px;border-radius:50%;background:#F4C518;flex:none;margin-top:5px"></span><div style="flex:1"><div style="font-weight:700;font-size:14px">Budi Prasetyo mengirim input energi</div><div style="font-size:13px;color:#8a9488">Tagihan listrik Q2 menunggu tinjauan Anda.</div></div><span style="font-size:12px;color:#b3ac98;flex:none">5 jam lalu</span></div>
+        <div style="display:flex;gap:14px;align-items:flex-start;background:#fff;border:1.5px solid #e6e0d0;border-radius:14px;padding:16px 18px"><span style="width:9px;height:9px;border-radius:50%;background:#ED7A2B;flex:none;margin-top:5px"></span><div style="flex:1"><div style="font-weight:700;font-size:14px">Pengingat tenggat 10 Oktober 2026</div><div style="font-size:13px;color:#8a9488">Skor kesiapan Anda 82% — tiga data pemasok akan melengkapinya.</div></div><span style="font-size:12px;color:#b3ac98;flex:none">1 hari lalu</span></div>
+        <div style="display:flex;gap:14px;align-items:flex-start;background:#faf7ef;border:1.5px solid #eee6d6;border-radius:14px;padding:16px 18px;opacity:.75"><span style="width:9px;height:9px;border-radius:50%;background:#d8d0bc;flex:none;margin-top:5px"></span><div style="flex:1"><div style="font-weight:700;font-size:14px">Faktor emisi grid diperbarui ke v2025</div><div style="font-size:13px;color:#8a9488">Perhitungan historis tetap konsisten.</div></div><span style="font-size:12px;color:#b3ac98;flex:none">3 hari lalu</span></div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ===== PENGATURAN ===== -->
+    <sc-if value="{{ isSettings }}" hint-placeholder-val="{{ false }}">
+    <div class="fade" style="max-width:760px;display:flex;flex-direction:column;gap:16px">
+      <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:24px 28px">
+        <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:18px">Profil</div>
+        <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px"><div style="width:56px;height:56px;border-radius:50%;background:#E24FA0;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px">{{ roleInitials }}</div><div><div style="font-weight:700;font-size:16px">Anindita Dewi</div><div style="font-size:13px;color:#8a9488">{{ roleLabel }} · Koperasi Hijau Nusantara</div></div></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div><label style="display:block;font-weight:600;font-size:13px;margin-bottom:6px">Nama</label><input value="Anindita Dewi" style="width:100%;border:2px solid #e6e0d0;border-radius:12px;padding:11px 14px;font-size:14px"></div>
+          <div><label style="display:block;font-weight:600;font-size:13px;margin-bottom:6px">Email</label><input value="anindita@koperasihijau.id" style="width:100%;border:2px solid #e6e0d0;border-radius:12px;padding:11px 14px;font-size:14px"></div>
+        </div>
+      </div>
+      <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:24px 28px">
+        <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:16px">Preferensi</div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #f0ebdd"><div><div style="font-weight:600;font-size:14px">Bahasa</div><div style="font-size:12px;color:#8a9488">Bahasa antarmuka</div></div><button onClick="{{ toggleLang }}" style="font-weight:700;font-size:13px;color:#17241A;background:#F3EFE3;border:1.5px solid #e6e0d0;border-radius:100px;padding:8px 16px;cursor:pointer">{{ lang }} · ganti</button></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid #f0ebdd"><div><div style="font-weight:600;font-size:14px">Email notifikasi</div><div style="font-size:12px;color:#8a9488">Ringkasan mingguan &amp; pengingat tenggat</div></div><div style="width:44px;height:26px;border-radius:100px;background:#57C64A;position:relative"><div style="position:absolute;top:3px;right:3px;width:20px;height:20px;border-radius:50%;background:#fff"></div></div></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:12px 0"><div><div style="font-weight:600;font-size:14px">Tinjauan input staf</div><div style="font-size:12px;color:#8a9488">Beri tahu saat staf mengirim data</div></div><div style="width:44px;height:26px;border-radius:100px;background:#e2dcc8;position:relative"><div style="position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff"></div></div></div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ===== TAGIHAN ===== -->
+    <sc-if value="{{ isBilling }}" hint-placeholder-val="{{ false }}">
+    <div class="fade" style="max-width:820px">
+      <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:16px;align-items:start;margin-bottom:16px">
+        <div style="background:#17241A;color:#F3EFE3;border-radius:18px;padding:26px 28px">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start"><div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:12px">Paket saat ini</div><span style="font-size:12px;font-weight:700;color:#17241A;background:#F4C518;border-radius:100px;padding:4px 11px">Pilot</span></div>
+          <div style="font-family:Fraunces;font-weight:600;font-size:32px;line-height:1;margin-bottom:6px">Rp 4,5jt<span style="font-size:15px;color:#c3ccbd"> / bulan</span></div>
+          <div style="font-size:13px;color:#c3ccbd">Diskon design partner · perpanjang 1 Sep 2026</div>
+          <button style="margin-top:18px;background:#F4C518;color:#17241A;font-weight:800;font-size:14px;border:none;border-radius:100px;padding:11px 20px;cursor:pointer">Naikkan ke Business</button>
+        </div>
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:24px 26px">
+          <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:14px">Penggunaan bulan ini</div>
+          <div style="display:flex;flex-direction:column;gap:10px;font-size:13px">
+            <div style="display:flex;justify-content:space-between"><span style="color:#8a9488">Pengguna</span><b class="tn">5 / 10</b></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:#8a9488">Laporan ter-generate</span><b class="tn">2</b></div>
+            <div style="display:flex;justify-content:space-between"><span style="color:#8a9488">Penyimpanan bukti</span><b class="tn">1,2 GB</b></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;overflow:hidden;margin-bottom:16px">
+        <div style="padding:18px 24px 12px;font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488">Riwayat tagihan</div>
+        <div style="display:flex;align-items:center;padding:13px 24px;border-top:1px solid #f0ebdd;font-size:14px"><span style="flex:2;font-weight:600">Juni 2026</span><span class="tn" style="flex:1;color:#8a9488">Rp 4.500.000</span><span style="flex:1"><span style="font-size:12px;font-weight:700;color:#1e6b34;background:#dcf3d6;border-radius:100px;padding:3px 10px">Lunas</span></span><span style="flex:1;text-align:right;color:#2C86D8;font-weight:700">Invoice</span></div>
+        <div style="display:flex;align-items:center;padding:13px 24px;border-top:1px solid #f0ebdd;font-size:14px"><span style="flex:2;font-weight:600">Mei 2026</span><span class="tn" style="flex:1;color:#8a9488">Rp 4.500.000</span><span style="flex:1"><span style="font-size:12px;font-weight:700;color:#1e6b34;background:#dcf3d6;border-radius:100px;padding:3px 10px">Lunas</span></span><span style="flex:1;text-align:right;color:#2C86D8;font-weight:700">Invoice</span></div>
+      </div>
+      <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:20px 26px;display:flex;justify-content:space-between;align-items:center"><div style="display:flex;align-items:center;gap:14px"><div style="width:40px;height:28px;border-radius:6px;background:#F3EFE3;border:1.5px solid #e6e0d0"></div><div><div style="font-weight:600;font-size:14px">Transfer bank · BCA ···· 4021</div><div style="font-size:12px;color:#8a9488">Metode pembayaran utama</div></div></div><button style="background:#fff;border:1.5px solid #17241A;color:#17241A;font-weight:700;font-size:13px;border-radius:100px;padding:9px 16px;cursor:pointer">Ubah</button></div>
+    </div>
+    </sc-if>
+
+    <!-- ===== C1 DATA CSR INTAKE ===== -->
+    <sc-if value="{{ isCsr }}" hint-placeholder-val="{{ false }}">
+    <div class="fade" style="max-width:860px">
+      <p style="font-size:15px;line-height:1.55;color:#3a463c;margin:0 0 22px">Kumpulkan data CSR/keberlanjutan — kami petakan otomatis ke kategori framework (GRI, TJSL, PROPER) dan hitung skor kesiapan.</p>
+      <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:26px 28px;margin-bottom:16px">
+        <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:18px">Info program CSR</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+          <div style="grid-column:1 / -1"><label style="display:block;font-weight:600;font-size:13px;margin-bottom:6px">Nama program</label><input placeholder="mis. Restorasi mangrove pesisir" style="width:100%;border:2px solid #e6e0d0;border-radius:12px;padding:12px 15px;font-size:15px"></div>
+          <div><label style="display:block;font-weight:600;font-size:13px;margin-bottom:6px">Periode</label><input placeholder="mis. 2025–2026" style="width:100%;border:2px solid #e6e0d0;border-radius:12px;padding:12px 15px;font-size:15px"></div>
+          <div><label style="display:block;font-weight:600;font-size:13px;margin-bottom:6px">Anggaran (Rp)</label><input inputmode="numeric" placeholder="mis. 2.100.000.000" style="width:100%;border:2px solid #e6e0d0;border-radius:12px;padding:12px 15px;font-size:15px"></div>
+        </div>
+        <label style="display:block;font-weight:600;font-size:13px;margin:16px 0 9px">Kategori keberlanjutan</label>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <span style="background:#fbe8f3;color:#a12772;border-radius:100px;padding:7px 14px;font-weight:700;font-size:13px">GRI 304</span>
+          <span style="background:#fbe8f3;color:#a12772;border-radius:100px;padding:7px 14px;font-weight:700;font-size:13px">TJSL</span>
+          <span style="background:#fbe8f3;color:#a12772;border-radius:100px;padding:7px 14px;font-weight:700;font-size:13px">PROPER</span>
+          <span style="background:#F3EFE3;color:#8a9488;border-radius:100px;padding:7px 14px;font-weight:600;font-size:13px;border:1.5px dashed #d8d0bc">+ tambah</span>
+        </div>
+      </div>
+      <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:26px 28px;margin-bottom:16px">
+        <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:18px">Unggah bukti</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+          <div style="border:2px dashed #b9a86a;background:#fbf6e6;border-radius:14px;padding:22px 16px;text-align:center;cursor:pointer"><div style="width:34px;height:34px;border-radius:10px;background:#2C86D8;margin:0 auto 10px"></div><div style="font-weight:700;font-size:13px">Dokumen</div><div style="font-size:11px;color:#8a9488">PDF, laporan</div></div>
+          <div style="border:2px dashed #b9a86a;background:#fbf6e6;border-radius:14px;padding:22px 16px;text-align:center;cursor:pointer"><div style="width:34px;height:34px;border-radius:10px;background:#57C64A;margin:0 auto 10px"></div><div style="font-weight:700;font-size:13px">Foto</div><div style="font-size:11px;color:#8a9488">Kegiatan lapangan</div></div>
+          <div style="border:2px dashed #b9a86a;background:#fbf6e6;border-radius:14px;padding:22px 16px;text-align:center;cursor:pointer"><div style="width:34px;height:34px;border-radius:10px;background:#F4C518;margin:0 auto 10px"></div><div style="font-weight:700;font-size:13px">Kehadiran</div><div style="font-size:11px;color:#8a9488">Daftar hadir, peserta</div></div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+        <button style="background:#57C64A;color:#17241A;font-weight:800;font-size:15px;border:2px solid #17241A;border-radius:100px;padding:12px 26px;cursor:pointer">Simpan draf</button>
+        <span style="font-size:13px;color:#8a9488">Tersimpan sebagai draf — dipetakan ke framework &amp; masuk skor kesiapan. Label batas klaim menyertai tiap bukti.</span>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ===== C4 KELOLA PROGRAM (after-care) ===== -->
+    <sc-if value="{{ isProgram }}" hint-placeholder-val="{{ false }}">
+    <div class="fade" style="display:grid;grid-template-columns:1.5fr 1fr;gap:18px;align-items:start">
+      <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:26px 28px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:6px">
+          <h3 style="font-family:Fraunces;font-weight:600;font-size:24px;margin:0;line-height:1.15">{{ activeP.title }}</h3>
+          <span style="flex:none;font-size:12px;font-weight:700;color:#a12772;background:#fbe8f3;border-radius:100px;padding:5px 12px">{{ activeP.status }}</span>
+        </div>
+        <div style="font-size:13px;color:#8a9488;margin-bottom:16px">Penanggung jawab: {{ activeP.owner }} · {{ activeP.participants }} peserta</div>
+        <div style="display:flex;gap:7px;flex-wrap:wrap;margin-bottom:20px">
+          <sc-for list="{{ apTags }}" as="tg" hint-placeholder-count="3"><span style="background:#fbe8f3;color:#a12772;border-radius:100px;padding:5px 12px;font-weight:700;font-size:12px">{{ tg }}</span></sc-for>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px"><span style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.08em;text-transform:uppercase;color:#8a9488">Progres milestone</span><span class="tn" style="font-weight:700;font-size:13px">{{ apDoneN }} / {{ apTotalN }}</span></div>
+        <div style="height:8px;background:#f0ebdd;border-radius:100px;overflow:hidden;margin-bottom:24px"><div style="height:100%;background:#57C64A;border-radius:100px;width:{{ apProg }}"></div></div>
+        <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.08em;text-transform:uppercase;color:#8a9488;margin-bottom:12px">Task &amp; penanggung jawab</div>
+        <div style="display:flex;flex-direction:column;gap:9px">
+          <sc-for list="{{ apTasks }}" as="tk" hint-placeholder-count="4">
+            <div style="display:flex;align-items:center;gap:12px;background:#F3EFE3;border-radius:12px;padding:12px 15px">
+              <button onClick="{{ tk.toggle }}" style="width:22px;height:22px;flex:none;border-radius:7px;border:2px solid #17241A;background:{{ tk.mark }};color:#17241A;font-weight:800;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center">{{ tk.check }}</button>
+              <div style="flex:1;min-width:0">
+                <div style="font-weight:600;font-size:14px;text-decoration:{{ tk.titleStyle }};color:{{ tk.titleColor }}">{{ tk.title }}</div>
+                <div style="font-size:12px;color:#8a9488">{{ tk.owner }} · {{ tk.due }}</div>
+              </div>
+              <span style="flex:none;font-size:12px;font-weight:700;color:{{ tk.statusColor }}">{{ tk.statusLabel }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="margin-top:16px;font-size:11px;color:#b9a86a;font-style:italic">Digital = koordinasi. Eksekusi fisik oleh tim &amp; komunitas lapangan.</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488">Program after-care</div>
+        <sc-for list="{{ progList }}" as="pr" hint-placeholder-count="3">
+          <button onClick="{{ pr.select }}" style="text-align:left;background:{{ pr.bg }};border:2px solid {{ pr.bd }};border-radius:14px;padding:15px 17px;cursor:pointer">
+            <div style="font-weight:700;font-size:14px;margin-bottom:9px">{{ pr.title }}</div>
+            <div style="height:6px;background:#f0ebdd;border-radius:100px;overflow:hidden;margin-bottom:9px"><div style="height:100%;background:#57C64A;width:{{ pr.prog }}"></div></div>
+            <div style="display:flex;justify-content:space-between;font-size:12px;color:#8a9488"><span class="tn">{{ pr.doneN }}/{{ pr.totalN }} task</span><span class="tn">{{ pr.participants }} peserta</span></div>
+          </button>
+        </sc-for>
+        <button onClick="{{ createProgram }}" style="background:#fff;border:2px dashed #b9a86a;color:#8a9488;font-weight:700;font-size:13px;border-radius:14px;padding:13px;cursor:pointer" style-hover="background:#F3EFE3;border-color:#17241A;color:#17241A">+ Buat program</button>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ===== C3 EVIDENCE LIBRARY ===== -->
+    <sc-if value="{{ isEvidence }}" hint-placeholder-val="{{ false }}">
+    <div class="fade">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:20px;flex-wrap:wrap">
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <sc-for list="{{ evFilters }}" as="f" hint-placeholder-count="4"><button onClick="{{ f.set }}" style="background:{{ f.bg }};color:{{ f.fg }};border:1.5px solid {{ f.bd }};border-radius:100px;padding:8px 16px;font-weight:600;font-size:13px;cursor:pointer">{{ f.label }}</button></sc-for>
+        </div>
+        <button onClick="{{ addEvidence }}" style="background:#F4C518;color:#17241A;border:2px solid #17241A;border-radius:100px;padding:9px 18px;font-weight:800;font-size:13px;cursor:pointer">↑ Unggah bukti</button>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px">
+        <sc-for list="{{ evList }}" as="e" hint-placeholder-count="6">
+          <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:16px;overflow:hidden">
+            <div style="height:104px;background:{{ e.thumbBg }};display:flex;align-items:flex-end;padding:12px"><span style="font:600 10px/1 ui-monospace,Menlo,monospace;color:#fff;background:rgba(23,36,26,.4);padding:4px 8px;border-radius:6px">{{ e.typeLabel }}</span></div>
+            <div style="padding:15px 17px">
+              <div style="font-weight:700;font-size:14px;line-height:1.25;margin-bottom:4px">{{ e.title }}</div>
+              <div style="font-size:12px;color:#8a9488;margin-bottom:12px">{{ e.note }} · {{ e.date }}</div>
+              <span style="{{ e.chipStyle }}">{{ e.chipCheck }}{{ e.claim }}</span>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="margin-top:16px;font-size:12px;color:#b9a86a;font-style:italic">Setiap bukti membawa label batas klaim · verifikasi resmi = lembaga terakreditasi.</div>
+    </div>
+    </sc-if>
+
+    <!-- ===== C6 LAPORAN KEBERLANJUTAN ===== -->
+    <sc-if value="{{ isSustain }}" hint-placeholder-val="{{ false }}">
+    <div class="fade" style="max-width:760px;margin:0 auto">
+      <sc-if value="{{ sustIdle }}" hint-placeholder-val="{{ true }}">
+      <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:20px;padding:40px 44px;text-align:center">
+        <div style="width:56px;height:56px;border-radius:16px;background:#E24FA0;border:2px solid #17241A;margin:0 auto 22px"></div>
+        <h3 style="font-family:Fraunces;font-weight:600;font-size:26px;margin:0 0 8px">Draft laporan keberlanjutan</h3>
+        <p style="font-size:14px;color:#8a9488;line-height:1.55;max-width:46ch;margin:0 auto 24px">Menggabungkan karbon (Scope 1/2/3), program after-care, dan dampak manusia jadi satu draft selaras GRI &amp; TJSL (UU PT 40/2007). Bukan laporan resmi terverifikasi.</p>
+        <button onClick="{{ genSustain }}" style="background:#17241A;color:#F3EFE3;font-weight:800;font-size:16px;border:none;border-radius:100px;padding:15px 34px;cursor:pointer">Generate draft</button>
+      </div>
+      </sc-if>
+      <sc-if value="{{ sustGen }}" hint-placeholder-val="{{ false }}">
+      <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:20px;padding:60px 44px;text-align:center"><div style="font-weight:700;font-size:17px;animation:ocrpulse 1.1s infinite">Menggabungkan karbon + program + dampak…</div></div>
+      </sc-if>
+      <sc-if value="{{ sustDone }}" hint-placeholder-val="{{ false }}">
+      <div class="fade" style="background:#fff;border:2px solid #17241A;border-radius:20px;overflow:hidden">
+        <div style="background:#E24FA0;color:#fff;padding:24px 30px;display:flex;justify-content:space-between;align-items:flex-start">
+          <div><div style="font-family:Fraunces;font-weight:600;font-size:24px">Laporan Keberlanjutan {{ period }}</div><div style="font-size:13px;color:#ffe0f1;margin-top:3px">{{ orgName }} · draft GRI + TJSL</div></div>
+          <span style="flex:none;font-size:12px;font-weight:700;color:#a12772;background:#fff;border-radius:100px;padding:6px 13px">Data organisasi</span>
+        </div>
+        <div style="padding:24px 30px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:14px;background:#F3EFE3;border-radius:14px;padding:16px 18px">
+            <span style="width:12px;height:44px;border-radius:100px;background:#F4C518;flex:none"></span>
+            <div style="flex:1"><div style="font-weight:700;font-size:15px">Emisi karbon</div><div style="font-size:12px;color:#8a9488">Scope 1/2/3 · GHG Protocol / ISO 14064</div></div>
+            <span class="tn" style="font-family:Fraunces;font-weight:600;font-size:22px">{{ totalF }} <span style="font-size:12px;color:#8a9488;font-family:'Plus Jakarta Sans'">tCO₂e</span></span>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;background:#F3EFE3;border-radius:14px;padding:16px 18px">
+            <span style="width:12px;height:44px;border-radius:100px;background:#57C64A;flex:none"></span>
+            <div style="flex:1"><div style="font-weight:700;font-size:15px">Program &amp; after-care</div><div style="font-size:12px;color:#8a9488">GRI · TJSL · PROPER</div></div>
+            <span class="tn" style="font-family:Fraunces;font-weight:600;font-size:22px">12 <span style="font-size:12px;color:#8a9488;font-family:'Plus Jakarta Sans'">aktif</span></span>
+          </div>
+          <div style="display:flex;align-items:center;gap:14px;background:#F3EFE3;border-radius:14px;padding:16px 18px">
+            <span style="width:12px;height:44px;border-radius:100px;background:#E24FA0;flex:none"></span>
+            <div style="flex:1"><div style="font-weight:700;font-size:15px">Dampak manusia</div><div style="font-size:12px;color:#8a9488">Kerja · perempuan · akses energi</div></div>
+            <span class="tn" style="font-family:Fraunces;font-weight:600;font-size:22px">247 <span style="font-size:12px;color:#8a9488;font-family:'Plus Jakarta Sans'">kerja</span></span>
+          </div>
+          <div style="margin-top:8px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+            <button style="background:#F4C518;color:#17241A;font-weight:800;font-size:14px;border:2px solid #17241A;border-radius:100px;padding:11px 22px;cursor:pointer">Export PDF</button>
+            <button style="background:#fff;border:2px solid #17241A;color:#17241A;font-weight:700;font-size:14px;border-radius:100px;padding:11px 22px;cursor:pointer">Format GRI</button>
+            <span style="font-size:11px;color:#b9a86a;font-style:italic;margin-left:auto">Draft · belum diverifikasi eksternal</span>
+          </div>
+        </div>
+      </div>
+      </sc-if>
+    </div>
+    </sc-if>
+
+    <!-- ===== AFTER-CARE HUB ===== -->
+    <sc-if value="{{ isAfterhub }}" hint-placeholder-val="{{ false }}">
+    <div class="fade" style="max-width:1040px">
+      <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:26px 30px;margin-bottom:18px">
+        <div style="display:inline-flex;align-items:center;gap:8px;background:#fbe9f4;border:1.5px solid #f3c6e2;color:#b02f7f;font:700 11px/1 'Plus Jakarta Sans';letter-spacing:.04em;text-transform:uppercase;padding:6px 11px;border-radius:100px;margin-bottom:14px">After-Care</div>
+        <p style="font-family:Fraunces;font-weight:500;font-size:21px;line-height:1.45;color:#17241A;margin:0;max-width:70ch">{{ ac.hubIntro }}</p>
+      </div>
+      <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:24px 28px;margin-bottom:18px">
+        <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.06em;text-transform:uppercase;color:#8a9488;margin-bottom:18px">{{ ac.engineTitle }}</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:stretch">
+          <sc-for list="{{ acStages }}" as="s" hint-placeholder-count="5">
+            <div style="flex:1;min-width:148px;background:{{ s.bg }};border:1.5px solid {{ s.bd }};border-radius:14px;padding:14px 16px">
+              <div style="font-family:Fraunces;font-weight:600;font-size:17px;color:#17241A">{{ s.n }}</div>
+              <div style="font-size:12.5px;color:#5b6a5c;margin-top:4px;line-height:1.4">{{ s.d }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.06em;text-transform:uppercase;color:#8a9488;margin:0 0 12px 4px">{{ ac.catalogTitle }}</div>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:22px">
+        <sc-for list="{{ acPrograms }}" as="p" hint-placeholder-count="4">
+          <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:16px;padding:20px 22px;position:relative">
+            <sc-if value="{{ p.star }}" hint-placeholder-val="{{ false }}"><span style="position:absolute;top:16px;right:16px;font-size:15px;color:#E24FA0">★</span></sc-if>
+            <div style="font-size:11px;color:#b02f7f;font-weight:700;letter-spacing:.03em;text-transform:uppercase">{{ p.cat }}</div>
+            <div style="font-family:Fraunces;font-weight:600;font-size:19px;color:#17241A;margin:5px 0 3px;line-height:1.2">{{ p.name }}</div>
+            <sc-if value="{{ p.lead }}" hint-placeholder-val="{{ false }}"><div style="font-size:12px;color:#E24FA0;font-weight:700;margin-bottom:2px">{{ p.lead }}</div></sc-if>
+            <div style="display:flex;gap:18px;margin-top:14px;flex-wrap:wrap">
+              <div><div style="font-size:10.5px;color:#8a9488;text-transform:uppercase;letter-spacing:.04em;font-weight:700">{{ ac.carbonL }}</div><div style="font-size:13px;color:#17241A;font-weight:600;margin-top:2px">{{ p.carbon }}</div></div>
+              <div><div style="font-size:10.5px;color:#8a9488;text-transform:uppercase;letter-spacing:.04em;font-weight:700">{{ ac.humanL }}</div><div style="font-size:13px;color:#17241A;font-weight:600;margin-top:2px">{{ p.human }}</div></div>
+              <div><div style="font-size:10.5px;color:#8a9488;text-transform:uppercase;letter-spacing:.04em;font-weight:700">{{ ac.durL }}</div><div style="font-size:13px;color:#17241A;font-weight:600;margin-top:2px">{{ p.dur }}</div></div>
+            </div>
+            <div style="margin-top:14px"><span style="display:inline-flex;align-items:center;font:700 11px/1 'Plus Jakarta Sans';padding:5px 10px;border-radius:100px;background:{{ p.c.bg }};color:{{ p.c.color }};border:{{ p.c.bd }}">{{ p.c.ck }}{{ p.vTxt }}</span></div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="background:#17241A;border-radius:18px;padding:24px 28px;color:#fff">
+        <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.06em;text-transform:uppercase;color:#9fb0a0;margin-bottom:4px">{{ ac.moatTitle }}</div>
+        <div style="font-size:13px;color:#c8d3c6;margin-bottom:18px;max-width:64ch;line-height:1.55">{{ ac.moatNote }}</div>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+          <sc-for list="{{ acMoat }}" as="m" hint-placeholder-count="4">
+            <div><div style="font-family:Fraunces;font-weight:600;font-size:30px;color:#57C64A;line-height:1">{{ m.v }}</div><div style="font-size:12px;color:#c8d3c6;margin-top:6px;line-height:1.35">{{ m.l }}</div></div>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ===== FASILITATOR & KREDENSIAL ===== -->
+    <sc-if value="{{ isFasilitator }}" hint-placeholder-val="{{ false }}">
+    <div class="fade" style="max-width:1000px;display:grid;grid-template-columns:1.15fr 1fr;gap:18px;align-items:start">
+      <div style="background:#E24FA0;border:2px solid #17241A;border-radius:20px;padding:28px 30px;color:#fff">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px">
+          <div>
+            <div style="font-family:Fraunces;font-weight:600;font-size:26px;line-height:1.1">{{ ac.facName }}</div>
+            <div style="font-size:13px;opacity:.9;margin-top:3px">{{ ac.facRegion }}</div>
+          </div>
+          <span style="flex:none;display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.5);border-radius:100px;padding:5px 11px;font:700 11px/1 'Plus Jakarta Sans'">✓ {{ ac.facVerified }}</span>
+        </div>
+        <div style="margin-top:22px;background:rgba(23,36,26,.28);border-radius:14px;padding:16px 18px">
+          <div style="font-size:12px;opacity:.85;text-transform:uppercase;letter-spacing:.05em;font-weight:700">Level</div>
+          <div style="font-family:Fraunces;font-weight:600;font-size:22px;margin:2px 0 12px">{{ ac.facLevel }}</div>
+          <div style="height:8px;background:rgba(255,255,255,.25);border-radius:100px;overflow:hidden"><div style="width:64%;height:100%;background:#F4C518"></div></div>
+          <div style="font-size:12px;opacity:.9;margin-top:8px">{{ ac.facNext }}</div>
+        </div>
+        <div style="font-size:12.5px;opacity:.92;margin-top:16px;line-height:1.55">{{ ac.facNote }}</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:16px;padding:20px 22px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <div><div style="font-family:Fraunces;font-weight:600;font-size:26px;color:#17241A;line-height:1">4</div><div style="font-size:12px;color:#8a9488;margin-top:3px">{{ ac.statPrograms }}</div></div>
+            <div><div style="font-family:Fraunces;font-weight:600;font-size:26px;color:#17241A;line-height:1">128</div><div style="font-size:12px;color:#8a9488;margin-top:3px">{{ ac.statHouse }}</div></div>
+            <div><div style="font-family:Fraunces;font-weight:600;font-size:26px;color:#17241A;line-height:1">210</div><div style="font-size:12px;color:#8a9488;margin-top:3px">{{ ac.statPeople }}</div></div>
+            <div><div style="font-family:Fraunces;font-weight:600;font-size:24px;color:#17241A;line-height:1">Rp 14,2jt</div><div style="font-size:12px;color:#8a9488;margin-top:3px">{{ ac.statEarn }}</div></div>
+          </div>
+        </div>
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:16px;padding:20px 22px">
+          <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.05em;text-transform:uppercase;color:#8a9488;margin-bottom:12px">{{ ac.facRecord }}</div>
+          <sc-for list="{{ acTimeline }}" as="r" hint-placeholder-count="2">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #f0ead9">
+              <div><div style="font-size:14px;font-weight:600;color:#17241A">{{ r.t }}</div><div style="font-size:12px;color:#8a9488;margin-top:1px">{{ r.d }}</div></div>
+              <span style="flex:none;font:700 11px/1 'Plus Jakarta Sans';padding:5px 10px;border-radius:100px;background:{{ r.c.bg }};color:{{ r.c.color }};border:{{ r.c.bd }}">{{ r.c.ck }}{{ r.vTxt }}</span>
+            </div>
+          </sc-for>
+          <div style="font-size:12px;color:#5b6a5c;margin-top:12px;background:#F3EFE3;border-radius:10px;padding:9px 12px;line-height:1.4">{{ ac.facLoop }}</div>
+        </div>
+        <div style="background:#fbe9f4;border:1.5px solid #f3c6e2;border-radius:16px;padding:16px 18px">
+          <sc-if value="{{ afterNudgeIdle }}" hint-placeholder-val="{{ true }}">
+            <button onClick="{{ nudgeNext }}" style="width:100%;border:none;background:#E24FA0;color:#fff;font:600 14px 'Plus Jakarta Sans';padding:12px;border-radius:10px;cursor:pointer">{{ ac.nudge }}</button>
+          </sc-if>
+          <sc-if value="{{ afterNudge }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;align-items:center;gap:9px;color:#b02f7f;font-weight:600;font-size:13.5px;line-height:1.4">✓ {{ ac.nudgeDone }}</div>
+          </sc-if>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ===== PESERTA & HEMAT ===== -->
+    <sc-if value="{{ isPeserta }}" hint-placeholder-val="{{ false }}">
+    <div class="fade" style="max-width:1000px;display:grid;grid-template-columns:1fr 1fr;gap:18px;align-items:start">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:16px;padding:22px 24px">
+          <div style="font-family:Fraunces;font-weight:600;font-size:22px;color:#17241A">{{ ac.partName }}</div>
+          <div style="font-size:13px;color:#8a9488;margin-top:3px">{{ ac.partComm }} · {{ ac.partVia }}</div>
+        </div>
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:16px;padding:20px 22px">
+          <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.05em;text-transform:uppercase;color:#8a9488;margin-bottom:12px">{{ ac.sessTitle }}</div>
+          <sc-for list="{{ acSessions }}" as="s" hint-placeholder-count="3">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f0ead9">
+              <div style="font-size:14px;color:#17241A">{{ s.t }}</div>
+              <span style="flex:none;font-size:12px;font-weight:600;color:{{ s.color }}">{{ s.s }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:16px;padding:20px 22px">
+          <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.05em;text-transform:uppercase;color:#8a9488;margin-bottom:6px">{{ ac.actionTitle }}</div>
+          <div style="font-size:13px;color:#5b6a5c;line-height:1.5;margin-bottom:12px">{{ ac.actionDesc }}</div>
+          <button style="border:1.5px dashed #c9bfa2;background:#fbf9f3;color:#5b6a5c;font:600 13px 'Plus Jakarta Sans';padding:12px 16px;border-radius:10px;cursor:pointer;width:100%">⬆ {{ ac.uploadBtn }}</button>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="background:#57C64A;border:2px solid #17241A;border-radius:20px;padding:26px 28px;color:#17241A">
+          <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.05em;text-transform:uppercase;opacity:.75">{{ ac.savingTitle }}</div>
+          <div style="font-family:Fraunces;font-weight:600;font-size:40px;line-height:1;margin:8px 0 2px">Rp 86.400</div>
+          <div style="font-size:14px;font-weight:600">−128 kWh · {{ period }}</div>
+          <span style="display:inline-flex;margin-top:14px;align-items:center;font:700 11px/1 'Plus Jakarta Sans';padding:5px 10px;border-radius:100px;background:rgba(23,36,26,.14);color:#17241A;border:1.5px solid rgba(23,36,26,.3)">{{ ac.orgDataLabel }}</span>
+          <div style="font-size:12px;margin-top:12px;opacity:.85;line-height:1.5">{{ ac.savingNote }}</div>
+        </div>
+        <div style="background:#17241A;border-radius:18px;padding:24px 26px;color:#fff">
+          <div style="font-family:Fraunces;font-weight:600;font-size:20px">{{ ac.ladderTitle }}</div>
+          <div style="font-size:13.5px;color:#c8d3c6;line-height:1.55;margin:8px 0 16px">{{ ac.ladderDesc }}</div>
+          <button onClick="{{ goFasilitator }}" style="border:none;background:#E24FA0;color:#fff;font:600 14px 'Plus Jakarta Sans';padding:12px 18px;border-radius:10px;cursor:pointer">{{ ac.ladderBtn }} →</button>
+          <div style="font-size:12px;color:#9fb0a0;margin-top:14px;background:rgba(255,255,255,.06);border-radius:10px;padding:9px 12px">{{ ac.loopP }}</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ===== COMING SOON ===== -->
+    <sc-if value="{{ isSoon }}" hint-placeholder-val="{{ false }}">
+    <div class="fade" style="max-width:1000px">
+      <div style="display:flex;gap:12px;align-items:center;background:#fdf9e0;border:1.5px solid #ecdf9b;border-radius:14px;padding:14px 18px;margin-bottom:20px">
+        <span style="flex:none;font:700 11px/1 'Plus Jakarta Sans';letter-spacing:.08em;text-transform:uppercase;color:#17241A;background:#F4C518;border-radius:100px;padding:6px 11px">Fase 3–4 · pratinjau</span>
+        <span style="font-size:13px;line-height:1.5;color:#7a6a12">{{ tx.dMonitor }}</span>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px">
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:16px;padding:20px 22px"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:34px;line-height:1">41</div><div style="font-size:12px;color:#8a9488;margin-top:4px">program terdaftar</div></div>
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:16px;padding:20px 22px"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:34px;line-height:1">12</div><div style="font-size:12px;color:#8a9488;margin-top:4px">daerah tercakup</div></div>
+        <div style="background:#17241A;color:#F3EFE3;border-radius:16px;padding:20px 22px"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:34px;line-height:1;color:#fff">214k</div><div style="font-size:12px;color:#c3ccbd;margin-top:4px">tCO₂e teragregat</div></div>
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:16px;padding:20px 22px"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:34px;line-height:1">28</div><div style="font-size:12px;color:#8a9488;margin-top:4px">siap ke SRN-PPI</div></div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1.35fr 1fr;gap:16px;align-items:start;margin-bottom:16px">
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;overflow:hidden">
+          <div style="padding:18px 24px 12px;font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488">Registry program</div>
+          <div style="display:flex;font:700 11px/1 'Plus Jakarta Sans';letter-spacing:.06em;text-transform:uppercase;color:#8a9488;padding:10px 24px;border-top:1px solid #f0ebdd;border-bottom:1px solid #f0ebdd"><span style="flex:2">Program</span><span style="flex:1.4">Pemilik</span><span style="flex:1;text-align:right">Status</span></div>
+          <div style="display:flex;align-items:center;padding:13px 24px;border-bottom:1px solid #f0ebdd;font-size:13.5px"><span style="flex:2;font-weight:600">Restorasi mangrove pesisir</span><span style="flex:1.4;color:#8a9488">Koperasi Hijau</span><span style="flex:1;text-align:right"><span style="font-size:11px;font-weight:700;color:#1e6b34;background:#dcf3d6;border-radius:100px;padding:3px 9px">Termonitor</span></span></div>
+          <div style="display:flex;align-items:center;padding:13px 24px;border-bottom:1px solid #f0ebdd;font-size:13.5px"><span style="flex:2;font-weight:600">Reforestasi lahan gambut</span><span style="flex:1.4;color:#8a9488">Pemprov Riau</span><span style="flex:1;text-align:right"><span style="font-size:11px;font-weight:700;color:#8a4a12;background:#fdf0e6;border-radius:100px;padding:3px 9px">Baru</span></span></div>
+          <div style="display:flex;align-items:center;padding:13px 24px;font-size:13.5px"><span style="flex:2;font-weight:600">Surya atap komunitas</span><span style="flex:1.4;color:#8a9488">Koperasi Surya</span><span style="flex:1;text-align:right"><span style="font-size:11px;font-weight:700;color:#1e6b34;background:#dcf3d6;border-radius:100px;padding:3px 9px">Termonitor</span></span></div>
+        </div>
+        <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:22px 24px">
+          <div style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.1em;text-transform:uppercase;color:#8a9488;margin-bottom:16px">Exposure internasional</div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;justify-content:space-between;align-items:center"><div><div style="font-weight:700;font-size:14px">Paris Agreement Pasal 6</div><div style="font-size:12px;color:#8a9488">Kerja sama mitigasi lintas negara</div></div><span style="flex:none;font-size:11px;font-weight:700;color:#8a9488;border:1.5px solid #e6e0d0;border-radius:100px;padding:4px 10px">Menyusul</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid #f0ebdd;padding-top:12px"><div><div style="font-weight:700;font-size:14px">MRA · Verra · Gold Standard · JCM</div><div style="font-size:12px;color:#8a9488">Saling pengakuan standar</div></div><span style="flex:none;font-size:11px;font-weight:700;color:#8a9488;border:1.5px solid #e6e0d0;border-radius:100px;padding:4px 10px">Menyusul</span></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;border-top:1px solid #f0ebdd;padding-top:12px"><div><div style="font-weight:700;font-size:14px">Dashboard donor internasional</div><div style="font-size:12px;color:#8a9488">Metrik dampak untuk lembaga</div></div><span style="flex:none;font-size:11px;font-weight:700;color:#a12772;background:#fbe8f3;border-radius:100px;padding:4px 10px">Pratinjau</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:20px 26px;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap">
+        <div><div style="font-weight:700;font-size:15px">Export ke format SRN-PPI</div><div style="font-size:12px;color:#8a9488">Paket pelaporan aksi mitigasi — siap diunggah ke registri resmi oleh organisasi.</div></div>
+        <button style="flex:none;background:#F4C518;color:#17241A;font-weight:800;font-size:14px;border:2px solid #17241A;border-radius:100px;padding:11px 22px;cursor:pointer">Siapkan export</button>
+      </div>
+      <div style="margin-top:14px;font-size:11px;color:#b9a86a;font-style:italic">DecarbonHub = feeder/koordinator. Registri resmi tetap SRN-PPI (KLH) / SRUK (OJK); DecarbonHub tidak menggantikannya.</div>
+    </div>
+    </sc-if>
+
+    </div>
+  </main>
+</div>
+</sc-if>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:860},&quot;sidebar&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Terang&quot;,&quot;Gelap&quot;],&quot;default&quot;:&quot;Terang&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;App shell&quot;},&quot;scopeChart&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Bar&quot;,&quot;Donut&quot;],&quot;default&quot;:&quot;Bar&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Dashboard&quot;},&quot;dashLayout&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Bento&quot;,&quot;Kolom&quot;],&quot;default&quot;:&quot;Bento&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Dashboard&quot;},&quot;showEnglish&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Umum&quot;}}">
+class Component extends DCLogic {
+  state = {
+    screen: 'onboarding',
+    role: 'manajer',
+    afterNudge: false,
+    lang: 'ID',
+    onbStep: 1,
+    org: { name: '', type: '', sector: '', size: '', goals: [] },
+    energyStage: 'idle',
+    draft: { kwh: '', cost: '', period: '' },
+    energyRecords: [{ period: '2025 Q1', kwh: 650000, cost: 812500000 }],
+    scope1: 398, scope3: 321,
+    activityAdded: false,
+    target: null,
+    reportStage: 'idle',
+    comm: { role: 'individu', step: 'form', name: '', province: '', interest: '' },
+    programs: [
+      { id: 'p1', title: 'Restorasi mangrove pesisir', status: 'Berjalan', owner: 'Tim Lapangan A', tags: ['GRI 304', 'TJSL', 'PROPER'], participants: 64, tasks: [
+        { id: 't1', title: 'Pemetaan lahan & baseline', owner: 'Sari W.', due: 'Feb 2026', done: true },
+        { id: 't2', title: 'Pengadaan bibit (12.000)', owner: 'Budi P.', due: 'Mar 2026', done: true },
+        { id: 't3', title: 'Penanaman fase 1', owner: 'Komunitas Bahari', due: 'Apr 2026', done: false },
+        { id: 't4', title: 'Survey dampak partisipan', owner: 'Tim M&E', due: 'Jun 2026', done: false },
+      ] },
+      { id: 'p2', title: 'Efisiensi energi UMKM binaan', status: 'Berjalan', owner: 'Tim Energi', tags: ['GRI 302', 'ISO 50001'], participants: 38, tasks: [
+        { id: 't1', title: 'Audit energi 20 UMKM', owner: 'Rina K.', due: 'Jan 2026', done: true },
+        { id: 't2', title: 'Pemasangan LED & inverter', owner: 'Mitra Teknik', due: 'Mar 2026', done: false },
+        { id: 't3', title: 'Pelatihan hemat energi', owner: 'Tim Energi', due: 'Apr 2026', done: false },
+      ] },
+      { id: 'p3', title: 'Wirausaha hijau perempuan', status: 'Perencanaan', owner: 'Tim Sosial', tags: ['GRI 405', 'TJSL'], participants: 52, tasks: [
+        { id: 't1', title: 'Rekrutmen peserta', owner: 'Dewi A.', due: 'Mei 2026', done: false },
+        { id: 't2', title: 'Kurikulum & modul', owner: 'Tim Sosial', due: 'Jun 2026', done: false },
+      ] },
+    ],
+    activeProgram: 'p1',
+    evidence: [
+      { id: 'e1', type: 'dokumen', title: 'Tagihan listrik Q1 2025', note: 'Sumber Scope 2', claim: 'Data organisasi', date: 'Apr 2025', img: 'assets/art-borobudur.png' },
+      { id: 'e2', type: 'foto', title: 'Penanaman mangrove batch 1', note: 'Geotag pesisir utara', claim: 'Data organisasi', date: 'Mar 2026', img: 'assets/art-turtle.png' },
+      { id: 'e3', type: 'kehadiran', title: 'Daftar hadir pelatihan', note: '52 peserta perempuan', claim: 'Data organisasi', date: 'Feb 2026', img: 'assets/riso-community.png' },
+      { id: 'e4', type: 'dokumen', title: 'Perhitungan Scope 1 armada', note: 'Metode GHG Protocol', claim: 'Siap-audit', date: 'Mei 2025', img: 'assets/art-nusantara.png' },
+      { id: 'e5', type: 'dokumen', title: 'Laporan tinjauan internal', note: 'Ditinjau tim M&E', claim: 'Terverifikasi', date: 'Jun 2025', img: 'assets/riso-archipelago.png' },
+      { id: 'e6', type: 'foto', title: 'Instalasi panel surya UMKM', note: 'Estimasi kapasitas', claim: 'Estimasi', date: 'Jan 2026', img: 'assets/art-sawah.png' },
+    ],
+    evFilter: 'Semua',
+    sustainStage: 'idle',
+    tenantSel: null,
+  };
+  factor = 0.00087; // tCO2e per kWh
+
+  componentDidMount() {
+    try {
+      const p = new URLSearchParams(location.search);
+      const r = (p.get('role') || '').toLowerCase();
+      const map = { staff: 'staff', staf: 'staff', manajer: 'manajer', manager: 'manajer', eksekutif: 'eksekutif', exec: 'eksekutif', executive: 'eksekutif', auditor: 'auditor', pemerintah: 'pemerintah', gov: 'pemerintah', donor: 'pemerintah', ops: 'ops', admin: 'ops' };
+      if (map[r]) this.setState({ role: map[r], screen: 'home' });
+      const l = (p.get('lang') || '').toUpperCase();
+      if (l === 'EN' || l === 'ID') this.setState({ lang: l });
+    } catch (e) {}
+  }
+  setRoleView = (r) => this.setState({ role: r, screen: r === 'fasilitator' ? 'fasilitator' : r === 'peserta' ? 'peserta' : 'home' });
+  setRoleFromEvent = (e) => this.setRoleView(e.target.value);
+  toggleLang = () => this.setState({ lang: this.state.lang === 'ID' ? 'EN' : 'ID' });
+
+  fmt = (n) => Math.round(n).toLocaleString('id-ID');
+
+  // ---- nav ----
+  go = (s) => this.setState({ screen: s });
+  goFasilitator = () => this.go('fasilitator');
+  nudgeNext = () => this.setState({ afterNudge: true });
+  goDash = () => this.go('dashboard');
+  goEnergi = () => this.go('energi');
+  goAktivitas = () => this.go('aktivitas');
+  goTenant = () => this.go('tenant');
+  goVerif = () => this.go('verifqueue');
+  goConfig = () => this.go('config');
+  goSupport = () => this.go('support');
+  openTenant = (id) => this.setState({ tenantSel: id });
+  closeTenant = () => this.setState({ tenantSel: null });
+  goRencana = () => this.go('rencana');
+  goFramework = () => this.go('framework');
+  goLaporan = () => this.go('laporan');
+  goTracking = () => this.go('tracking');
+  goDampak = () => this.go('dampak');
+
+  // ---- onboarding ----
+  setName = (e) => this.setState({ org: { ...this.state.org, name: e.target.value } });
+  setSector = (e) => this.setState({ org: { ...this.state.org, sector: e.target.value } });
+  pickType = (t) => this.setState({ org: { ...this.state.org, type: t } });
+  pickSize = (s) => this.setState({ org: { ...this.state.org, size: s } });
+  toggleGoal = (g) => {
+    const gs = this.state.org.goals.includes(g) ? this.state.org.goals.filter(x => x !== g) : [...this.state.org.goals, g];
+    this.setState({ org: { ...this.state.org, goals: gs } });
+  };
+  onbNext = () => this.setState({ onbStep: 2 });
+  onbBack = () => this.setState({ onbStep: 1 });
+  finishOnb = () => this.setState({ screen: 'dashboard' });
+  skipOnb = () => this.setState({ screen: 'dashboard' });
+
+  // ---- energy OCR ----
+  startOcr = () => {
+    this.setState({ energyStage: 'reading' });
+    setTimeout(() => this.setState({ energyStage: 'review', draft: { kwh: '48200', cost: '61500000', period: '2025 Q2' } }), 1400);
+  };
+  manualEntry = () => this.setState({ energyStage: 'review', draft: { kwh: '', cost: '', period: '' } });
+  setKwh = (e) => this.setState({ draft: { ...this.state.draft, kwh: e.target.value } });
+  setCost = (e) => this.setState({ draft: { ...this.state.draft, cost: e.target.value } });
+  setPeriod = (e) => this.setState({ draft: { ...this.state.draft, period: e.target.value } });
+  cancelOcr = () => this.setState({ energyStage: 'idle' });
+  saveEnergy = () => {
+    const d = this.state.draft;
+    const rec = { period: d.period || 'Periode baru', kwh: parseFloat(String(d.kwh).replace(/\./g, '')) || 0, cost: parseFloat(String(d.cost).replace(/\./g, '')) || 0 };
+    this.setState({ energyRecords: [rec, ...this.state.energyRecords], energyStage: 'idle', draft: { kwh: '', cost: '', period: '' } });
+  };
+
+  // ---- activity ----
+  addActivity = () => this.setState({ activityAdded: true, scope1: this.state.scope1 + 46 });
+
+  // ---- reduction target ----
+  pickTarget = (p) => this.setState({ target: p });
+
+  // ---- report ----
+  genReport = () => {
+    this.setState({ reportStage: 'generating' });
+    setTimeout(() => this.setState({ reportStage: 'done' }), 1300);
+  };
+
+  // ---- community ----
+  setRole = (r) => this.setState({ comm: { ...this.state.comm, role: r } });
+  setCommName = (e) => this.setState({ comm: { ...this.state.comm, name: e.target.value } });
+  setProvince = (e) => this.setState({ comm: { ...this.state.comm, province: e.target.value } });
+  setInterest = (e) => this.setState({ comm: { ...this.state.comm, interest: e.target.value } });
+  submitComm = () => this.setState({ comm: { ...this.state.comm, step: 'done' } });
+  resetComm = () => this.setState({ comm: { role: 'individu', step: 'form', name: '', province: '', interest: '' } });
+
+  // ---- modul C ----
+  selectProgram = (id) => this.setState({ activeProgram: id });
+  toggleTask = (pid, tid) => this.setState({ programs: this.state.programs.map(p => p.id !== pid ? p : { ...p, tasks: p.tasks.map(t => t.id !== tid ? t : { ...t, done: !t.done }) }) });
+  setEvFilter = (f) => this.setState({ evFilter: f });
+  addEvidence = () => this.setState({ evidence: [{ id: 'e' + Date.now(), type: 'dokumen', title: 'Bukti baru diunggah', note: 'Menunggu peninjauan', claim: 'Data organisasi', date: 'Jul 2026' }, ...this.state.evidence] });
+  genSustain = () => { this.setState({ sustainStage: 'generating' }); setTimeout(() => this.setState({ sustainStage: 'done' }), 1300); };
+  createProgram = () => { const id = 'p' + Date.now(); this.setState({ programs: [...this.state.programs, { id, title: 'Program baru', status: 'Perencanaan', owner: 'Belum ditetapkan', tags: ['GRI'], participants: 0, tasks: [{ id: 't1', title: 'Definisikan tujuan & baseline', owner: '—', due: '—', done: false }] }], activeProgram: id }); };
+
+  provinceData = {
+    'Bali': ['#E24FA0', 'terasering Jatiluwih, upacara & subak'],
+    'Jawa Barat': ['#57C64A', 'kebun teh Priangan, hutan pegunungan'],
+    'Sumatera Utara': ['#ED7A2B', 'Danau Toba, hutan hujan & kopi'],
+    'Sulawesi Selatan': ['#2C86D8', 'kapal pinisi & pesisir Bugis-Makassar'],
+    'Kalimantan Timur': ['#F4C518', 'hutan hujan & orangutan'],
+    'Papua': ['#E24FA0', 'hutan primer, cenderawasih & mangrove'],
+    'Nusa Tenggara Timur': ['#ED7A2B', 'sabana, komodo & tenun ikat'],
+    'DI Yogyakarta': ['#2C86D8', 'batik, Merapi & pertanian rakyat'],
+    'Aceh': ['#57C64A', 'Leuser, kopi Gayo & pesisir'],
+    'Maluku': ['#2C86D8', 'kepulauan rempah & laut Banda'],
+    'Jawa Tengah': ['#F4C518', 'sawah, candi & industri batik'],
+    'Riau': ['#57C64A', 'gambut, mangrove & restorasi lahan'],
+  };
+
+  renderVals() {
+    const st = this.state;
+    const org = st.org;
+    const scope2 = st.energyRecords.reduce((a, r) => a + r.kwh, 0) * this.factor;
+    const total = st.scope1 + scope2 + st.scope3;
+    const pc = (v) => (total > 0 ? (v / total * 100) : 0);
+    const s1p = pc(st.scope1), s2p = pc(scope2), s3p = pc(st.scope3);
+
+    let score = 60;
+    if (st.energyRecords.length > 0) score += 12;
+    if (st.activityAdded) score += 12;
+    if (st.target) score += 6;
+    if (st.reportStage === 'done') score += 10;
+    score = Math.min(score, 98);
+
+    const proj = st.target ? total * (1 - st.target / 100) : total;
+    const saved = total - proj;
+    const savedRp = saved * 285000;
+
+    const prov = this.provinceData[st.comm.province] || ['#57C64A', 'kekayaan alam & keberagaman daerah'];
+    const orgName = org.name || 'Koperasi Hijau Nusantara';
+    const typeMap = { corporate: 'Korporat', sme: 'UMKM', ngo: 'NGO', gov: 'Pemerintah' };
+
+    const chipStyle = (active, color) => ({ bd: active ? '#17241A' : '#e6e0d0', bg: active ? color : '#fff', fg: active ? '#17241A' : '#3a463c' });
+    const orgTypes = [
+      { id: 'corporate', label: 'Korporat' }, { id: 'sme', label: 'UMKM' },
+      { id: 'ngo', label: 'NGO' }, { id: 'gov', label: 'Pemerintah' },
+    ].map(t => ({ label: t.label, pick: () => this.pickType(t.id), ...chipStyle(org.type === t.id, '#F4C518') }));
+    const orgSizes = [
+      { id: 's', label: '< 50 orang' }, { id: 'm', label: '50–500' }, { id: 'l', label: '> 500' },
+    ].map(s => ({ label: s.label, pick: () => this.pickSize(s.id), ...chipStyle(org.size === s.id, '#F4C518') }));
+    const goals = ['Wajib ETS', 'PROPER (KLH)', 'Laporan keberlanjutan (POJK 51)', 'Sukarela net-zero'].map(g => {
+      const on = org.goals.includes(g);
+      return { label: g, toggle: () => this.toggleGoal(g), check: on ? '✓' : '', mark: on ? '#57C64A' : 'transparent', bd: on ? '#57C64A' : '#e6e0d0', bg: on ? '#f0faee' : '#fff' };
+    });
+
+    const dark = (this.props.sidebar ?? 'Terang') === 'Gelap';
+    const side = dark
+      ? { bg: '#141d17', text: '#c8d0c6', border: '1.5px solid #243026', muted: '#6f7d70', activeBg: 'rgba(87,198,74,.16)', orgBg: '#1d2820', footBorder: '1.5px solid #243026' }
+      : { bg: '#fffdf8', text: '#2a3529', border: '1.5px solid #e6e0d0', muted: '#b3ac98', activeBg: '#F3EFE3', orgBg: '#F3EFE3', footBorder: '1.5px solid #eee6d6' };
+    const sideStyle = { width: '250px', flex: 'none', background: side.bg, color: side.text, borderRight: side.border, padding: '22px 16px', display: 'flex', flexDirection: 'column', gap: '4px', position: 'sticky', top: 0, height: '100vh', overflowY: 'auto' };
+
+    const allowMap = { staff: ['home', 'energi', 'aktivitas', 'dashboard', 'notif', 'settings'], manajer: null, eksekutif: ['home', 'laporan', 'notif', 'settings'], auditor: ['home', 'notif', 'settings'], pemerintah: ['home', 'notif', 'settings'], ops: ['home', 'tenant', 'verifqueue', 'config', 'support', 'notif', 'settings', 'billing'], fasilitator: ['afterhub', 'fasilitator', 'notif', 'settings'], peserta: ['afterhub', 'peserta', 'notif', 'settings'] };
+    const allow = allowMap[st.role];
+    const canSee = (id) => !allow || allow.includes(id);
+    const navEN = { home: 'Home', dashboard: 'Emissions', energi: 'Energy input', aktivitas: 'Activity input', rencana: 'Reduction plan', framework: 'Framework + score', laporan: 'Audit-ready report', tracking: 'Tracking', csr: 'CSR data', program: 'Programs', evidence: 'Evidence', komunitas: 'Community', dampak: 'Human impact', sustain: 'Sustainability report', soon: 'Monitoring & exposure', tenant: 'Tenants', verifqueue: 'Verification queue', config: 'Framework config', support: 'Support', notif: 'Notifications', settings: 'Settings', billing: 'Billing', afterhub: 'Programs & loop', fasilitator: 'Facilitator & credential', peserta: 'Participant & savings' };
+    const navItem = (id, label, dot) => {
+      const active = st.screen === id;
+      const lbl = st.lang === 'EN' ? (navEN[id] || label) : label;
+      return { id, label: lbl, dot, go: () => this.go(id), bg: active ? side.activeBg : 'transparent', w: active ? '700' : '500' };
+    };
+    const homeLabels = { staff: 'Beranda tugas', manajer: 'Ringkasan organisasi', eksekutif: 'Kesehatan kepatuhan', auditor: 'Tinjauan laporan', pemerintah: 'Pantau organisasi', ops: 'Overview ops' };
+    const navHome = navItem('home', homeLabels[st.role] || 'Beranda', '#57C64A');
+    const navMvp = [
+      navItem('dashboard', st.role === 'staff' ? 'Hasil sementara' : 'Dashboard emisi', '#17241A'),
+      navItem('energi', 'Input energi', '#F4C518'),
+      navItem('aktivitas', 'Input aktivitas', '#ED7A2B'),
+      navItem('rencana', 'Rencana pengurangan', '#57C64A'),
+      navItem('framework', 'Peta framework + skor', '#2C86D8'),
+      navItem('laporan', 'Laporan siap-audit', '#17241A'),
+      navItem('tracking', 'Tracking berkala', '#57C64A'),
+    ].filter(n => canSee(n.id));
+    const navC = [
+      { ...navItem('csr', 'Data CSR', '#E24FA0'), soon: false },
+      { ...navItem('program', 'Kelola program', '#E24FA0'), soon: false },
+      { ...navItem('evidence', 'Evidence library', '#E24FA0'), soon: false },
+      { ...navItem('komunitas', 'Komunitas & partisipan', '#E24FA0'), soon: false },
+      { ...navItem('dampak', 'Dampak manusia', '#E24FA0'), soon: false },
+      { ...navItem('sustain', 'Laporan keberlanjutan', '#E24FA0'), soon: false },
+    ].filter(n => canSee(n.id));
+    const navD = [
+      { ...navItem('soon', 'Monitoring & exposure', '#2C86D8'), soon: false },
+    ].filter(n => canSee(n.id));
+    const navAfter = [
+      navItem('afterhub', 'Program & loop', '#E24FA0'),
+      navItem('fasilitator', 'Fasilitator & kredensial', '#E24FA0'),
+      navItem('peserta', 'Peserta & hemat', '#E24FA0'),
+    ].filter(n => canSee(n.id));
+    const navOps = [
+      navItem('tenant', 'Tenant', '#2C86D8'),
+      navItem('verifqueue', 'Antrean verifikasi', '#ED7A2B'),
+      navItem('config', 'Konfigurasi framework', '#57C64A'),
+      navItem('support', 'Dukungan', '#E24FA0'),
+    ].filter(n => canSee(n.id));
+    const navAcct = [
+      navItem('notif', 'Notifikasi', '#F4C518'),
+      navItem('settings', 'Pengaturan', '#8a9488'),
+      navItem('billing', 'Tagihan', '#57C64A'),
+    ].filter(n => canSee(n.id));
+
+    const titles = {
+      dashboard: ['Dashboard emisi', 'Emissions dashboard'],
+      energi: ['Input energi', 'Energy input · OCR + correction'],
+      aktivitas: ['Input aktivitas', 'Activity input · Scope 1/2/3'],
+      rencana: ['Rencana pengurangan', 'Reduction plan'],
+      framework: ['Peta framework + skor kesiapan', 'Framework map + readiness score'],
+      laporan: ['Laporan siap-audit', 'Audit-ready report'],
+      tracking: ['Tracking berkala', 'Before–after tracking'],
+      komunitas: ['Komunitas & partisipan', 'Community & participants'],
+      dampak: ['Dampak manusia', 'Human impact dashboard'],
+      program: ['Kelola program · after-care', 'Program coordination · after-care'],
+      evidence: ['Evidence library', 'Evidence library · claim-labelled'],
+      sustain: ['Laporan keberlanjutan', 'Sustainability report · GRI / TJSL'],
+      csr: ['Data CSR & keberlanjutan', 'CSR & sustainability intake'],
+      notif: ['Notifikasi', 'Notifications'],
+      settings: ['Pengaturan', 'Settings'],
+      billing: ['Tagihan & langganan', 'Billing & subscription'],
+      tenant: ['Kelola tenant', 'Tenant management'],
+      verifqueue: ['Antrean verifikasi', 'Verification queue'],
+      config: ['Konfigurasi framework & faktor', 'Framework & factor config'],
+      support: ['Dukungan', 'Support'],
+      soon: ['Monitoring pemerintah & exposure', 'Government monitoring & exposure'],
+      afterhub: ['Program & loop After-Care', 'After-Care programs & loop'],
+      fasilitator: ['Fasilitator & kredensial', 'Facilitator & credential'],
+      peserta: ['Peserta & hemat', 'Participant & savings'],
+    };
+    const homeTitles = { staff: ['Beranda tugas', 'Your tasks'], manajer: ['Ringkasan organisasi', 'Organization overview'], eksekutif: ['Kesehatan kepatuhan', 'Compliance health'], auditor: ['Tinjauan laporan', 'Report review'], pemerintah: ['Pantau organisasi', 'Monitor organizations'], ops: ['Overview ops', 'Ops overview'] };
+    const t = st.screen === 'home' ? (homeTitles[st.role] || ['Beranda', 'Home']) : (titles[st.screen] || ['DecarbonHub', '']);
+    const L = (id, en) => (st.lang === 'ID' ? id : en);
+    // ---- After-Care (Modul E) ----
+    const afterGroupLabel = L('After-Care · Modul E', 'After-Care · Module E');
+    const chip = (lvl) => ({
+      'Estimasi': { bg: '#fbf6e6', color: '#8a7a3a', bd: '1.5px dashed #b9a86a', ck: '' },
+      'Data organisasi': { bg: '#eef4fb', color: '#2C86D8', bd: '1.5px solid #bcd8f2', ck: '' },
+      'Siap-audit': { bg: '#eafae6', color: '#2f7d32', bd: '1.5px solid #9ed88f', ck: '' },
+      'Terverifikasi': { bg: '#e6f7e0', color: '#237a2a', bd: '1.5px solid #57C64A', ck: '✓ ' },
+    }[lvl] || { bg: '#f3efe3', color: '#8a9488', bd: '1.5px solid #e6e0d0', ck: '' });
+    const vLabel = (lvl) => L(lvl, { 'Estimasi': 'Estimate', 'Data organisasi': 'Org data', 'Siap-audit': 'Audit-ready', 'Terverifikasi': 'Verified' }[lvl] || lvl);
+    const acStages = [
+      { n: L('Diagnosa', 'Diagnose'), d: L('Lihat peluang', 'Spot opportunities'), bg: '#F3EFE3', bd: '#e6e0d0' },
+      { n: L('Rancang', 'Design'), d: L('Pilih program', 'Choose a program'), bg: '#F3EFE3', bd: '#e6e0d0' },
+      { n: L('Jalankan', 'Run'), d: L('Fasilitator & peserta', 'Facilitators & participants'), bg: '#F3EFE3', bd: '#e6e0d0' },
+      { n: L('Ukur & Verifikasi', 'Measure & Verify'), d: L('Karbon + manusia', 'Carbon + human'), bg: '#F3EFE3', bd: '#e6e0d0' },
+      { n: L('Rawat ↺', 'Care ↺'), d: L('Pendampingan berkelanjutan', 'Ongoing support'), bg: '#fbe9f4', bd: '#E24FA0' },
+    ];
+    const acPrograms = [
+      { name: L('Literasi Energi Komunitas', 'Community Energy Literacy'), lead: L('Dipimpin perempuan', 'Women-led'), star: true, cat: L('Komunitas & Sosial', 'Community & Social'), carbon: '~120 tCO₂e/thn', human: L('40 RT · 3 fasilitator', '40 households · 3 facilitators'), dur: L('4 bulan', '4 months'), verify: 'Siap-audit' },
+      { name: L('Efisiensi Energi UMKM', 'SME Energy Efficiency'), lead: '', star: false, cat: L('Efisiensi Energi', 'Energy Efficiency'), carbon: '~85 tCO₂e/thn', human: L('12 usaha kecil', '12 small businesses'), dur: L('3 bulan', '3 months'), verify: 'Data organisasi' },
+      { name: L('Adopsi Surya Atap', 'Rooftop Solar Adoption'), lead: '', star: false, cat: L('Energi Bersih', 'Clean Energy'), carbon: '~210 tCO₂e/thn', human: L('8 fasilitas', '8 facilities'), dur: L('6 bulan', '6 months'), verify: 'Estimasi' },
+      { name: L('Restorasi Mangrove', 'Mangrove Restoration'), lead: '', star: false, cat: L('Berbasis Alam', 'Nature-based'), carbon: L('dalam kajian', 'under assessment'), human: L('2 desa pesisir', '2 coastal villages'), dur: L('12 bulan', '12 months'), verify: 'Estimasi' },
+    ].map(p => ({ ...p, c: chip(p.verify), vTxt: vLabel(p.verify) }));
+    const acMoat = [
+      { v: '3', l: L('Fasilitator aktif', 'Active facilitators') },
+      { v: '92%', l: L('Retensi fasilitator', 'Facilitator retention') },
+      { v: '2,4', l: L('Program berulang / klien', 'Repeat programs / client') },
+      { v: '18%', l: L('Peserta → fasilitator', 'Participants → facilitators') },
+    ];
+    const acTimeline = [
+      { t: L('Literasi Energi — Kel. Melati', 'Energy Literacy — Melati'), d: '2025 Q1 · 40 RT', v: 'Terverifikasi' },
+      { t: L('Efisiensi UMKM — Pasar Baru', 'SME Efficiency — Pasar Baru'), d: '2025 Q3 · 12 usaha', v: 'Siap-audit' },
+    ].map(r => ({ ...r, c: chip(r.v), vTxt: vLabel(r.v) }));
+    const acSessions = [
+      { t: L('Sesi 1 · Membaca tagihan listrik', 'Session 1 · Reading your bill'), s: L('Hadir', 'Attended'), color: '#2f7d32' },
+      { t: L('Sesi 2 · Kebiasaan hemat energi', 'Session 2 · Energy-saving habits'), s: L('Hadir', 'Attended'), color: '#2f7d32' },
+      { t: L('Sesi 3 · Alat hemat & tindak lanjut', 'Session 3 · Efficient appliances'), s: L('Terjadwal', 'Scheduled'), color: '#8a9488' },
+    ];
+    const ac = {
+      hubIntro: L('After-Care mengubah rencana menjadi program nyata yang dijalankan, terukur, dan berkelanjutan — sambil mengangkat manusianya. Setiap program membawa dua hasil: pengurangan karbon nyata dan dampak manusia yang terukur.', 'After-Care turns plans into real programs that get run, measured, and sustained — while lifting the people involved. Every program carries two outcomes: real carbon reduction and measurable human impact.'),
+      engineTitle: L('Mesin After-Care', 'The After-Care engine'),
+      catalogTitle: L('Katalog program', 'Program catalog'),
+      moatTitle: L('Kekuatan yang menumpuk', 'Compounding strength'),
+      moatNote: L('Metrik ini tumbuh tiap program — fasilitator yang kembali, komunitas yang percaya, playbook yang matang.', 'These grow with each program — facilitators who return, communities that trust, a maturing playbook.'),
+      carbonL: L('Karbon', 'Carbon'), humanL: L('Dampak manusia', 'Human impact'), durL: L('Durasi', 'Duration'),
+      facName: 'Sari Wulandari', facRegion: L('Kel. Melati, Bandung', 'Melati, Bandung'),
+      facLevel: L('Fasilitator Madya', 'Intermediate Facilitator'),
+      facNext: L('2 program lagi menuju Fasilitator Utama', '2 more programs to Lead Facilitator'),
+      facVerified: L('Kredensial terverifikasi', 'Verified credential'),
+      facRecord: L('Rekam jejak', 'Track record'),
+      facLoop: L('Dilatih → Jalankan → Kredensial → Naik ↺', 'Trained → Run → Credential → Advance ↺'),
+      facNote: L('Kredensial ini adalah identitas profesional Anda di DecarbonHub — dibangun dari program nyata, terverifikasi bertingkat.', 'This credential is your professional identity on DecarbonHub — built from real programs, verified in tiers.'),
+      nudge: L('Undang ke program berikutnya', 'Invite to the next program'),
+      nudgeDone: L('Undangan terkirim. Terima kasih sudah kembali.', 'Invitation sent. Thank you for coming back.'),
+      statPrograms: L('Program dijalankan', 'Programs run'), statHouse: L('Rumah tangga terdampingi', 'Households supported'),
+      statPeople: L('Peserta dijangkau', 'Participants reached'), statEarn: L('Penghasilan (kumulatif)', 'Earnings (cumulative)'),
+      partName: 'Dewi Anjani', partVia: L('diajak oleh Sari Wulandari', 'invited by Sari Wulandari'), partComm: L('Komunitas Kel. Melati', 'Melati community'),
+      sessTitle: L('Sesi yang diikuti', 'Sessions attended'),
+      actionTitle: L('Aksi & bukti', 'Action & evidence'),
+      actionDesc: L('Unggah tagihan listrik bulan ini untuk melihat penghematan nyata dari langkah kecil Anda.', 'Upload this month\'s electricity bill to see the real savings from your small steps.'),
+      uploadBtn: L('Unggah tagihan', 'Upload bill'),
+      savingTitle: L('Hemat saya', 'My savings'),
+      orgDataLabel: L('Data organisasi', 'Org data'),
+      savingNote: L('Penghematan dihitung dari selisih tagihan Anda. Kami tandai sebagai data organisasi, belum diverifikasi pihak ketiga.', 'Savings are computed from your bill difference. We mark this as organization data, not yet third-party verified.'),
+      ladderTitle: L('Jalur naik', 'Your path up'),
+      ladderDesc: L('Anda aktif dan konsisten. Tertarik menjadi fasilitator dan memimpin di komunitas Anda? Kami latih dari awal.', 'You\'ve been active and consistent. Interested in becoming a facilitator and leading in your community? We\'ll train you from the start.'),
+      ladderBtn: L('Lihat jalur fasilitator', 'See the facilitator path'),
+      loopP: L('Diajak → Aksi → Hemat → Naik ↺', 'Invited → Act → Save → Advance ↺'),
+    };
+    const tenants = [
+      { id: 't1', name: 'Koperasi Hijau Nusantara', type: 'UMKM', plan: 'Pilot', users: 5, status: 'Aktif' },
+      { id: 't2', name: 'PT Nusantara Tekstil', type: 'Korporat', plan: 'Business', users: 23, status: 'Aktif' },
+      { id: 't3', name: 'Yayasan Bahari Lestari', type: 'NGO', plan: 'Donor', users: 9, status: 'Aktif' },
+      { id: 't4', name: 'CV Tani Lestari', type: 'UMKM', plan: 'Pilot', users: 3, status: 'Onboarding' },
+    ];
+    const tStatus = (s) => (s === 'Aktif' ? { bg: '#dcf3d6', fg: '#1e6b34' } : { bg: '#fdf0e6', fg: '#8a4a12' });
+    const tenantList = tenants.map(t => ({ ...t, open: () => this.openTenant(t.id), chipBg: tStatus(t.status).bg, chipFg: tStatus(t.status).fg }));
+    const tenantSelObj = tenants.find(t => t.id === st.tenantSel) || null;
+
+    // ---- modul C computed ----
+    const claimStyleMap = {
+      'Estimasi': { background: '#fbf6e6', color: '#8a9488', border: '1.5px dashed #b9a86a', fontWeight: 600 },
+      'Data organisasi': { background: '#fff', color: '#3a463c', border: '1.5px solid #17241A', fontWeight: 600 },
+      'Siap-audit': { background: '#dcf3d6', color: '#1e6b34', border: '1.5px solid transparent', fontWeight: 700 },
+      'Terverifikasi': { background: '#2a9d43', color: '#fff', border: '1.5px solid transparent', fontWeight: 700 },
+    };
+    const thumbMap = { dokumen: '#2C86D8', foto: '#57C64A', kehadiran: '#F4C518' };
+    const evFiltered = st.evidence.filter(e => st.evFilter === 'Semua' || e.type === st.evFilter);
+    const evList = evFiltered.map(e => ({
+      title: e.title, note: e.note, date: e.date, claim: e.claim, thumb: thumbMap[e.type], thumbBg: e.img ? ("url('" + e.img + "') center/cover") : thumbMap[e.type],
+      typeLabel: e.type.charAt(0).toUpperCase() + e.type.slice(1),
+      chipCheck: e.claim === 'Terverifikasi' ? '✓ ' : '',
+      chipStyle: { ...claimStyleMap[e.claim], borderRadius: '100px', padding: '4px 11px', fontSize: '11px', display: 'inline-flex', alignItems: 'center', whiteSpace: 'nowrap' },
+    }));
+    const evFilters = ['Semua', 'dokumen', 'foto', 'kehadiran'].map(f => ({
+      label: f === 'Semua' ? 'Semua' : f.charAt(0).toUpperCase() + f.slice(1),
+      set: () => this.setEvFilter(f),
+      bg: st.evFilter === f ? '#17241A' : '#fff', fg: st.evFilter === f ? '#F3EFE3' : '#3a463c',
+      bd: st.evFilter === f ? '#17241A' : '#e6e0d0',
+    }));
+    const progList = st.programs.map(p => {
+      const d = p.tasks.filter(x => x.done).length;
+      const on = st.activeProgram === p.id;
+      return { title: p.title, participants: p.participants, select: () => this.selectProgram(p.id),
+        doneN: d, totalN: p.tasks.length, prog: (p.tasks.length ? d / p.tasks.length * 100 : 0).toFixed(0) + '%',
+        bg: on ? '#F3EFE3' : '#fff', bd: on ? '#17241A' : '#e6e0d0' };
+    });
+    const activeP = st.programs.find(p => p.id === st.activeProgram) || st.programs[0];
+    const apDone = activeP.tasks.filter(x => x.done).length;
+    const apTasks = activeP.tasks.map(x => ({ title: x.title, owner: x.owner, due: x.due,
+      toggle: () => this.toggleTask(activeP.id, x.id),
+      mark: x.done ? '#57C64A' : 'transparent', check: x.done ? '✓' : '',
+      titleStyle: x.done ? 'line-through' : 'none', titleColor: x.done ? '#8a9488' : '#17241A',
+      statusLabel: x.done ? 'Selesai' : 'Berjalan', statusColor: x.done ? '#2a9d43' : '#8a4a12' }));
+
+    const scopeChart = this.props.scopeChart ?? 'Bar';
+    const dashLayout = this.props.dashLayout ?? 'Bento';
+    const donutBg = `conic-gradient(#ED7A2B 0 ${s1p}%, #F4C518 ${s1p}% ${s1p + s2p}%, #2C86D8 ${s1p + s2p}% 100%)`;
+
+    const mapTag = (name, kind) => {
+      const c = { calc: ['#e8f1fb', '#1c5a94'], social: ['#fbe8f3', '#a12772'], energy: ['#fdf9e0', '#87700a'] }[kind];
+      return { name, bg: c[0], fg: c[1] };
+    };
+    const maps = [
+      { activity: 'Pemakaian listrik', tags: [mapTag('GHG Protocol', 'calc'), mapTag('ISO 14064', 'calc'), mapTag('ISO 50001', 'energy')] },
+      { activity: 'Bahan bakar armada', tags: [mapTag('GHG Protocol S1', 'calc'), mapTag('SRN-PPI', 'calc')] },
+      { activity: 'Program komunitas', tags: [mapTag('GRI', 'social'), mapTag('TJSL', 'social'), mapTag('PROPER', 'social')] },
+      { activity: 'Pendanaan hijau', tags: [mapTag('TKBI', 'social'), mapTag('POJK 51', 'social')] },
+    ];
+
+    return {
+      // routing
+      isOnb: st.screen === 'onboarding',
+      isApp: st.screen !== 'onboarding',
+      isDash: st.screen === 'dashboard', isEnergi: st.screen === 'energi',
+      isActivity: st.screen === 'aktivitas', isRencana: st.screen === 'rencana',
+      isFramework: st.screen === 'framework', isLaporan: st.screen === 'laporan',
+      isTracking: st.screen === 'tracking', isKomunitas: st.screen === 'komunitas',
+      isDampak: st.screen === 'dampak', isSoon: st.screen === 'soon',
+      go: this.go, goDash: this.goDash, goEnergi: this.goEnergi, goRencana: this.goRencana,
+      goFramework: this.goFramework, goLaporan: this.goLaporan, goTracking: this.goTracking, goDampak: this.goDampak, goAktivitas: this.goAktivitas,
+      // onboarding
+      onbStep: st.onbStep, onbIs1: st.onbStep === 1, onbIs2: st.onbStep === 2,
+      onbW: st.onbStep === 1 ? '50%' : '100%',
+      org, orgTypes, orgSizes, goals,
+      setName: this.setName, setSector: this.setSector,
+      onbNext: this.onbNext, onbBack: this.onbBack, finishOnb: this.finishOnb, skipOnb: this.skipOnb,
+      // shell
+      orgName, orgInitial: orgName.charAt(0).toUpperCase(),
+      orgTypeLabel: typeMap[org.type] || 'Organisasi',
+      navMvp, navC,
+      scrTitle: (st.lang === 'EN' ? (t[1] || t[0]) : t[0]), scrTitleEn: t[1], showEn: (st.lang === 'ID' && (this.props.showEnglish ?? true) && !!t[1]),
+      period: '2025 Q2',
+      // dashboard numbers
+      totalF: this.fmt(total), s1F: this.fmt(st.scope1), s2F: this.fmt(scope2), s3F: this.fmt(st.scope3),
+      s1w: s1p.toFixed(1) + '%', s2w: s2p.toFixed(1) + '%', s3w: s3p.toFixed(1) + '%',
+      chartBar: scopeChart === 'Bar', chartDonut: scopeChart === 'Donut', donutBg,
+      dashCols: dashLayout === 'Bento' ? 'repeat(2,minmax(0,1fr))' : 'minmax(0,1fr)',
+      score, gaugeBg: `conic-gradient(#57C64A 0 ${score}%, #e6e1d2 ${score}% 100%)`,
+      actDot: st.activityAdded ? '#2a9d43' : '#ED7A2B',
+      repDot: st.reportStage === 'done' ? '#2a9d43' : '#ED7A2B',
+      actWord: st.activityAdded ? '#2a9d43' : '#ED7A2B', actState: st.activityAdded ? 'Lengkap' : 'Kurang',
+      repWord: st.reportStage === 'done' ? '#2a9d43' : '#8a9488', repState: st.reportStage === 'done' ? 'Selesai' : 'Belum',
+      // energy
+      engIdle: st.energyStage === 'idle', engReading: st.energyStage === 'reading', engReview: st.energyStage === 'review',
+      startOcr: this.startOcr, manualEntry: this.manualEntry, cancelOcr: this.cancelOcr, saveEnergy: this.saveEnergy,
+      draft: st.draft, setKwh: this.setKwh, setCost: this.setCost, setPeriod: this.setPeriod,
+      recCount: st.energyRecords.length,
+      energyList: st.energyRecords.map(r => ({ period: r.period, kwhF: this.fmt(r.kwh), costF: this.fmt(r.cost) })),
+      // activity
+      activityAdded: st.activityAdded, addActivity: this.addActivity,
+      // rencana
+      scenarios: [
+        { pct: 10, name: 'Konservatif', desc: 'Efisiensi cepat', c: '#57C64A' },
+        { pct: 20, name: 'Sejalan target', desc: 'Selaras net-zero 2060', c: '#2C86D8' },
+        { pct: 30, name: 'Ambisius', desc: 'Butuh investasi', c: '#ED7A2B' },
+      ].map(s => {
+        const on = st.target === s.pct;
+        return { pct: s.pct, name: s.name, desc: s.desc, pick: () => this.pickTarget(s.pct),
+          bg: on ? s.c : '#fff', bd: on ? '#17241A' : '#e6e0d0',
+          fg: on ? (s.pct === 10 ? '#17241A' : '#fff') : '#17241A',
+          sub: on ? 'rgba(255,255,255,.85)' : '#8a9488' };
+      }),
+      hasTarget: !!st.target, projF: this.fmt(proj), savedF: this.fmt(saved), savedRpF: this.fmt(savedRp),
+      // framework
+      maps,
+      // report
+      repIdle: st.reportStage === 'idle', repGen: st.reportStage === 'generating', repDone: st.reportStage === 'done',
+      genReport: this.genReport,
+      // tracking
+      trackH: Math.max(20, Math.min(100, total / 1520 * 100)).toFixed(0) + '%',
+      deltaF: this.fmt(Math.max(0, 1520 - total)),
+      // community
+      commForm: st.comm.step === 'form', commDone: st.comm.step === 'done',
+      comm: st.comm,
+      roleInd: () => this.setRole('individu'), roleComp: () => this.setRole('perusahaan'),
+      roleIndBd: st.comm.role === 'individu' ? '#17241A' : '#e6e0d0', roleIndBg: st.comm.role === 'individu' ? '#F4C518' : '#fff',
+      roleCompBd: st.comm.role === 'perusahaan' ? '#17241A' : '#e6e0d0', roleCompBg: st.comm.role === 'perusahaan' ? '#F4C518' : '#fff',
+      commNameLabel: st.comm.role === 'individu' ? 'Nama lengkap' : 'Nama perusahaan / mitra',
+      commNamePh: st.comm.role === 'individu' ? 'mis. Sari Wulandari' : 'mis. CV Tani Lestari',
+      setCommName: this.setCommName, setProvince: this.setProvince, setInterest: this.setInterest,
+      submitComm: this.submitComm, resetComm: this.resetComm,
+      provinces: Object.keys(this.provinceData),
+      commAccent: prov[0], provinceNuance: prov[1],
+      programName: 'Program Transisi Hijau Komunitas',
+      commFirst: (st.comm.name || 'Partisipan').split(' ')[0],
+      // modul C
+      isProgram: st.screen === 'program', isEvidence: st.screen === 'evidence', isSustain: st.screen === 'sustain',
+      isAfterhub: st.screen === 'afterhub', isFasilitator: st.screen === 'fasilitator', isPeserta: st.screen === 'peserta',
+      navAfter, showAfter: navAfter.length > 0, afterGroupLabel, showHome: canSee('home'),
+      ac, acPrograms, acStages, acMoat, acTimeline, acSessions,
+      afterNudge: st.afterNudge, afterNudgeIdle: !st.afterNudge,
+      goFasilitator: this.goFasilitator, nudgeNext: this.nudgeNext,
+      grpMvp: L('Modul A + B · MVP', 'Modules A + B · MVP'),
+      grpC: L('Modul C · Fase 2', 'Module C · Phase 2'),
+      grpD: L('Modul D · Fase 3–4', 'Module D · Phase 3–4'),
+      grpOps: L('Admin internal · DecarbonHub', 'DecarbonHub internal admin'),
+      grpAcct: L('Akun', 'Account'),
+      sideFoot: L('Alat kesiapan + koordinasi. Bukan verifikator/registri resmi.', 'Readiness + coordination tool. Not an official verifier/registry.'),
+      commBannerTitle: L('Orang di balik transisi', 'The people behind the transition'),
+      commBannerSub: L('Individu & mitra yang menjalankan program di lapangan — bergabung, lalu terhubung ke program CSR organisasi.', 'Individuals & partners who run programs on the ground — join, then connect to an organization\'s CSR program.'),
+      navD, selectProgram: this.selectProgram, createProgram: this.createProgram, progList,
+      activeP: { title: activeP.title, status: activeP.status, participants: activeP.participants, owner: activeP.owner },
+      apTasks, apTags: activeP.tags, apDoneN: apDone, apTotalN: activeP.tasks.length,
+      apProg: (activeP.tasks.length ? apDone / activeP.tasks.length * 100 : 0).toFixed(0) + '%',
+      evList, evFilters, addEvidence: this.addEvidence,
+      sustIdle: st.sustainStage === 'idle', sustGen: st.sustainStage === 'generating', sustDone: st.sustainStage === 'done', genSustain: this.genSustain,
+      // roles + sidebar + lang
+      role: st.role, lang: st.lang, toggleLang: this.toggleLang, setRoleFromEvent: this.setRoleFromEvent,
+      roleLabel: { staff: 'Staf', manajer: 'Manajer', eksekutif: 'Eksekutif', auditor: 'Auditor', pemerintah: 'Pemerintah / Donor', ops: 'Ops DecarbonHub', fasilitator: 'Fasilitator', peserta: 'Peserta' }[st.role],
+      roleInitials: { staff: 'ST', manajer: 'MJ', eksekutif: 'EK', auditor: 'AU', pemerintah: 'PD', ops: 'OP', fasilitator: 'FA', peserta: 'PE' }[st.role],
+      roleOptions: [
+        { id: 'staff', label: 'Staf · input' }, { id: 'manajer', label: 'Manajer · kelola' },
+        { id: 'eksekutif', label: 'Eksekutif · pengawasan' }, { id: 'auditor', label: 'Auditor · tinjau' },
+        { id: 'pemerintah', label: 'Pemerintah / Donor · pantau' },
+        { id: 'ops', label: 'Ops DecarbonHub · internal' },
+        { id: 'fasilitator', label: 'Fasilitator · jalankan' }, { id: 'peserta', label: 'Peserta · aksi' },
+      ],
+      sideStyle, sideMuted: side.muted, sideOrgBg: side.orgBg, sideFootBorder: side.footBorder,
+      navHome, showMvp: navMvp.length > 0, showC: navC.length > 0, showD: navD.length > 0,
+      isHome: st.screen === 'home',
+      roleStaff: st.role === 'staff', roleManajer: st.role === 'manajer', roleEksekutif: st.role === 'eksekutif',
+      roleAuditor: st.role === 'auditor', rolePemerintah: st.role === 'pemerintah', roleOps: st.role === 'ops',
+      navOps, showOps: navOps.length > 0, isOpsHome: st.screen === 'home' && st.role === 'ops',
+      isTenant: st.screen === 'tenant', isVerif: st.screen === 'verifqueue', isConfig: st.screen === 'config', isSupport: st.screen === 'support',
+      goTenant: this.goTenant, goVerif: this.goVerif, goConfig: this.goConfig, goSupport: this.goSupport,
+      isCsr: st.screen === 'csr',
+      isNotif: st.screen === 'notif', isSettings: st.screen === 'settings', isBilling: st.screen === 'billing',
+      navAcct, showAcct: navAcct.length > 0,
+      tenantList, closeTenant: this.closeTenant, tenantOpen: !!st.tenantSel, tenantClosed: !st.tenantSel,
+      tenantName: tenantSelObj ? tenantSelObj.name : '', tenantType: tenantSelObj ? tenantSelObj.type : '', tenantPlan: tenantSelObj ? tenantSelObj.plan : '', tenantUsers: tenantSelObj ? tenantSelObj.users : '', tenantStatus: tenantSelObj ? tenantSelObj.status : '',
+      tx: {
+        staffHi: L('Selamat datang kembali. Ada 3 hal kecil untuk hari ini.', 'Welcome back. Three small things for today.'),
+        staffSaved: L('Simpan draf saja — manajer keberlanjutan akan meninjau sebelum difinalkan.', 'Save as a draft — your sustainability manager will review before it\u2019s finalized.'),
+        mgrHi: L('Ringkasan keberlanjutan organisasi Anda. Tinjau, lengkapi, lalu finalkan.', 'Your organization\u2019s sustainability at a glance. Review, complete, then finalize.'),
+        mgrReady: L('Laporan Anda 82% siap. Tiga data pemasok akan melengkapinya.', 'Your report is 82% ready. Three supplier figures will complete it.'),
+        mgrFinal: L('Finalkan laporan siap-audit. Verifikasi resmi dilakukan lembaga terakreditasi.', 'Finalize the audit-ready report. Official verification is done by an accredited body.'),
+        exHi: L('Ringkasan keberlanjutan organisasi Anda, dalam satu tampilan.', 'Your organization\u2019s sustainability at a glance.'),
+        exNote: L('Tampilan hanya-baca. Tidak ada yang perlu Anda ubah di sini.', 'A read-only view. Nothing here needs changing.'),
+        audHi: L('Anda meninjau laporan ini. Metode dan sumber tersedia di tiap angka.', 'You\u2019re reviewing this report. Method and source are shown on each figure.'),
+        audNote: L('Anda dapat memberi catatan, tetapi tidak mengubah data sumber.', 'You can leave notes, but source data can\u2019t be changed.'),
+        govHi: L('Agregat organisasi & program terdaftar — hanya yang sudah disubmit.', 'Aggregate of registered organizations & programs — submitted only.'),
+        govDonor: L('Program yang Anda dukung, beserta dampaknya yang terverifikasi.', 'The programs you support, with their verified impact.'),
+        rencIntro: L('Pilih skenario target. DecarbonHub memperkirakan penurunan tCO₂e & penghematan biaya, lalu mulai melacak progres.', 'Choose a target scenario. DecarbonHub estimates the tCO₂e reduction & cost savings, then starts tracking progress.'),
+        trackIntro: L('Bandingkan periode untuk menunjukkan penurunan nyata dari tagihan & aktivitas berikutnya.', 'Compare periods to show the real reduction from your next bills & activities.'),
+        fwMapTitle: L('Pemetaan aktivitas → framework', 'Activity → framework mapping'),
+        engBill: L('Tagihan listrik', 'Electricity bill'),
+        engUpload: L('Foto / unggah tagihan', 'Photo / upload your bill'),
+        engUploadSub: L('OCR membaca kWh, Rp & periode otomatis', 'OCR reads kWh, Rp & period automatically'),
+        engManual: L('atau input manual →', 'or enter manually →'),
+        dTotalLabel: L('Jejak karbon total', 'Total carbon footprint'),
+        dDataOrg: L('Data organisasi', 'Organization data'),
+        dScope3Partial: L('Scope 3 sebagian', 'Scope 3 partly'),
+        dEstWord: L('estimasi', 'estimated'),
+        dScopeTitle: L('Rincian Scope', 'Scope breakdown'),
+        dScope1: L('Scope 1 · bahan bakar', 'Scope 1 · fuel'),
+        dScope2: L('Scope 2 · listrik', 'Scope 2 · electricity'),
+        dScope3: L('Scope 3 · estimasi', 'Scope 3 · estimated'),
+        dScore: L('Skor kesiapan lapor', 'Reporting readiness score'),
+        dChkEnergy: L('Data energi masuk', 'Energy data entered'),
+        dChkAct: L('Aktivitas Scope 1/3', 'Scope 1/3 activities'),
+        dChkRep: L('Laporan ter-generate', 'Report generated'),
+        dSeeDetail: L('Lihat rincian →', 'See details →'),
+        dNext: L('Langkah berikutnya', 'Next steps'),
+        dQaEnergy: L('Input tagihan listrik', 'Enter electricity bill'),
+        dQaEnergySub: L('OCR baca otomatis · koreksi manual', 'OCR reads automatically · correct manually'),
+        dQaPlan: L('Susun rencana pengurangan', 'Build a reduction plan'),
+        dQaPlanSub: L('Pilih target · lacak progres', 'Choose a target · track progress'),
+        dQaReport: L('Generate laporan siap-audit', 'Generate audit-ready report'),
+        deny: L('Bagian ini di luar peran Anda saat ini.', 'This area is outside your current role.'),
+        dMonitor: L('Pratinjau Fase 3–4. DecarbonHub menyiapkan dan menghubungkan data — bukan registri resmi. Registri resmi tetap SRN-PPI/SRUK.', 'A Phase 3–4 preview. DecarbonHub prepares and connects the data — it is not an official registry. SRN-PPI/SRUK remain the official ones.'),
+        onbStepWord: L('Langkah', 'Step'),
+        onbProfileTitle: L('Profil organisasi', 'Organization profile'),
+        onbProfileSub: L('Set konteks — jenis & sektor menentukan framework yang berlaku.', 'Set the context — type & sector determine which frameworks apply.'),
+        onbOrgName: L('Nama organisasi', 'Organization name'),
+        onbOrgNamePh: L('mis. PT Nusantara Hijau', 'e.g. PT Nusantara Hijau'),
+        onbOrgType: L('Jenis organisasi', 'Organization type'),
+        onbSector: L('Sektor', 'Sector'),
+        onbSectorPh: L('mis. Manufaktur tekstil', 'e.g. Textile manufacturing'),
+        onbNext: L('Lanjut', 'Continue'),
+        onbSkip: L('Lewati demo →', 'Skip the demo →'),
+        onbTargetTitle: L('Target kepatuhan', 'Compliance target'),
+        onbTargetSub: L('Apa yang harus dipenuhi? Ini menentukan skor kesiapan & format laporan.', 'What do you need to meet? This sets the readiness score & report format.'),
+        onbSize: L('Ukuran', 'Size'),
+        onbFramework: L('Framework yang dituju', 'Target frameworks'),
+        onbBack: L('Kembali', 'Back'),
+        onbFinish: L('Masuk ke DecarbonHub', 'Enter DecarbonHub'),
+        onbCaption: L('Ilustrasi: penyu & terumbu karang Nusantara', 'Illustration: sea turtle & coral reef of the archipelago'),
+        engScope2: L('Scope 2 dari listrik', 'Scope 2 from electricity'),
+        engGridPre: L('Faktor grid nasional', 'National grid factor'),
+        engRecSaved: L('Record tersimpan', 'Saved records'),
+        actIntro: L('Catat aktivitas untuk melengkapi Scope 1 (bahan bakar) & Scope 3 (rantai nilai — estimasi). Scope 2 sudah dari input energi.', 'Log activities to complete Scope 1 (fuel) & Scope 3 (value chain — estimated). Scope 2 already comes from your energy input.'),
+        actS1Title: L('Scope 1 · Bahan bakar & kendaraan', 'Scope 1 · Fuel & vehicles'),
+        actDirect: L('Langsung', 'Direct'),
+        actS1Sub: L('Solar genset, bensin armada, gas LPG dapur.', 'Generator diesel, fleet petrol, kitchen LPG.'),
+        actPhFuel: L('mis. Solar genset (liter)', 'e.g. Generator diesel (liters)'),
+        actPhAmt: L('jumlah', 'amount'),
+        actAdd: L('Tambah', 'Add'),
+        actS3Title: L('Scope 3 · Rantai nilai', 'Scope 3 · Value chain'),
+        actEst: L('Estimasi', 'Estimated'),
+        actS3Sub: L('Belanja barang/jasa, perjalanan dinas, logistik. Dihitung dengan faktor estimasi.', 'Purchased goods/services, business travel, logistics. Computed with estimation factors.'),
+        actPhTravel: L('mis. Perjalanan dinas (km)', 'e.g. Business travel (km)'),
+        actAdded: L('Aktivitas ditambahkan — dashboard emisi & skor kesiapan diperbarui.', 'Activity added — the emissions dashboard & readiness score are updated.'),
+        rencTarget: L('Target emisi', 'Target emissions'),
+        rencReduction: L('Pengurangan', 'Reduction'),
+        rencSaving: L('Estimasi hemat', 'Estimated savings'),
+        fwScoreTitle: L('Skor kesiapan', 'Readiness score'),
+        fwReady: L('siap-lapor', 'report-ready'),
+        fwRowEnergy: L('Data energi & Scope 2', 'Energy data & Scope 2'),
+        fwComplete: L('Lengkap', 'Complete'),
+        fwRowAct: L('Aktivitas Scope 1', 'Scope 1 activities'),
+        fwRowEvid: L('Bukti Scope 3', 'Scope 3 evidence'),
+        fwPartial: L('Sebagian', 'Partial'),
+        fwRowRep: L('Laporan ter-generate', 'Report generated'),
+        repTitle: L('Laporan karbon siap-audit', 'Audit-ready carbon report'),
+        repDesc: L('Menggabungkan Scope 1/2/3, metode & sumber faktor. Selaras GHG Protocol / ISO 14064, format menuju SRN-PPI. Bukan verifikasi resmi.', 'Combines Scope 1/2/3 with method & factor sources. Aligned to GHG Protocol / ISO 14064, formatted toward SRN-PPI. Not an official verification.'),
+        repGenBtn: L('Generate laporan', 'Generate report'),
+        repGenerating: L('Menyusun laporan & melampirkan metode…', 'Assembling the report & attaching methods…'),
+        repDocTitle: L('Laporan Karbon', 'Carbon Report'),
+        repReady: L('Siap-audit', 'Audit-ready'),
+        repMethod: L('Metode', 'Method'),
+        repRow1: L('Scope 1 · bahan bakar', 'Scope 1 · fuel'),
+        repRow2: L('Scope 2 · listrik', 'Scope 2 · electricity'),
+        repGridNote: L('(faktor grid 0,87 kg/kWh · v2025)', '(grid factor 0.87 kg/kWh · v2025)'),
+        repRow3: L('Scope 3 · estimasi', 'Scope 3 · estimated'),
+        repHandoff: L('Paket handoff verifier', 'Verifier handoff pack'),
+        repUnverified: L('Belum diverifikasi · verifikasi resmi = lembaga terakreditasi', 'Not yet verified · official verification = accredited body'),
+        trkNow: L('sekarang', 'now'),
+        trkReduction: L('Penurunan', 'Reduction'),
+        stStep1: L('Input tagihan listrik', 'Enter electricity bill'),
+        stStep1Sub: L('Foto/unggah → OCR baca → koreksi manual', 'Photo/upload → OCR reads → correct manually'),
+        stStep2: L('Lengkapi aktivitas Scope 1 & 3', 'Complete Scope 1 & 3 activities'),
+        stStep2Sub: L('Bahan bakar, kendaraan, perjalanan', 'Fuel, vehicles, travel'),
+        stStep3: L('Tinjau hasil sementara', 'Review the interim result'),
+        stStep3Sub: L('Lihat jejak karbon yang terhitung', 'See the carbon footprint so far'),
+        mgrFootprint: L('Jejak karbon', 'Carbon footprint'),
+        mgrDataOrg: L('Data organisasi', 'Organization data'),
+        mgrReadyShort: L('siap', 'ready'),
+        mgrReviewStaff: L('Tinjau input staf', 'Review staff input'),
+        mgrBill: L('Tagihan listrik 2025 Q2', 'Electricity bill 2025 Q2'),
+        mgrNeedReview: L('Perlu ditinjau', 'Needs review'),
+        mgrFleet: L('Aktivitas armada', 'Fleet activity'),
+        mgrApproved: L('Disetujui', 'Approved'),
+        mgrOpenStaff: L('Buka input staf →', 'Open staff input →'),
+        mgrFinalTitle: L('Finalisasi laporan', 'Finalize the report'),
+        mgrFinalBtn: L('Finalisasi & buat laporan', 'Finalize & create report'),
+        exStatus: L('Status kepatuhan', 'Compliance status'),
+        exOnTrack: L('Sesuai jalur', 'On track'),
+        exDeadline: L('Menuju tenggat 10 Okt 2026', 'Toward the 10 Oct 2026 deadline'),
+        exTrend: L('Tren emisi', 'Emissions trend'),
+        exVsBaseline: L('vs baseline 2024', 'vs 2024 baseline'),
+        exRisk: L('Risiko kepatuhan', 'Compliance risk'),
+        exLow: L('Rendah', 'Low'),
+        exNoIssue: L('tidak ada isu kritis', 'no critical issues'),
+        audReportTitle: L('Laporan Karbon 2025 Q2 · Koperasi Hijau Nusantara', 'Carbon Report 2025 Q2 · Koperasi Hijau Nusantara'),
+        audRow1Method: L('metode: faktor IPCC · sumber: log armada', 'method: IPCC factors · source: fleet log'),
+        audRow2Method: L('metode: location-based · faktor grid 0,87 kg/kWh v2025', 'method: location-based · grid factor 0.87 kg/kWh v2025'),
+        audRow3Method: L('metode: spend-based · sumber: belanja pemasok', 'method: spend-based · source: supplier spend'),
+        audEvidence: L('Bukti terlampir', 'Attached evidence'),
+        audNotes: L('Catatan tinjauan', 'Review notes'),
+        audNotesPh: L('Tulis catatan tinjauan…', 'Write review notes…'),
+        govOrgReg: L('organisasi terdaftar', 'registered organizations'),
+        govRepSub: L('laporan disubmit', 'reports submitted'),
+        govProgMon: L('program dipantau', 'programs monitored'),
+        govImpact: L('dampak · lapangan kerja', 'impact · jobs'),
+        govColOrg: L('Organisasi', 'Organization'),
+        govColType: L('Jenis', 'Type'),
+        govColStatus: L('Status', 'Status'),
+        govColReport: L('Laporan', 'Report'),
+        govInProcess: L('Dalam proses', 'In process'),
+        govView: L('Lihat →', 'View →'),
+        opsIntro: L('Jalankan platform: kelola tenant, tinjau antrean verifikasi, perbarui aturan & faktor saat regulasi berubah.', 'Run the platform: manage tenants, review the verification queue, update rules & factors as regulation changes.'),
+        opsTenantActive: L('tenant aktif', 'active tenants'),
+        opsQueue: L('antrean verifikasi', 'verification queue'),
+        opsGridFactor: L('faktor emisi grid', 'grid emission factor'),
+        opsOpenTickets: L('tiket terbuka', 'open tickets'),
+        opsManageTenant: L('Kelola tenant', 'Manage tenants'),
+        opsManageTenantSub: L('Akun organisasi & paket', 'Organization accounts & plans'),
+        engScanning: L('memindai tagihan…', 'scanning the bill…'),
+        engReadingDoc: L('OCR membaca dokumen…', 'OCR is reading the document…'),
+        engOcrDone: L('OCR selesai — periksa & koreksi bila salah', 'OCR done — check & correct if anything is off'),
+        engKwh: L('Konsumsi listrik (kWh)', 'Electricity consumption (kWh)'),
+        engCost: L('Biaya (Rp)', 'Cost (Rp)'),
+        engPeriod: L('Periode', 'Period'),
+        engSaveRec: L('Simpan record', 'Save record'),
+        engCancel: L('Batal', 'Cancel'),
+      },
+      // coming soon
+      soonTitle: 'Monitoring pemerintah & exposure',
+    };
+  }
+}
+</script>
+</body>
+</html>

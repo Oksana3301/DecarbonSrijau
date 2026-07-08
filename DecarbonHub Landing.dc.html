@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400..900;1,9..144,400..900&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:#F3EFE3;color:#17241A;font-family:'Plus Jakarta Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .tn{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+  summary{list-style:none;cursor:pointer}
+  summary::-webkit-details-marker{display:none}
+  .faq-plus{transition:transform .22s ease}
+  details[open] .faq-plus{transform:rotate(45deg)}
+  details[open] .faq-q{color:#ED7A2B}
+</style>
+</helmet>
+
+<!-- ===== TOP NAV ===== -->
+<nav style="position:sticky;top:0;z-index:50;background:rgba(243,239,227,.82);backdrop-filter:blur(10px);border-bottom:1.5px solid #e6e0d0">
+  <div style="max-width:1240px;margin:0 auto;padding:14px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px">
+    <a href="#top" style="display:flex;align-items:center;gap:10px">
+      <img src="assets/decarbonhub-mark.png" alt="DecarbonHub" style="height:34px">
+      <span style="font-weight:800;font-size:20px;letter-spacing:-.02em">DecarbonHub</span>
+    </a>
+    <div style="display:flex;align-items:center;gap:30px;font-weight:600;font-size:14.5px">
+      <a href="#untuk-siapa" style-hover="color:#ED7A2B">Untuk siapa</a>
+      <a href="#cara-kerja" style-hover="color:#ED7A2B">Cara kerja</a>
+      <a href="#pembeda" style-hover="color:#ED7A2B">Pembeda</a>
+      <a href="#kredibilitas" style-hover="color:#ED7A2B">Kredibilitas</a>
+      <a href="#faq" style-hover="color:#ED7A2B">FAQ</a>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px">
+      <a href="DecarbonHub%20App.dc.html" style="font-weight:600;font-size:14.5px" style-hover="color:#ED7A2B">Masuk</a>
+      <a href="#demo" style="background:#17241A;color:#F3EFE3;font-weight:700;font-size:14.5px;border-radius:100px;padding:11px 20px" style-hover="background:#2a3a2c">Jadwalkan demo</a>
+    </div>
+  </div>
+</nav>
+
+<div id="top" style="max-width:1240px;margin:0 auto;padding:0 32px">
+
+<!-- ===== HERO ===== -->
+<header style="display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center;padding:64px 0 72px">
+  <div>
+    <span style="display:inline-flex;align-items:center;gap:8px;font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.12em;text-transform:uppercase;color:#17241A;background:#F4C518;padding:9px 15px;border-radius:100px;margin-bottom:26px"></span>
+    <h1 style="font-family:Fraunces;font-optical-sizing:144;font-weight:600;font-size:clamp(44px,5.2vw,72px);line-height:.98;letter-spacing:-.02em;margin:0 0 24px">Platform <i>dekarbonisasi</i> untuk Indonesia.</h1>
+    <p style="font-size:19px;line-height:1.55;color:#3a463c;max-width:50ch;margin:0 0 34px">DecarbonHub menghitung karbon Anda sesuai GHG Protocol, memetakannya ke syarat pelaporan Indonesia, dan menyiapkan laporan siap-audit — lalu membantu menjalankan program pengurangannya.</p>
+    <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center">
+      <a href="#demo" style="background:#17241A;color:#F3EFE3;font-weight:700;font-size:16px;border-radius:100px;padding:16px 30px" style-hover="background:#2a3a2c">Jadwalkan demo</a>
+      <a href="#cara-kerja" style="background:transparent;border:2px solid #17241A;color:#17241A;font-weight:700;font-size:16px;border-radius:100px;padding:14px 28px" style-hover="background:#17241A;color:#F3EFE3">Lihat cara kerja</a>
+    </div>
+  </div>
+
+  <!-- bento cluster -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;gap:16px">
+    <!-- risograph scene -->
+    <div style="grid-row:span 2;border-radius:22px;border:2px solid #17241A;overflow:hidden;position:relative;min-height:340px">
+      <img src="assets/riso-archipelago.png" alt="Nusantara" style="width:100%;height:100%;object-fit:cover;display:block">
+    </div>
+    <!-- human impact -->
+    <div style="border-radius:22px;border:2px solid #17241A;background:#E24FA0;color:#fff;padding:22px 24px;display:flex;flex-direction:column;justify-content:center">
+      <div class="tn" style="font-family:Fraunces;font-weight:600;font-size:44px;line-height:.9">247</div>
+      <div style="font-size:13px;color:#ffe0f1;margin-top:6px;font-weight:600">lapangan kerja · dampak manusia</div>
+    </div>
+    <!-- scope mini -->
+    <div style="border-radius:22px;border:2px solid #17241A;background:#fff;padding:22px 24px;display:flex;align-items:center;gap:16px">
+      <div style="width:66px;height:66px;border-radius:50%;flex:none;background:conic-gradient(#ED7A2B 0 31%,#F4C518 31% 75%,#2C86D8 75% 100%);border:2px solid #17241A;display:flex;align-items:center;justify-content:center"><div style="width:36px;height:36px;border-radius:50%;background:#fff;border:2px solid #17241A"></div></div>
+      <div><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:26px;line-height:1">1.284</div><div style="font-size:12px;color:#8a9488;font-weight:600">tCO₂e · Scope 1/2/3</div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== UNTUK SIAPA ===== -->
+<section id="untuk-siapa" style="padding:20px 0 76px">
+  <h2 style="font-family:Fraunces;font-weight:600;font-size:38px;letter-spacing:-.01em;margin:0 0 8px">DecarbonHub untuk setiap organisasi</h2>
+  <p style="font-size:16px;color:#8a9488;margin:0 0 34px;max-width:56ch">Korporat, UMKM, NGO, pemerintah — satu platform, konteks Indonesia.</p>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+    <a href="DecarbonHub%20App.dc.html?role=manajer" style="text-decoration:none;border-radius:22px;border:2px solid #17241A;background:#ED7A2B;color:#fff;padding:26px 24px;min-height:230px;display:flex;flex-direction:column;justify-content:space-between" style-hover="transform:translateY(-4px)">
+      <div style="width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.22);border:2px solid #fff"></div>
+      <div><h3 style="font-family:Fraunces;font-weight:600;font-size:24px;margin:0 0 8px">Korporat</h3><p style="font-size:13.5px;line-height:1.5;color:#fff;opacity:.92;margin:0 0 12px">Wajib ETS/PROPER, tim ESG mengejar net-zero &amp; laporan keberlanjutan.</p><span style="font-size:12.5px;font-weight:700">Buka dashboard Manajer →</span></div>
+    </a>
+    <a href="DecarbonHub%20App.dc.html?role=staff" style="text-decoration:none;border-radius:22px;border:2px solid #17241A;background:#F4C518;color:#17241A;padding:26px 24px;min-height:230px;display:flex;flex-direction:column;justify-content:space-between" style-hover="transform:translateY(-4px)">
+      <div style="width:40px;height:40px;border-radius:12px;background:rgba(23,36,26,.12);border:2px solid #17241A"></div>
+      <div><h3 style="font-family:Fraunces;font-weight:600;font-size:24px;margin:0 0 8px">UMKM</h3><p style="font-size:13.5px;line-height:1.5;margin:0 0 12px">Rantai pasok menuntut data karbon — mulai dari tagihan listrik.</p><span style="font-size:12.5px;font-weight:700">Buka dashboard Staf →</span></div>
+    </a>
+    <a href="DecarbonHub%20App.dc.html?role=manajer" style="text-decoration:none;border-radius:22px;border:2px solid #17241A;background:#57C64A;color:#17241A;padding:26px 24px;min-height:230px;display:flex;flex-direction:column;justify-content:space-between" style-hover="transform:translateY(-4px)">
+      <div style="width:40px;height:40px;border-radius:12px;background:rgba(23,36,26,.12);border:2px solid #17241A"></div>
+      <div><h3 style="font-family:Fraunces;font-weight:600;font-size:24px;margin:0 0 8px">NGO</h3><p style="font-size:13.5px;line-height:1.5;margin:0 0 12px">Program berpendanaan donor butuh monitoring &amp; laporan dampak.</p><span style="font-size:12.5px;font-weight:700">Buka dashboard Manajer →</span></div>
+    </a>
+    <a href="DecarbonHub%20App.dc.html?role=pemerintah" style="text-decoration:none;border-radius:22px;border:2px solid #17241A;background:#2C86D8;color:#fff;padding:26px 24px;min-height:230px;display:flex;flex-direction:column;justify-content:space-between" style-hover="transform:translateY(-4px)">
+      <div style="width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.22);border:2px solid #fff"></div>
+      <div><h3 style="font-family:Fraunces;font-weight:600;font-size:24px;margin:0 0 8px">Pemerintah</h3><p style="font-size:13.5px;line-height:1.5;color:#fff;opacity:.92;margin:0 0 12px">Dashboard monitoring lokal &amp; exposure internasional (Fase 3–4).</p><span style="font-size:12.5px;font-weight:700">Buka dashboard Pantau →</span></div>
+    </a>
+  </div>
+</section>
+
+<!-- ===== CARA KERJA ===== -->
+<section id="cara-kerja" style="padding:20px 0 76px">
+  <h2 style="font-family:Fraunces;font-weight:600;font-size:38px;letter-spacing:-.01em;margin:0 0 8px">Dari tagihan ke laporan siap-audit</h2>
+  <p style="font-size:16px;color:#8a9488;margin:0 0 34px;max-width:56ch">Lima langkah. Semua software — verifikasi &amp; registri dihubungkan ke lembaga resmi.</p>
+  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:14px">
+    <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:22px 20px"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:15px;color:#ED7A2B;margin-bottom:14px">01</div><h4 style="font-size:16px;margin:0 0 6px;font-weight:800">Tangkap</h4><p style="font-size:13px;color:#8a9488;line-height:1.5;margin:0">Input bukti → OCR baca kWh, Rp, periode. Koreksi manual.</p></div>
+    <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:22px 20px"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:15px;color:#F4C518;margin-bottom:14px">02</div><h4 style="font-size:16px;margin:0 0 6px;font-weight:800">Hitung</h4><p style="font-size:13px;color:#8a9488;line-height:1.5;margin:0">Scope 1/2/3 dengan faktor emisi grid nasional. Metode tersimpan.</p></div>
+    <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:22px 20px"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:15px;color:#2C86D8;margin-bottom:14px">03</div><h4 style="font-size:16px;margin:0 0 6px;font-weight:800">Petakan</h4><p style="font-size:13px;color:#8a9488;line-height:1.5;margin:0">Aktivitas → GHG Protocol, ISO, GRI, TJSL, PROPER + skor kesiapan.</p></div>
+    <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:22px 20px"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:15px;color:#57C64A;margin-bottom:14px">04</div><h4 style="font-size:16px;margin:0 0 6px;font-weight:800">Laporkan</h4><p style="font-size:13px;color:#8a9488;line-height:1.5;margin:0">Laporan siap-audit, format menuju SRN-PPI + label batas klaim.</p></div>
+    <div style="background:#17241A;color:#F3EFE3;border:1.5px solid #17241A;border-radius:18px;padding:22px 20px"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:15px;color:#E24FA0;margin-bottom:14px">05</div><h4 style="font-size:16px;margin:0 0 6px;font-weight:800">Jalanin</h4><p style="font-size:13px;color:#c3ccbd;line-height:1.5;margin:0">After-care: kelola program &amp; ukur dampak secara efisien<br>.</p></div>
+  </div>
+</section>
+
+<!-- ===== PEMBEDA ===== -->
+<section id="pembeda" style="margin:0 -32px;padding:76px 32px;background:#17241A;color:#F3EFE3;border-radius:32px">
+  <div style="max-width:1176px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:52px;align-items:center">
+    <div>
+      <span style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.14em;text-transform:uppercase;color:#F4C518">Pembeda</span>
+      <h2 style="font-family:Fraunces;font-weight:600;font-size:44px;line-height:1.05;letter-spacing:-.02em;margin:18px 0 20px">Bukan cuma melapor — kami bantu jalankan, lalu ukur dampaknya ke manusia.</h2>
+      <p style="font-size:17px;line-height:1.6;color:#c3ccbd;max-width:52ch;margin:0">Lapangan kerja, partisipasi perempuan, akses energi komunitas — bukan tempelan, tapi inti. Native ke regulasi Indonesia: Perpres 110/2025, SRN-PPI, PROPER, TKBI, TJSL.</p>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="background:#E24FA0;border-radius:20px;padding:22px 24px"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:40px;line-height:.9;color:#fff">58%</div><div style="font-size:13px;color:#ffe0f1;margin-top:6px;font-weight:600">partisipasi perempuan</div></div>
+      <div style="background:#57C64A;border-radius:20px;padding:22px 24px;color:#17241A"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:40px;line-height:.9">1.9k</div><div style="font-size:13px;margin-top:6px;font-weight:600">akses energi (RT)</div></div>
+      <div style="background:#F4C518;border-radius:20px;padding:22px 24px;color:#17241A"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:40px;line-height:.9">12</div><div style="font-size:13px;margin-top:6px;font-weight:600">program after-care</div></div>
+      <div style="background:#2C86D8;border-radius:20px;padding:22px 24px;color:#fff"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:40px;line-height:.9">82%</div><div style="font-size:13px;color:#e0efff;margin-top:6px;font-weight:600">skor siap-lapor</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== KREDIBILITAS ===== -->
+<section id="kredibilitas" style="padding:76px 0">
+  <div style="display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:center">
+    <div>
+      <h2 style="font-family:Fraunces;font-weight:600;font-size:36px;letter-spacing:-.01em;margin:0 0 16px">Framework, bukan standar sendiri.</h2>
+      <p style="font-size:16px;line-height:1.6;color:#3a463c;margin:0 0 24px;max-width:46ch">Selalu bersandar pada framework kredibel + regulasi Indonesia. Label batas klaim tampil di setiap angka — DecarbonHub = alat kesiapan, bukan verifikator resmi.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <span style="background:#fff;border:1.5px solid #e6e0d0;border-radius:100px;padding:9px 16px;font-weight:700;font-size:13px">GHG Protocol</span>
+        <span style="background:#fff;border:1.5px solid #e6e0d0;border-radius:100px;padding:9px 16px;font-weight:700;font-size:13px">ISO 14064</span>
+        <span style="background:#fff;border:1.5px solid #e6e0d0;border-radius:100px;padding:9px 16px;font-weight:700;font-size:13px">GRI</span>
+        <span style="background:#fff;border:1.5px solid #e6e0d0;border-radius:100px;padding:9px 16px;font-weight:700;font-size:13px">TJSL</span>
+        <span style="background:#fff;border:1.5px solid #e6e0d0;border-radius:100px;padding:9px 16px;font-weight:700;font-size:13px">PROPER</span>
+        <span style="background:#fff;border:1.5px solid #e6e0d0;border-radius:100px;padding:9px 16px;font-weight:700;font-size:13px">SRN-PPI</span>
+      </div>
+    </div>
+    <!-- community photo placeholder -->
+    <div style="border-radius:24px;border:2px solid #17241A;overflow:hidden;aspect-ratio:16/10;position:relative">
+      <img src="assets/riso-community.png" alt="Komunitas &amp; keberagaman Indonesia" style="width:100%;height:100%;object-fit:cover;display:block">
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section id="faq" style="padding:20px 0 80px">
+  <h2 style="font-family:Fraunces;font-weight:600;font-size:38px;letter-spacing:-.01em;margin:0 0 8px">Pertanyaan yang sering muncul</h2>
+  <p style="font-size:16px;color:#8a9488;margin:0 0 34px;max-width:56ch">Batas jujur, framework, dan cara kerja — tanpa overclaim.</p>
+  <div style="display:flex;flex-direction:column;gap:12px;max-width:880px">
+
+    <details style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:4px 24px" open="">
+      <summary style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0"><span class="faq-q" style="font-family:Fraunces;font-weight:600;font-size:20px">Apakah DecarbonHub memverifikasi laporan karbon saya secara resmi?</span><span class="faq-plus" style="flex:none;font-size:22px;font-weight:400;color:#8a9488">+</span></summary>
+      <p style="font-size:15px;line-height:1.6;color:#3a463c;margin:0 0 18px;max-width:70ch">Tidak. DecarbonHub adalah <b>alat kesiapan (readiness)</b> — menyiapkan data &amp; laporan siap-audit. Verifikasi resmi (MRV, sertifikasi SPE-GRK) tetap lewat <b>lembaga terakreditasi</b>. Setiap angka membawa label batas klaim agar tidak ada overclaim.</p>
+    </details>
+
+    <details style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:4px 24px">
+      <summary style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0"><span class="faq-q" style="font-family:Fraunces;font-weight:600;font-size:20px">Framework apa saja yang didukung?</span><span class="faq-plus" style="flex:none;font-size:22px;font-weight:400;color:#8a9488">+</span></summary>
+      <p style="font-size:15px;line-height:1.6;color:#3a463c;margin:0 0 18px;max-width:70ch">GHG Protocol &amp; ISO 14064 untuk karbon; GRI, ISO 26000, TJSL, TKBI, dan PROPER untuk keberlanjutan. Laporan diformat menuju <b>SRN-PPI</b> — selaras arah Perpres 110/2025.</p>
+    </details>
+
+    <details style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:4px 24px">
+      <summary style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0"><span class="faq-q" style="font-family:Fraunces;font-weight:600;font-size:20px">Bagaimana data energi masuk ke sistem?</span><span class="faq-plus" style="flex:none;font-size:22px;font-weight:400;color:#8a9488">+</span></summary>
+      <p style="font-size:15px;line-height:1.6;color:#3a463c;margin:0 0 18px;max-width:70ch">Foto atau unggah tagihan listrik → OCR membaca kWh, Rp, dan periode → <b>koreksi manual bila salah</b> → simpan. Bisa juga input manual atau bulk. Kegagalan OCR selalu jatuh ke input manual.</p>
+    </details>
+
+    <details style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:4px 24px">
+      <summary style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0"><span class="faq-q" style="font-family:Fraunces;font-weight:600;font-size:20px">Apa itu label batas klaim?</span><span class="faq-plus" style="flex:none;font-size:22px;font-weight:400;color:#8a9488">+</span></summary>
+      <p style="font-size:15px;line-height:1.6;color:#3a463c;margin:0 0 18px;max-width:70ch">Chip di setiap angka &amp; laporan dengan empat tingkat: <b>Estimasi → Data organisasi → Siap-audit → Terverifikasi</b>. Tujuannya transparansi — pembaca selalu tahu seberapa kuat sebuah angka.</p>
+    </details>
+
+    <details style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:4px 24px">
+      <summary style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0"><span class="faq-q" style="font-family:Fraunces;font-weight:600;font-size:20px">Apakah DecarbonHub menjual kredit karbon?</span><span class="faq-plus" style="flex:none;font-size:22px;font-weight:400;color:#8a9488">+</span></summary>
+      <p style="font-size:15px;line-height:1.6;color:#3a463c;margin:0 0 18px;max-width:70ch">Tidak. Bursa &amp; jual-beli kredit adalah ranah <b>IDXCarbon</b>; registri resmi adalah <b>SRN-PPI/SRUK</b>. DecarbonHub berperan sebagai <b>feeder/koordinator</b> — menyiapkan &amp; menghubungkan, bukan menggantikan.</p>
+    </details>
+
+  </div>
+</section>
+
+<!-- ===== FINAL CTA ===== -->
+<section id="demo" style="margin:0 -32px 0;padding:80px 32px;background:#F4C518;border-radius:32px 32px 0 0;position:relative;overflow:hidden">
+  <div style="position:absolute;right:-40px;bottom:-40px;width:200px;height:200px;border-radius:50%;background:#57C64A;border:2px solid #17241A"></div>
+  <div style="position:absolute;right:150px;top:-50px;width:120px;height:120px;border-radius:50% 50% 50% 4px;background:#E24FA0;border:2px solid #17241A"></div>
+  <div style="max-width:1176px;margin:0 auto;position:relative">
+    <sc-if value="{{ showDeadlinePill }}" hint-placeholder-val="{{ true }}"><span style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.14em;text-transform:uppercase;color:#17241A">Sebelum 10 Oktober 2026</span></sc-if>
+    <h2 style="font-family:Fraunces;font-weight:600;font-size:clamp(36px,5vw,60px);line-height:1;letter-spacing:-.02em;margin:16px 0 26px;max-width:18ch">Siapkan laporan karbon Anda mulai hari ini.</h2>
+    <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center">
+      <a href="#" style="background:#17241A;color:#F3EFE3;font-weight:700;font-size:16px;border-radius:100px;padding:16px 32px" style-hover="background:#2a3a2c">Jadwalkan demo</a>
+      <a href="DecarbonHub%20App.dc.html?role=staff" style="background:transparent;border:2px solid #17241A;color:#17241A;font-weight:700;font-size:16px;border-radius:100px;padding:14px 30px" style-hover="background:#17241A;color:#F4C518">Hitung emisi</a>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<!-- ===== FOOTER ===== -->
+<footer style="background:#17241A;color:#c3ccbd;padding:36px 32px">
+  <div style="max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap">
+    <div style="display:flex;align-items:center;gap:10px"><img src="assets/decarbonhub-mark.png" alt="DecarbonHub" style="height:30px;filter:brightness(0) invert(1)"><span style="font-weight:800;font-size:18px;color:#F3EFE3">DecarbonHub</span></div>
+    <span style="font-size:13px">Alat kesiapan + koordinasi transisi hijau · bukan verifikator/registri resmi · © 2026</span>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900},&quot;showDeadlinePill&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Hero&quot;}}">class Component extends DCLogic {
+  renderVals() {
+    return { showDeadlinePill: this.props.showDeadlinePill !== false };
+  }
+}</script>
+</body>
+</html>
