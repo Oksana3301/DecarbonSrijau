@@ -40,7 +40,7 @@
       <a href="#faq" style-hover="color:#ED7A2B">FAQ</a>
     </div>
     <div style="display:flex;align-items:center;gap:14px">
-      <a href="DecarbonHub%20App.dc.html" style="font-weight:600;font-size:14.5px" style-hover="color:#ED7A2B">Masuk</a>
+      <a href="decarbonhub-app.dc.html" style="font-weight:600;font-size:14.5px" style-hover="color:#ED7A2B">Masuk</a>
       <a href="#demo" style="background:#17241A;color:#F3EFE3;font-weight:700;font-size:14.5px;border-radius:100px;padding:11px 20px" style-hover="background:#2a3a2c">Jadwalkan demo</a>
     </div>
   </div>
@@ -60,21 +60,23 @@
     </div>
   </div>
 
-  <!-- bento cluster -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto;gap:16px">
-    <!-- risograph scene -->
-    <div style="grid-row:span 2;border-radius:22px;border:2px solid #17241A;overflow:hidden;position:relative;min-height:340px">
-      <img src="assets/riso-archipelago.png" alt="Nusantara" style="width:100%;height:100%;object-fit:cover;display:block">
-    </div>
-    <!-- human impact -->
-    <div style="border-radius:22px;border:2px solid #17241A;background:#E24FA0;color:#fff;padding:22px 24px;display:flex;flex-direction:column;justify-content:center">
-      <div class="tn" style="font-family:Fraunces;font-weight:600;font-size:44px;line-height:.9">247</div>
-      <div style="font-size:13px;color:#ffe0f1;margin-top:6px;font-weight:600">lapangan kerja · dampak manusia</div>
-    </div>
-    <!-- scope mini -->
-    <div style="border-radius:22px;border:2px solid #17241A;background:#fff;padding:22px 24px;display:flex;align-items:center;gap:16px">
-      <div style="width:66px;height:66px;border-radius:50%;flex:none;background:conic-gradient(#ED7A2B 0 31%,#F4C518 31% 75%,#2C86D8 75% 100%);border:2px solid #17241A;display:flex;align-items:center;justify-content:center"><div style="width:36px;height:36px;border-radius:50%;background:#fff;border:2px solid #17241A"></div></div>
-      <div><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:26px;line-height:1">1.284</div><div style="font-size:12px;color:#8a9488;font-weight:600">tCO₂e · Scope 1/2/3</div></div>
+  <!-- unified hero scene: one Nusantara landscape with floating glass stats -->
+  <div style="position:relative;border-radius:24px;border:2px solid #17241A;overflow:hidden;min-height:480px;box-shadow:0 28px 64px -24px rgba(23,36,26,.5)">
+    <img src="assets/hero-nusantara.png" alt="Lanskap Nusantara — gunung, laut, dan sawah" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 42%;display:block">
+    <!-- legibility wash: warm at top, deep ink at base -->
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(243,239,227,.10) 0%,rgba(23,36,26,0) 34%,rgba(23,36,26,.20) 62%,rgba(23,36,26,.72) 100%)"></div>
+    <!-- corner eyebrow tag -->
+    <span style="position:absolute;top:16px;left:16px;font:700 11px/1 'Plus Jakarta Sans';letter-spacing:.14em;text-transform:uppercase;color:#17241A;background:#F4C518;padding:8px 13px;border-radius:100px;box-shadow:0 6px 16px rgba(23,36,26,.28)">Nusantara</span>
+    <!-- floating glass stats -->
+    <div style="position:absolute;left:16px;right:16px;bottom:16px;display:flex;gap:12px;align-items:stretch">
+      <div style="flex:1;background:rgba(226,79,160,.82);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1.5px solid rgba(255,255,255,.4);border-radius:18px;padding:16px 18px;color:#fff">
+        <div class="tn" style="font-family:Fraunces;font-weight:600;font-size:40px;line-height:.9">247</div>
+        <div style="font-size:12px;color:#ffe6f4;margin-top:5px;font-weight:600">lapangan kerja · dampak manusia</div>
+      </div>
+      <div style="flex:1.15;background:rgba(255,255,255,.9);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1.5px solid rgba(23,36,26,.18);border-radius:18px;padding:16px 18px;display:flex;align-items:center;gap:14px">
+        <div style="width:58px;height:58px;border-radius:50%;flex:none;background:conic-gradient(#ED7A2B 0 31%,#F4C518 31% 75%,#2C86D8 75% 100%);border:2px solid #17241A;display:flex;align-items:center;justify-content:center"><div style="width:30px;height:30px;border-radius:50%;background:#fff;border:2px solid #17241A"></div></div>
+        <div><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:26px;line-height:1">1.284</div><div style="font-size:11px;color:#5a655c;font-weight:600">tCO₂e · Scope 1/2/3</div></div>
+      </div>
     </div>
   </div>
 </header>
@@ -84,19 +86,19 @@
   <h2 style="font-family:Fraunces;font-weight:600;font-size:38px;letter-spacing:-.01em;margin:0 0 8px">DecarbonHub untuk setiap organisasi</h2>
   <p style="font-size:16px;color:#8a9488;margin:0 0 34px;max-width:56ch">Korporat, UMKM, NGO, pemerintah — satu platform, konteks Indonesia.</p>
   <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
-    <a href="DecarbonHub%20App.dc.html?role=manajer" style="text-decoration:none;border-radius:22px;border:2px solid #17241A;background:#ED7A2B;color:#fff;padding:26px 24px;min-height:230px;display:flex;flex-direction:column;justify-content:space-between" style-hover="transform:translateY(-4px)">
+    <a href="decarbonhub-app.dc.html?role=manajer" style="text-decoration:none;border-radius:22px;border:2px solid #17241A;background:#ED7A2B;color:#fff;padding:26px 24px;min-height:230px;display:flex;flex-direction:column;justify-content:space-between" style-hover="transform:translateY(-4px)">
       <div style="width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.22);border:2px solid #fff"></div>
       <div><h3 style="font-family:Fraunces;font-weight:600;font-size:24px;margin:0 0 8px">Korporat</h3><p style="font-size:13.5px;line-height:1.5;color:#fff;opacity:.92;margin:0 0 12px">Wajib ETS/PROPER, tim ESG mengejar net-zero &amp; laporan keberlanjutan.</p><span style="font-size:12.5px;font-weight:700">Buka dashboard Manajer →</span></div>
     </a>
-    <a href="DecarbonHub%20App.dc.html?role=staff" style="text-decoration:none;border-radius:22px;border:2px solid #17241A;background:#F4C518;color:#17241A;padding:26px 24px;min-height:230px;display:flex;flex-direction:column;justify-content:space-between" style-hover="transform:translateY(-4px)">
+    <a href="decarbonhub-app.dc.html?role=staff" style="text-decoration:none;border-radius:22px;border:2px solid #17241A;background:#F4C518;color:#17241A;padding:26px 24px;min-height:230px;display:flex;flex-direction:column;justify-content:space-between" style-hover="transform:translateY(-4px)">
       <div style="width:40px;height:40px;border-radius:12px;background:rgba(23,36,26,.12);border:2px solid #17241A"></div>
       <div><h3 style="font-family:Fraunces;font-weight:600;font-size:24px;margin:0 0 8px">UMKM</h3><p style="font-size:13.5px;line-height:1.5;margin:0 0 12px">Rantai pasok menuntut data karbon — mulai dari tagihan listrik.</p><span style="font-size:12.5px;font-weight:700">Buka dashboard Staf →</span></div>
     </a>
-    <a href="DecarbonHub%20App.dc.html?role=manajer" style="text-decoration:none;border-radius:22px;border:2px solid #17241A;background:#57C64A;color:#17241A;padding:26px 24px;min-height:230px;display:flex;flex-direction:column;justify-content:space-between" style-hover="transform:translateY(-4px)">
+    <a href="decarbonhub-app.dc.html?role=manajer" style="text-decoration:none;border-radius:22px;border:2px solid #17241A;background:#57C64A;color:#17241A;padding:26px 24px;min-height:230px;display:flex;flex-direction:column;justify-content:space-between" style-hover="transform:translateY(-4px)">
       <div style="width:40px;height:40px;border-radius:12px;background:rgba(23,36,26,.12);border:2px solid #17241A"></div>
       <div><h3 style="font-family:Fraunces;font-weight:600;font-size:24px;margin:0 0 8px">NGO</h3><p style="font-size:13.5px;line-height:1.5;margin:0 0 12px">Program berpendanaan donor butuh monitoring &amp; laporan dampak.</p><span style="font-size:12.5px;font-weight:700">Buka dashboard Manajer →</span></div>
     </a>
-    <a href="DecarbonHub%20App.dc.html?role=pemerintah" style="text-decoration:none;border-radius:22px;border:2px solid #17241A;background:#2C86D8;color:#fff;padding:26px 24px;min-height:230px;display:flex;flex-direction:column;justify-content:space-between" style-hover="transform:translateY(-4px)">
+    <a href="decarbonhub-app.dc.html?role=pemerintah" style="text-decoration:none;border-radius:22px;border:2px solid #17241A;background:#2C86D8;color:#fff;padding:26px 24px;min-height:230px;display:flex;flex-direction:column;justify-content:space-between" style-hover="transform:translateY(-4px)">
       <div style="width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.22);border:2px solid #fff"></div>
       <div><h3 style="font-family:Fraunces;font-weight:600;font-size:24px;margin:0 0 8px">Pemerintah</h3><p style="font-size:13.5px;line-height:1.5;color:#fff;opacity:.92;margin:0 0 12px">Dashboard monitoring lokal &amp; exposure internasional (Fase 3–4).</p><span style="font-size:12.5px;font-weight:700">Buka dashboard Pantau →</span></div>
     </a>
@@ -198,7 +200,7 @@
     <h2 style="font-family:Fraunces;font-weight:600;font-size:clamp(36px,5vw,60px);line-height:1;letter-spacing:-.02em;margin:16px 0 26px;max-width:18ch">Siapkan laporan karbon Anda mulai hari ini.</h2>
     <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center">
       <a href="#" style="background:#17241A;color:#F3EFE3;font-weight:700;font-size:16px;border-radius:100px;padding:16px 32px" style-hover="background:#2a3a2c">Jadwalkan demo</a>
-      <a href="DecarbonHub%20App.dc.html?role=staff" style="background:transparent;border:2px solid #17241A;color:#17241A;font-weight:700;font-size:16px;border-radius:100px;padding:14px 30px" style-hover="background:#17241A;color:#F4C518">Hitung emisi</a>
+      <a href="decarbonhub-app.dc.html?role=staff" style="background:transparent;border:2px solid #17241A;color:#17241A;font-weight:700;font-size:16px;border-radius:100px;padding:14px 30px" style-hover="background:#17241A;color:#F4C518">Hitung emisi</a>
     </div>
   </div>
 </section>
