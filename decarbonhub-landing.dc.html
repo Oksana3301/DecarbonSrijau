@@ -22,6 +22,10 @@
   .faq-plus{transition:transform .22s ease}
   details[open] .faq-plus{transform:rotate(45deg)}
   details[open] .faq-q{color:#ED7A2B}
+  /* ready-made hero animation — add class="hero-anim" to your future hero image/video */
+  .hero-anim{animation:heroDrift 26s ease-in-out infinite alternate;will-change:transform}
+  @keyframes heroDrift{from{transform:scale(1.06)}to{transform:scale(1.14) translate(-2%,-1.5%)}}
+  @media (prefers-reduced-motion:reduce){.hero-anim{animation:none}}
 </style>
 </helmet>
 
@@ -34,6 +38,7 @@
     </a>
     <div style="display:flex;align-items:center;gap:30px;font-weight:600;font-size:14.5px">
       <a href="#untuk-siapa" style-hover="color:#ED7A2B">{{ nFor }}</a>
+      <a href="#solutions" style-hover="color:#ED7A2B">{{ nSol }}</a>
       <a href="#cara-kerja" style-hover="color:#ED7A2B">{{ nHow }}</a>
       <a href="#pembeda" style-hover="color:#ED7A2B">{{ nDiff }}</a>
       <a href="#kredibilitas" style-hover="color:#ED7A2B">{{ nCred }}</a>
@@ -51,40 +56,33 @@
   </div>
 </nav>
 
-<div id="top" style="max-width:1240px;margin:0 auto;padding:0 32px">
+<!-- ===== HERO (full-bleed · image/animation slot — intentionally empty for now) ===== -->
+<header id="top" style="position:relative;min-height:88vh;display:flex;align-items:center;overflow:hidden;border-bottom:1.5px solid #e6e0d0">
 
-<!-- ===== HERO ===== -->
-<header style="display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center;padding:64px 0 72px">
-  <div>
+  <!-- ▼▼▼ HERO MEDIA — drop your full-bleed image or video here later ▼▼▼
+       Image:  <img class="hero-anim" src="assets/your-hero.png" alt="…" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
+       Video:  <video class="hero-anim" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><source src="assets/your-hero.mp4" type="video/mp4"></video>
+       The .hero-anim class already carries a slow ken-burns drift (reduced-motion safe).
+       Until then, an on-brand gradient stands in: -->
+  <div style="position:absolute;inset:0;background:radial-gradient(130% 130% at 82% 12%,#2f5138 0%,#20392a 40%,#17241A 74%)"></div>
+  <!-- ▲▲▲ HERO MEDIA END ▲▲▲ -->
+
+  <!-- legibility scrim so overlaid text stays readable over any future image -->
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg,rgba(23,36,26,.74) 0%,rgba(23,36,26,.38) 48%,rgba(23,36,26,.04) 100%)"></div>
+
+  <!-- hero content -->
+  <div style="position:relative;max-width:1240px;margin:0 auto;padding:0 32px;width:100%">
     <span style="display:inline-flex;align-items:center;gap:8px;font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.12em;text-transform:uppercase;color:#17241A;background:#F4C518;padding:9px 15px;border-radius:100px;margin-bottom:26px">{{ hEyebrow }}</span>
-    <h1 style="font-family:Fraunces;font-optical-sizing:144;font-weight:600;font-size:clamp(44px,5.2vw,72px);line-height:.98;letter-spacing:-.02em;margin:0 0 24px">{{ hTitle }}</h1>
-    <p style="font-size:19px;line-height:1.55;color:#3a463c;max-width:50ch;margin:0 0 34px">{{ hSub }}</p>
+    <h1 style="font-family:Fraunces;font-optical-sizing:144;font-weight:600;font-size:clamp(46px,6vw,84px);line-height:.98;letter-spacing:-.02em;color:#F3EFE3;margin:0 0 24px;max-width:17ch">{{ hTitle }}</h1>
+    <p style="font-size:19px;line-height:1.55;color:#e2e8df;max-width:52ch;margin:0 0 34px">{{ hSub }}</p>
     <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center">
-      <a href="#demo" style="background:#17241A;color:#F3EFE3;font-weight:700;font-size:16px;border-radius:100px;padding:16px 30px" style-hover="background:#2a3a2c">{{ hCta1 }}</a>
-      <a href="#cara-kerja" style="background:transparent;border:2px solid #17241A;color:#17241A;font-weight:700;font-size:16px;border-radius:100px;padding:14px 28px" style-hover="background:#17241A;color:#F3EFE3">{{ hCta2 }}</a>
-    </div>
-  </div>
-
-  <!-- unified hero scene: one Nusantara landscape with floating glass stats -->
-  <div style="position:relative;border-radius:24px;border:2px solid #17241A;overflow:hidden;min-height:480px;box-shadow:0 28px 64px -24px rgba(23,36,26,.5)">
-    <img src="assets/hero-nusantara.png" alt="Lanskap Nusantara — gunung, laut, dan sawah" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 42%;display:block">
-    <!-- legibility wash: warm at top, deep ink at base -->
-    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(243,239,227,.10) 0%,rgba(23,36,26,0) 34%,rgba(23,36,26,.20) 62%,rgba(23,36,26,.72) 100%)"></div>
-    <!-- corner eyebrow tag -->
-    <span style="position:absolute;top:16px;left:16px;font:700 11px/1 'Plus Jakarta Sans';letter-spacing:.14em;text-transform:uppercase;color:#17241A;background:#F4C518;padding:8px 13px;border-radius:100px;box-shadow:0 6px 16px rgba(23,36,26,.28)">{{ hTag }}</span>
-    <!-- floating glass stats -->
-    <div style="position:absolute;left:16px;right:16px;bottom:16px;display:flex;gap:12px;align-items:stretch">
-      <div style="flex:1;background:rgba(226,79,160,.82);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1.5px solid rgba(255,255,255,.4);border-radius:18px;padding:16px 18px;color:#fff">
-        <div class="tn" style="font-family:Fraunces;font-weight:600;font-size:40px;line-height:.9">247</div>
-        <div style="font-size:12px;color:#ffe6f4;margin-top:5px;font-weight:600">{{ hStat1 }}</div>
-      </div>
-      <div style="flex:1.15;background:rgba(255,255,255,.9);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1.5px solid rgba(23,36,26,.18);border-radius:18px;padding:16px 18px;display:flex;align-items:center;gap:14px">
-        <div style="width:58px;height:58px;border-radius:50%;flex:none;background:conic-gradient(#ED7A2B 0 31%,#F4C518 31% 75%,#2C86D8 75% 100%);border:2px solid #17241A;display:flex;align-items:center;justify-content:center"><div style="width:30px;height:30px;border-radius:50%;background:#fff;border:2px solid #17241A"></div></div>
-        <div><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:26px;line-height:1">1.284</div><div style="font-size:11px;color:#5a655c;font-weight:600">{{ hStat2 }}</div></div>
-      </div>
+      <a href="#demo" style="background:#F4C518;color:#17241A;font-weight:700;font-size:16px;border-radius:100px;padding:16px 30px" style-hover="background:#ffd93b">{{ hCta1 }}</a>
+      <a href="#solutions" style="background:transparent;border:2px solid rgba(243,239,227,.7);color:#F3EFE3;font-weight:700;font-size:16px;border-radius:100px;padding:14px 28px" style-hover="background:#F3EFE3;color:#17241A">{{ hCta2 }}</a>
     </div>
   </div>
 </header>
+
+<div style="max-width:1240px;margin:0 auto;padding:0 32px">
 
 <!-- ===== UNTUK SIAPA ===== -->
 <section id="untuk-siapa" style="padding:20px 0 76px">
@@ -107,6 +105,53 @@
       <div style="width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.22);border:2px solid #fff"></div>
       <div><h3 style="font-family:Fraunces;font-weight:600;font-size:24px;margin:0 0 8px">{{ wGovT }}</h3><p style="font-size:13.5px;line-height:1.5;color:#fff;opacity:.92;margin:0 0 12px">{{ wGovD }}</p><span style="font-size:12.5px;font-weight:700">{{ wGovCta }}</span></div>
     </a>
+  </div>
+</section>
+
+<!-- ===== SOLUTIONS (integrated platform capabilities) ===== -->
+<section id="solutions" style="padding:20px 0 76px">
+  <span style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.14em;text-transform:uppercase;color:#ED7A2B">{{ solEyebrow }}</span>
+  <h2 style="font-family:Fraunces;font-weight:600;font-size:38px;letter-spacing:-.01em;margin:14px 0 8px;max-width:24ch">{{ solTitle }}</h2>
+  <p style="font-size:16px;color:#8a9488;margin:0 0 34px;max-width:62ch">{{ solSub }}</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+
+    <div style="background:#fff;border:2px solid #17241A;border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:9px" style-hover="transform:translateY(-4px)">
+      <span class="tn" style="font-family:Fraunces;font-weight:600;font-size:13px;color:#ED7A2B;letter-spacing:.04em">{{ solC1L }}</span>
+      <h3 style="font-family:Fraunces;font-weight:600;font-size:21px;margin:0">{{ solC1T }}</h3>
+      <p style="font-size:13.5px;line-height:1.55;color:#5a655c;margin:0">{{ solC1D }}</p>
+    </div>
+
+    <div style="background:#fff;border:2px solid #17241A;border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:9px" style-hover="transform:translateY(-4px)">
+      <span class="tn" style="font-family:Fraunces;font-weight:600;font-size:13px;color:#2C86D8;letter-spacing:.04em">{{ solC2L }}</span>
+      <h3 style="font-family:Fraunces;font-weight:600;font-size:21px;margin:0">{{ solC2T }}</h3>
+      <p style="font-size:13.5px;line-height:1.55;color:#5a655c;margin:0">{{ solC2D }}</p>
+    </div>
+
+    <div style="background:#fff;border:2px solid #17241A;border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:9px" style-hover="transform:translateY(-4px)">
+      <span class="tn" style="font-family:Fraunces;font-weight:600;font-size:13px;color:#57C64A;letter-spacing:.04em">{{ solC3L }}</span>
+      <h3 style="font-family:Fraunces;font-weight:600;font-size:21px;margin:0">{{ solC3T }}</h3>
+      <p style="font-size:13.5px;line-height:1.55;color:#5a655c;margin:0">{{ solC3D }}</p>
+    </div>
+
+    <div style="background:#fff;border:2px solid #17241A;border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:9px" style-hover="transform:translateY(-4px)">
+      <span class="tn" style="font-family:Fraunces;font-weight:600;font-size:13px;color:#E24FA0;letter-spacing:.04em">{{ solC4L }}</span>
+      <h3 style="font-family:Fraunces;font-weight:600;font-size:21px;margin:0">{{ solC4T }}</h3>
+      <p style="font-size:13.5px;line-height:1.55;color:#5a655c;margin:0">{{ solC4D }}</p>
+    </div>
+
+    <!-- featured dark card: green finance -->
+    <div style="background:#17241A;color:#F3EFE3;border:2px solid #17241A;border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:9px" style-hover="transform:translateY(-4px)">
+      <span class="tn" style="font-family:Fraunces;font-weight:600;font-size:13px;color:#F4C518;letter-spacing:.04em">{{ solC5L }}</span>
+      <h3 style="font-family:Fraunces;font-weight:600;font-size:21px;margin:0">{{ solC5T }}</h3>
+      <p style="font-size:13.5px;line-height:1.55;color:#c3ccbd;margin:0">{{ solC5D }}</p>
+    </div>
+
+    <div style="background:#fff;border:2px solid #17241A;border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:9px" style-hover="transform:translateY(-4px)">
+      <span class="tn" style="font-family:Fraunces;font-weight:600;font-size:13px;color:#ED7A2B;letter-spacing:.04em">{{ solC6L }}</span>
+      <h3 style="font-family:Fraunces;font-weight:600;font-size:21px;margin:0">{{ solC6T }}</h3>
+      <p style="font-size:13.5px;line-height:1.55;color:#5a655c;margin:0">{{ solC6D }}</p>
+    </div>
+
   </div>
 </section>
 
@@ -228,12 +273,21 @@
     const on = '#17241A', onFg = '#F3EFE3', off = 'transparent', offFg = '#8a9488';
     const D = {
       id: {
-        nFor: 'Untuk siapa', nHow: 'Cara kerja', nDiff: 'Pembeda', nCred: 'Kredibilitas', nFaq: 'FAQ',
+        nFor: 'Untuk siapa', nSol: 'Solusi', nHow: 'Cara kerja', nDiff: 'Pembeda', nCred: 'Kredibilitas', nFaq: 'FAQ',
         nLogin: 'Masuk', nDemo: 'Jadwalkan demo',
+        solEyebrow: 'Kapabilitas platform',
+        solTitle: 'Dari sensor energi ke pembiayaan hijau — dalam satu platform.',
+        solSub: 'Menghubungkan aset energi fisik Anda ke pelaporan selaras-taksonomi dan akses pembiayaan institusional — memperluas DecarbonHub dari pelaporan menuju aksi dan modal.',
+        solC1L: '01 · Sensor & IoT', solC1T: 'Pemantauan energi real-time', solC1D: 'Smart meter, panel surya, dan baterai memberi visibilitas atas setiap kilowatt yang Anda hasilkan dan gunakan.',
+        solC2L: '02 · Optimasi AI', solC2T: 'Optimasi & prakiraan cerdas', solC2D: 'Manajemen energi otomatis, predictive maintenance, dan prakiraan surplus surya — bekerja seperti manajer fasilitas tak terlihat.',
+        solC3L: '03 · Ledger & Penerjemah', solC3T: 'Catatan tahan-ubah + penerjemah laporan', solC3D: 'Ledger mencatat setiap unit energi; penerjemah RAG mengubah penghematan terverifikasi menjadi laporan selaras taksonomi.',
+        solC4L: '04 · Perdagangan P2P', solC4T: 'Perdagangan energi peer-to-peer', solC4D: 'Smart contract menjual surplus energi bersih antar-pihak pada momen paling menguntungkan.',
+        solC5L: '05 · Green Finance', solC5T: 'Akses pembiayaan hijau', solC5D: 'Laporan terverifikasi menempel pada aplikasi pinjaman hijau — membuka soft loan berbunga lebih rendah.',
+        solC6L: '06 · Taksonomi ASEAN', solC6T: 'Kepatuhan lintas negara', solC6D: 'Pemetaan Hijau/Amber/Merah pada Taksonomi ASEAN, kesiapan CBAM, serta grid lintas-batas (APG).',
         hEyebrow: 'Konteks Indonesia',
         hTitle: 'Dekarbonisasi yang terukur, untuk Indonesia.',
         hSub: 'DecarbonHub menghitung emisi Anda sesuai GHG Protocol, memetakannya ke persyaratan pelaporan Indonesia, dan menyiapkan laporan siap-audit — lalu membantu Anda menjalankan program pengurangannya.',
-        hCta1: 'Jadwalkan demo', hCta2: 'Lihat cara kerja', hTag: 'Nusantara',
+        hCta1: 'Jadwalkan demo', hCta2: 'Jelajahi solusi', hTag: 'Nusantara',
         hStat1: 'lapangan kerja · dampak manusia', hStat2: 'tCO₂e · Scope 1/2/3',
         wTitle: 'Satu platform untuk setiap organisasi.',
         wSub: 'Korporat, UMKM, NGO, dan pemerintah — satu platform, dirancang untuk konteks Indonesia.',
@@ -272,12 +326,21 @@
         footTag: 'Alat kesiapan dan koordinasi transisi hijau · bukan verifikator/registri resmi · © 2026',
       },
       en: {
-        nFor: "Who it's for", nHow: 'How it works', nDiff: 'Difference', nCred: 'Credibility', nFaq: 'FAQ',
+        nFor: "Who it's for", nSol: 'Solutions', nHow: 'How it works', nDiff: 'Difference', nCred: 'Credibility', nFaq: 'FAQ',
         nLogin: 'Sign in', nDemo: 'Book a demo',
+        solEyebrow: 'Platform capabilities',
+        solTitle: 'From energy sensors to green finance — in one platform.',
+        solSub: 'Connecting your physical energy assets to taxonomy-aligned reporting and institutional finance — extending DecarbonHub from reporting into action and capital.',
+        solC1L: '01 · Sensing & IoT', solC1T: 'Real-time energy monitoring', solC1D: 'Smart meters, solar and batteries give visibility into every kilowatt you generate and use.',
+        solC2L: '02 · AI Optimisation', solC2T: 'Smart optimisation & forecasting', solC2D: 'Automated energy management, predictive maintenance and solar-surplus forecasting — an invisible facility manager.',
+        solC3L: '03 · Ledger & Translator', solC3T: 'Tamper-proof records + report translator', solC3D: 'A ledger logs every unit of energy; a RAG translator turns verified savings into taxonomy-aligned reports.',
+        solC4L: '04 · P2P Trading', solC4T: 'Peer-to-peer energy trading', solC4D: 'Smart contracts sell surplus clean energy peer-to-peer at the most profitable moment.',
+        solC5L: '05 · Green Finance', solC5T: 'Green-finance access', solC5D: 'Verified reports attach to green-loan applications — unlocking lower-interest soft loans.',
+        solC6L: '06 · ASEAN Taxonomy', solC6T: 'Cross-border compliance', solC6D: 'Green/Amber/Red mapping on the ASEAN Taxonomy, CBAM readiness, and cross-border grids (APG).',
         hEyebrow: 'Built for Indonesia',
         hTitle: 'Measured decarbonisation, made for Indonesia.',
         hSub: "DecarbonHub measures your emissions to the GHG Protocol, maps them to Indonesia's reporting requirements, and prepares audit-ready reports — then helps you run the reduction programme.",
-        hCta1: 'Book a demo', hCta2: 'See how it works', hTag: 'Nusantara',
+        hCta1: 'Book a demo', hCta2: 'Explore solutions', hTag: 'Nusantara',
         hStat1: 'jobs created · human impact', hStat2: 'tCO₂e · Scope 1/2/3',
         wTitle: 'One platform for every organisation.',
         wSub: 'Corporates, SMEs, NGOs and government — one platform, built for the Indonesian context.',
