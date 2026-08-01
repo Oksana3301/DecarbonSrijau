@@ -32,53 +32,49 @@
 <!-- ===== HERO with TRANSPARENT overlay nav (full-bleed · image/animation slot) ===== -->
 <header id="top" style="position:relative;min-height:100vh;display:flex;flex-direction:column;overflow:hidden">
 
-  <!-- ▼▼▼ HERO MEDIA — drop your full-bleed image or video here later ▼▼▼
-       Image:  <img class="hero-anim" src="assets/your-hero.png" alt="…" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
-       Video:  <video class="hero-anim" autoplay muted loop playsinline style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><source src="assets/your-hero.mp4" type="video/mp4"></video>
-       The .hero-anim class already carries a slow ken-burns drift (reduced-motion safe).
-       Until then, an on-brand gradient stands in: -->
-  <div style="position:absolute;inset:0;background:radial-gradient(130% 130% at 82% 12%,#2f5138 0%,#20392a 40%,#17241A 74%)"></div>
+  <!-- ▼▼▼ HERO MEDIA — swap src to change the image; keep class="hero-anim" for the slow ken-burns drift ▼▼▼ -->
+  <img class="hero-anim" src="assets/hero-people.png" alt="Anak muda Indonesia menjalani gaya hidup ramah lingkungan" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:78% center;display:block">
   <!-- ▲▲▲ HERO MEDIA END ▲▲▲ -->
 
-  <!-- legibility scrim: darker at top (for the transparent nav) & bottom -->
-  <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(23,36,26,.58) 0%,rgba(23,36,26,.14) 20%,rgba(23,36,26,.12) 58%,rgba(23,36,26,.60) 100%)"></div>
+  <!-- legibility wash: creamy on the left (text column), clear on the right (subjects) -->
+  <div style="position:absolute;inset:0;background:linear-gradient(90deg,#F3EFE3 0%,#F3EFE3 30%,rgba(243,239,227,.92) 46%,rgba(243,239,227,.45) 64%,rgba(243,239,227,0) 82%)"></div>
 
   <!-- ===== TRANSPARENT NAV (overlays the hero) ===== -->
   <nav style="position:relative;z-index:20;background:transparent">
     <div style="max-width:1240px;margin:0 auto;padding:22px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px">
-      <a href="#top" style="display:flex;align-items:center;gap:10px;color:#F3EFE3">
-        <img src="assets/decarbonhub-mark.png" alt="DecarbonHub" style="height:34px;filter:brightness(0) invert(1)">
+      <a href="#top" style="display:flex;align-items:center;gap:10px;color:#17241A">
+        <img src="assets/decarbonhub-mark.png" alt="DecarbonHub" style="height:34px">
         <span style="font-weight:800;font-size:20px;letter-spacing:-.02em">DecarbonHub</span>
       </a>
-      <div style="display:flex;align-items:center;gap:30px;font-weight:600;font-size:14.5px;color:#e2e8df">
-        <a href="#untuk-siapa" style-hover="color:#F4C518">{{ nFor }}</a>
-        <a href="#solutions" style-hover="color:#F4C518">{{ nSol }}</a>
-        <a href="#cara-kerja" style-hover="color:#F4C518">{{ nHow }}</a>
-        <a href="#pembeda" style-hover="color:#F4C518">{{ nDiff }}</a>
-        <a href="#kredibilitas" style-hover="color:#F4C518">{{ nCred }}</a>
-        <a href="#faq" style-hover="color:#F4C518">{{ nFaq }}</a>
+      <div style="display:flex;align-items:center;gap:30px;font-weight:600;font-size:14.5px;color:#17241A">
+        <a href="#untuk-siapa" style-hover="color:#ED7A2B">{{ nFor }}</a>
+        <a href="#solutions" style-hover="color:#ED7A2B">{{ nSol }}</a>
+        <a href="#cara-kerja" style-hover="color:#ED7A2B">{{ nHow }}</a>
+        <a href="#pembeda" style-hover="color:#ED7A2B">{{ nDiff }}</a>
+        <a href="#kredibilitas" style-hover="color:#ED7A2B">{{ nCred }}</a>
+        <a href="#faq" style-hover="color:#ED7A2B">{{ nFaq }}</a>
       </div>
       <div style="display:flex;align-items:center;gap:14px">
-        <!-- language switch (frosted glass) -->
-        <div style="display:flex;align-items:center;gap:2px;background:rgba(255,255,255,.12);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(243,239,227,.3);border-radius:100px;padding:3px">
+        <!-- language switch (frosted glass on light) -->
+        <div style="display:flex;align-items:center;gap:2px;background:rgba(255,255,255,.55);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border:1px solid rgba(23,36,26,.14);border-radius:100px;padding:3px">
           <button onClick="{{ setID }}" style="border:none;cursor:pointer;font-weight:700;font-size:12.5px;border-radius:100px;padding:6px 12px;background:{{ idBg }};color:{{ idFg }}">ID</button>
           <button onClick="{{ setEN }}" style="border:none;cursor:pointer;font-weight:700;font-size:12.5px;border-radius:100px;padding:6px 12px;background:{{ enBg }};color:{{ enFg }}">EN</button>
         </div>
-        <a href="decarbonhub-app.dc.html" style="font-weight:600;font-size:14.5px;color:#F3EFE3" style-hover="color:#F4C518">{{ nLogin }}</a>
-        <a href="#demo" style="background:#F4C518;color:#17241A;font-weight:700;font-size:14.5px;border-radius:100px;padding:11px 20px" style-hover="background:#ffd93b">{{ nDemo }}</a>
+        <a href="decarbonhub-app.dc.html" style="font-weight:600;font-size:14.5px;color:#17241A" style-hover="color:#ED7A2B">{{ nLogin }}</a>
+        <a href="#demo" style="background:#17241A;color:#F3EFE3;font-weight:700;font-size:14.5px;border-radius:100px;padding:11px 20px" style-hover="background:#2a3a2c">{{ nDemo }}</a>
       </div>
     </div>
   </nav>
 
-  <!-- ===== HERO CONTENT (centered in the space below the nav) ===== -->
+  <!-- ===== HERO CONTENT (left column over the creamy wash) ===== -->
   <div style="position:relative;z-index:10;flex:1;display:flex;align-items:center;padding:32px 0 64px">
     <div style="max-width:1240px;margin:0 auto;padding:0 32px;width:100%">
       <span style="display:inline-flex;align-items:center;gap:8px;font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.12em;text-transform:uppercase;color:#17241A;background:#F4C518;padding:9px 15px;border-radius:100px;margin-bottom:26px">{{ hEyebrow }}</span>
-      <h1 style="font-family:Fraunces;font-optical-sizing:144;font-weight:600;font-size:clamp(44px,5.6vw,78px);line-height:1.0;letter-spacing:-.02em;color:#F3EFE3;margin:0 0 24px;max-width:20ch">{{ hTitle }}</h1>
-      <p style="font-size:19px;line-height:1.55;color:#e2e8df;max-width:56ch;margin:0 0 16px">{{ hSub }}</p>
-      <p style="font-size:16px;line-height:1.5;color:#c3ccbd;max-width:54ch;margin:0 0 36px">{{ hSub2 }}</p>
+      <h1 style="font-family:Fraunces;font-optical-sizing:144;font-weight:600;font-size:clamp(44px,5.6vw,78px);line-height:1.0;letter-spacing:-.02em;color:#17241A;margin:0 0 24px;max-width:20ch">{{ hTitle }}</h1>
+      <p style="font-size:19px;line-height:1.55;color:#3a463c;max-width:44ch;margin:0 0 16px">{{ hSub }}</p>
+      <p style="font-size:16px;line-height:1.5;color:#5a655c;max-width:42ch;margin:0 0 36px">{{ hSub2 }}</p>
       <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:center">
-        <a href="#demo" style="background:#F4C518;color:#17241A;font-weight:700;font-size:16px;border-radius:100px;padding:16px 30px" style-hover="background:#ffd93b">{{ hCta1 }}</a>
+        <a href="#demo" style="background:#17241A;color:#F3EFE3;font-weight:700;font-size:16px;border-radius:100px;padding:16px 30px" style-hover="background:#2a3a2c">{{ hCta1 }}</a>
       </div>
     </div>
   </div>
@@ -272,7 +268,7 @@
   pick = (l) => () => this.setState({ lang: l });
   renderVals() {
     const lang = this.state.lang;
-    const on = '#F4C518', onFg = '#17241A', off = 'transparent', offFg = '#e2e8df';
+    const on = '#17241A', onFg = '#F3EFE3', off = 'transparent', offFg = '#8a9488';
     const D = {
       id: {
         nFor: 'Untuk siapa', nSol: 'Solusi', nHow: 'Cara kerja', nDiff: 'Pembeda', nCred: 'Kredibilitas', nFaq: 'FAQ',
