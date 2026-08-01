@@ -26,18 +26,28 @@
   .hero-anim{animation:heroDrift 26s ease-in-out infinite alternate;will-change:transform}
   @keyframes heroDrift{from{transform:scale(1.06)}to{transform:scale(1.14) translate(-2%,-1.5%)}}
   @media (prefers-reduced-motion:reduce){.hero-anim{animation:none}}
+  /* ---- responsive hero: stack text over cream, image as a banner below ---- */
+  @media (max-width:820px){
+    .hero{min-height:auto !important;background:#F3EFE3}
+    .hero-media{position:relative !important;inset:auto !important;order:3;width:100%;height:300px !important;object-position:center !important;border-top:1.5px solid #e6e0d0}
+    .hero-wash{display:none !important}
+    .hero-content{order:2;padding:14px 0 40px !important}
+    .hero h1{font-size:clamp(36px,8.5vw,54px) !important}
+    .nav-links,.nav-login,.nav-cta{display:none !important}
+    .hero nav>div{padding:16px 20px !important}
+  }
 </style>
 </helmet>
 
 <!-- ===== HERO with TRANSPARENT overlay nav (full-bleed · image/animation slot) ===== -->
-<header id="top" style="position:relative;min-height:100vh;display:flex;flex-direction:column;overflow:hidden">
+<header id="top" class="hero" style="position:relative;min-height:100vh;display:flex;flex-direction:column;overflow:hidden">
 
   <!-- ▼▼▼ HERO MEDIA — swap src to change the image; keep class="hero-anim" for the slow ken-burns drift ▼▼▼ -->
-  <img class="hero-anim" src="assets/hero-people.png" alt="Anak muda Indonesia menjalani gaya hidup ramah lingkungan" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:78% center;display:block">
+  <img class="hero-anim hero-media" src="assets/hero-people.png" alt="Anak muda Indonesia menjalani gaya hidup ramah lingkungan" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:78% center;display:block">
   <!-- ▲▲▲ HERO MEDIA END ▲▲▲ -->
 
   <!-- legibility wash: creamy on the left (text column), clear on the right (subjects) -->
-  <div style="position:absolute;inset:0;background:linear-gradient(90deg,#F3EFE3 0%,#F3EFE3 30%,rgba(243,239,227,.92) 46%,rgba(243,239,227,.45) 64%,rgba(243,239,227,0) 82%)"></div>
+  <div class="hero-wash" style="position:absolute;inset:0;background:linear-gradient(90deg,#F3EFE3 0%,#F3EFE3 30%,rgba(243,239,227,.92) 46%,rgba(243,239,227,.45) 64%,rgba(243,239,227,0) 82%)"></div>
 
   <!-- ===== TRANSPARENT NAV (overlays the hero) ===== -->
   <nav style="position:relative;z-index:20;background:transparent">
@@ -46,7 +56,7 @@
         <img src="assets/decarbonhub-mark.png" alt="DecarbonHub" style="height:34px">
         <span style="font-weight:800;font-size:20px;letter-spacing:-.02em">DecarbonHub</span>
       </a>
-      <div style="display:flex;align-items:center;gap:30px;font-weight:600;font-size:14.5px;color:#17241A">
+      <div class="nav-links" style="display:flex;align-items:center;gap:30px;font-weight:600;font-size:14.5px;color:#17241A">
         <a href="#untuk-siapa" style-hover="color:#ED7A2B">{{ nFor }}</a>
         <a href="#solutions" style-hover="color:#ED7A2B">{{ nSol }}</a>
         <a href="#cara-kerja" style-hover="color:#ED7A2B">{{ nHow }}</a>
@@ -60,14 +70,14 @@
           <button onClick="{{ setID }}" style="border:none;cursor:pointer;font-weight:700;font-size:12.5px;border-radius:100px;padding:6px 12px;background:{{ idBg }};color:{{ idFg }}">ID</button>
           <button onClick="{{ setEN }}" style="border:none;cursor:pointer;font-weight:700;font-size:12.5px;border-radius:100px;padding:6px 12px;background:{{ enBg }};color:{{ enFg }}">EN</button>
         </div>
-        <a href="decarbonhub-app.dc.html" style="font-weight:600;font-size:14.5px;color:#17241A" style-hover="color:#ED7A2B">{{ nLogin }}</a>
-        <a href="#demo" style="background:#17241A;color:#F3EFE3;font-weight:700;font-size:14.5px;border-radius:100px;padding:11px 20px" style-hover="background:#2a3a2c">{{ nDemo }}</a>
+        <a href="decarbonhub-app.dc.html" class="nav-login" style="font-weight:600;font-size:14.5px;color:#17241A" style-hover="color:#ED7A2B">{{ nLogin }}</a>
+        <a href="#demo" class="nav-cta" style="background:#17241A;color:#F3EFE3;font-weight:700;font-size:14.5px;border-radius:100px;padding:11px 20px;white-space:nowrap" style-hover="background:#2a3a2c">{{ nDemo }}</a>
       </div>
     </div>
   </nav>
 
   <!-- ===== HERO CONTENT (left column over the creamy wash) ===== -->
-  <div style="position:relative;z-index:10;flex:1;display:flex;align-items:center;padding:32px 0 64px">
+  <div class="hero-content" style="position:relative;z-index:10;flex:1;display:flex;align-items:center;padding:32px 0 64px">
     <div style="max-width:1240px;margin:0 auto;padding:0 32px;width:100%">
       <span style="display:inline-flex;align-items:center;gap:8px;font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.12em;text-transform:uppercase;color:#17241A;background:#F4C518;padding:9px 15px;border-radius:100px;margin-bottom:26px">{{ hEyebrow }}</span>
       <h1 style="font-family:Fraunces;font-optical-sizing:144;font-weight:600;font-size:clamp(44px,5.6vw,78px);line-height:1.0;letter-spacing:-.02em;color:#17241A;margin:0 0 24px;max-width:20ch">{{ hTitle }}</h1>
