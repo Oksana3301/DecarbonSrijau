@@ -35,6 +35,13 @@
     .hero h1{font-size:clamp(36px,8.5vw,54px) !important}
     .nav-links,.nav-login,.nav-cta{display:none !important}
     .hero nav>div{padding:16px 20px !important}
+    /* collapse multi-column section grids so nothing overflows */
+    .grid-4,.grid-3,.grid-5{grid-template-columns:repeat(2,1fr) !important}
+    .split{grid-template-columns:1fr !important;gap:32px !important}
+    section h2{font-size:clamp(28px,6.4vw,36px) !important}
+  }
+  @media (max-width:560px){
+    .grid-4,.grid-3,.grid-5{grid-template-columns:1fr !important}
   }
 </style>
 </helmet>
@@ -96,7 +103,7 @@
 <section id="untuk-siapa" style="padding:20px 0 76px">
   <h2 style="font-family:Fraunces;font-weight:600;font-size:38px;letter-spacing:-.01em;margin:0 0 8px">{{ wTitle }}</h2>
   <p style="font-size:16px;color:#8a9488;margin:0 0 34px;max-width:56ch">{{ wSub }}</p>
-  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
+  <div class="grid-4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
     <a href="decarbonhub-app.dc.html?role=manajer" style="text-decoration:none;border-radius:22px;border:2px solid #17241A;background:#ED7A2B;color:#fff;padding:26px 24px;min-height:230px;display:flex;flex-direction:column;justify-content:space-between" style-hover="transform:translateY(-4px)">
       <div style="width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.22);border:2px solid #fff"></div>
       <div><h3 style="font-family:Fraunces;font-weight:600;font-size:24px;margin:0 0 8px">{{ wCorpT }}</h3><p style="font-size:13.5px;line-height:1.5;color:#fff;opacity:.92;margin:0 0 12px">{{ wCorpD }}</p><span style="font-size:12.5px;font-weight:700">{{ wCorpCta }}</span></div>
@@ -121,7 +128,7 @@
   <span style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.14em;text-transform:uppercase;color:#ED7A2B">{{ solEyebrow }}</span>
   <h2 style="font-family:Fraunces;font-weight:600;font-size:38px;letter-spacing:-.01em;margin:14px 0 8px;max-width:24ch">{{ solTitle }}</h2>
   <p style="font-size:16px;color:#8a9488;margin:0 0 34px;max-width:62ch">{{ solSub }}</p>
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+  <div class="grid-3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
 
     <div style="background:#fff;border:2px solid #17241A;border-radius:22px;padding:24px;display:flex;flex-direction:column;gap:9px" style-hover="transform:translateY(-4px)">
       <span class="tn" style="font-family:Fraunces;font-weight:600;font-size:13px;color:#ED7A2B;letter-spacing:.04em">{{ solC1L }}</span>
@@ -167,7 +174,7 @@
 <section id="cara-kerja" style="padding:20px 0 76px">
   <h2 style="font-family:Fraunces;font-weight:600;font-size:38px;letter-spacing:-.01em;margin:0 0 8px">{{ cTitle }}</h2>
   <p style="font-size:16px;color:#8a9488;margin:0 0 34px;max-width:56ch">{{ cSub }}</p>
-  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:14px">
+  <div class="grid-5" style="display:grid;grid-template-columns:repeat(5,1fr);gap:14px">
     <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:22px 20px"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:15px;color:#ED7A2B;margin-bottom:14px">01</div><h4 style="font-size:16px;margin:0 0 6px;font-weight:800">{{ s1T }}</h4><p style="font-size:13px;color:#8a9488;line-height:1.5;margin:0">{{ s1D }}</p></div>
     <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:22px 20px"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:15px;color:#F4C518;margin-bottom:14px">02</div><h4 style="font-size:16px;margin:0 0 6px;font-weight:800">{{ s2T }}</h4><p style="font-size:13px;color:#8a9488;line-height:1.5;margin:0">{{ s2D }}</p></div>
     <div style="background:#fff;border:1.5px solid #e6e0d0;border-radius:18px;padding:22px 20px"><div class="tn" style="font-family:Fraunces;font-weight:600;font-size:15px;color:#2C86D8;margin-bottom:14px">03</div><h4 style="font-size:16px;margin:0 0 6px;font-weight:800">{{ s3T }}</h4><p style="font-size:13px;color:#8a9488;line-height:1.5;margin:0">{{ s3D }}</p></div>
@@ -178,7 +185,7 @@
 
 <!-- ===== PEMBEDA ===== -->
 <section id="pembeda" style="margin:0 -32px;padding:76px 32px;background:#17241A;color:#F3EFE3;border-radius:32px">
-  <div style="max-width:1176px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:52px;align-items:center">
+  <div class="split" style="max-width:1176px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:52px;align-items:center">
     <div>
       <span style="font:700 12px/1 'Plus Jakarta Sans';letter-spacing:.14em;text-transform:uppercase;color:#F4C518">{{ dEyebrow }}</span>
       <h2 style="font-family:Fraunces;font-weight:600;font-size:44px;line-height:1.05;letter-spacing:-.02em;margin:18px 0 20px">{{ dTitle }}</h2>
@@ -195,7 +202,7 @@
 
 <!-- ===== KREDIBILITAS ===== -->
 <section id="kredibilitas" style="padding:76px 0">
-  <div style="display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:center">
+  <div class="split" style="display:grid;grid-template-columns:.85fr 1.15fr;gap:44px;align-items:center">
     <div>
       <h2 style="font-family:Fraunces;font-weight:600;font-size:36px;letter-spacing:-.01em;margin:0 0 16px">{{ rTitle }}</h2>
       <p style="font-size:16px;line-height:1.6;color:#3a463c;margin:0 0 24px;max-width:46ch">{{ rSub }}</p>
